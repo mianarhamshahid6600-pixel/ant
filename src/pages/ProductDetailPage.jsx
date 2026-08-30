@@ -285,12 +285,12 @@ export const ProductDetailPage = () => {
                 </div>
 
                 <div className="badge badge-success" style={{ fontSize: '0.72rem', padding: '0.25rem 0.6rem' }}>
-                  ⚡ Same-Day Quote
+                  ⚡ Quick Reply
                 </div>
               </div>
 
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.4rem', lineHeight: 1.45 }}>
-                Direct official distributor supply from <strong>Alnoor Traders</strong>. Get special discounts for home constructions, plazas, and bulk carton orders.
+                Direct official distributor supply from <strong>Alnoor Traders</strong>. Get special discounts for home constructions, plazas, and bulk orders.
               </p>
             </div>
 
@@ -310,7 +310,7 @@ export const ProductDetailPage = () => {
               
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-                  Required Quantity:
+                  Quantity:
                 </span>
 
                 <div style={{
@@ -359,14 +359,14 @@ export const ProductDetailPage = () => {
                 </div>
 
                 <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                  (Units / Pieces)
+                  (Pieces)
                 </span>
               </div>
 
               {/* Action Buttons */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 
-                {/* 1. Direct WhatsApp Inquiry Button */}
+                {/* 1. Direct WhatsApp Button */}
                 <a
                   href={getWhatsAppProductUrl(product, quantity)}
                   target="_blank"
@@ -382,17 +382,18 @@ export const ProductDetailPage = () => {
                   }}
                 >
                   <MessageSquare size={20} />
-                  <span>Contact on WhatsApp for Price ({distributor.phone1})</span>
+                  <span>Order on WhatsApp ({distributor.phone1})</span>
                 </a>
 
-                {/* 2. Add to Quote / BOQ List */}
+                {/* 2. Add to Cart & Call */}
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                   <button
                     onClick={() => addToCart(product, quantity)}
                     className="btn btn-electric"
                     style={{ gap: '0.4rem', justifyContent: 'center' }}
                   >
-                    <span>Add to BOQ Quote List</span>
+                    <ShoppingBag size={16} />
+                    <span>Add to Cart</span>
                   </button>
 
                   <a
@@ -401,7 +402,7 @@ export const ProductDetailPage = () => {
                     style={{ gap: '0.4rem', justifyContent: 'center' }}
                   >
                     <Phone size={15} />
-                    <span>Call Sales Desk</span>
+                    <span>Call Us</span>
                   </a>
                 </div>
 
@@ -417,7 +418,7 @@ export const ProductDetailPage = () => {
               marginTop: '1.25rem'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                <Zap size={15} style={{ color: 'var(--electric-cyan)' }} />
+                <Zap size={15} style={{ color: 'var(--text-accent)' }} />
                 <span>Pure Silver Contacts</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
@@ -426,7 +427,7 @@ export const ProductDetailPage = () => {
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 <Building2 size={15} style={{ color: '#10B981' }} />
-                <span>Bulk Project Supply</span>
+                <span>Bulk Supply Ready</span>
               </div>
             </div>
 
@@ -434,13 +435,13 @@ export const ProductDetailPage = () => {
 
         </div>
 
-        {/* Specifications & Technical Details Tabs Section */}
+        {/* Specifications & Details Tabs Section */}
         <div style={{ marginTop: '3.5rem' }}>
           
           {/* Tab Navigation */}
           <div style={{
             display: 'flex',
-            gap: '1rem',
+            gap: '0.75rem',
             borderBottom: '1px solid var(--border-card)',
             paddingBottom: '0.5rem',
             marginBottom: '1.5rem',
@@ -449,10 +450,10 @@ export const ProductDetailPage = () => {
             <button
               onClick={() => setActiveTab('specs')}
               style={{
-                padding: '0.6rem 1.25rem',
+                padding: '0.55rem 1.15rem',
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '0.9rem',
                 color: activeTab === 'specs' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'specs' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'specs' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
@@ -460,16 +461,16 @@ export const ProductDetailPage = () => {
                 whiteSpace: 'nowrap'
               }}
             >
-              Technical Specifications
+              Specifications
             </button>
 
             <button
               onClick={() => setActiveTab('features')}
               style={{
-                padding: '0.6rem 1.25rem',
+                padding: '0.55rem 1.15rem',
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '0.9rem',
                 color: activeTab === 'features' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'features' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'features' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
@@ -477,16 +478,16 @@ export const ProductDetailPage = () => {
                 whiteSpace: 'nowrap'
               }}
             >
-              Key Features & Highlights
+              Features & Highlights
             </button>
 
             <button
               onClick={() => setActiveTab('distributor')}
               style={{
-                padding: '0.6rem 1.25rem',
+                padding: '0.55rem 1.15rem',
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
-                fontSize: '0.95rem',
+                fontSize: '0.9rem',
                 color: activeTab === 'distributor' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'distributor' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'distributor' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
@@ -494,7 +495,7 @@ export const ProductDetailPage = () => {
                 whiteSpace: 'nowrap'
               }}
             >
-              Distributor Verification & Supply
+              Distributor Guarantee
             </button>
           </div>
 

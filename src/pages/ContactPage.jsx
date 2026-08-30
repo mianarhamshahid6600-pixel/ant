@@ -75,7 +75,7 @@ export const ContactPage = () => {
             Contact <span className="text-electric-blue">Alnoor Traders</span>
           </h1>
           <p style={{ marginTop: '0.75rem', fontSize: '1.05rem' }}>
-            Reach our distributor team directly for wholesale price lists, bulk orders, product sample kits, and project quotations.
+            Contact our distributor team directly for wholesale prices, bulk orders, and stock availability.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export const ContactPage = () => {
                   <Phone size={20} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.15rem' }}>Direct Phone Numbers</h3>
+                  <h3 style={{ fontSize: '1.15rem' }}>Phone Numbers</h3>
                   <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Call us for instant stock availability</div>
                 </div>
               </div>
@@ -166,13 +166,13 @@ export const ContactPage = () => {
                   <MessageSquare size={20} />
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.15rem' }}>Instant WhatsApp Support</h3>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Fastest way to get price estimates</div>
+                  <h3 style={{ fontSize: '1.15rem' }}>WhatsApp Support</h3>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Quickest way to ask prices and place orders</div>
                 </div>
               </div>
 
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-                Send your list of items, pictures of switch designs you like, or room measurements directly on WhatsApp for quick pricing.
+                Send your list of items or pictures of switch designs directly on WhatsApp for quick prices.
               </p>
 
               <a 
@@ -193,7 +193,7 @@ export const ContactPage = () => {
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
                   <MapPin size={20} style={{ color: 'var(--text-accent)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
-                    <strong style={{ color: 'var(--text-primary)' }}>Store & Wholesale Address:</strong>
+                    <strong style={{ color: 'var(--text-primary)' }}>Store & Warehouse Address:</strong>
                     <div style={{ color: 'var(--text-secondary)', marginTop: '0.25rem', lineHeight: 1.45 }}>
                       {distributor.address}
                     </div>
@@ -229,7 +229,7 @@ export const ContactPage = () => {
 
           </div>
 
-          {/* Right: Quotation Form */}
+          {/* Right: Order / Inquiry Form */}
           <div 
             className="glass-card"
             style={{
@@ -241,11 +241,11 @@ export const ContactPage = () => {
             <div style={{ marginBottom: '1.75rem' }}>
               <div className="badge badge-prime" style={{ marginBottom: '0.5rem' }}>
                 <Sparkles size={12} />
-                Quick Quote Form
+                Quick Message
               </div>
-              <h2 style={{ fontSize: '1.5rem' }}>Request a Price Estimate</h2>
+              <h2 style={{ fontSize: '1.5rem' }}>Send Us a Message</h2>
               <p style={{ fontSize: '0.9rem', marginTop: '0.35rem' }}>
-                Fill in the details below and we will prepare a discounted price quote for your requirement.
+                Fill in the details below to ask for wholesale rates or place an order.
               </p>
             </div>
 
@@ -447,10 +447,10 @@ export const ContactPage = () => {
                 <button
                   type="submit"
                   className="btn btn-electric btn-lg"
-                  style={{ width: '100%', gap: '0.5rem', marginTop: '0.5rem' }}
+                  style={{ width: '100%', gap: '0.5rem', marginTop: '0.5rem', justifyContent: 'center' }}
                 >
                   <Send size={18} />
-                  <span>Submit Inquiry & Open WhatsApp</span>
+                  <span>Send Message on WhatsApp</span>
                 </button>
 
               </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import { useStore } from '../context/StoreContext';
 import { 
   X, Plus, Minus, Trash2, ShoppingBag, MessageSquare, 
-  ShieldCheck, Printer, CheckCircle2 
+  ShieldCheck, Printer 
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -32,7 +32,7 @@ export const CartDrawer = () => {
     window.open(getWhatsAppOrderUrl(), '_blank');
   };
 
-  const handlePrintQuote = () => {
+  const handlePrintCart = () => {
     window.print();
   };
 
@@ -61,7 +61,7 @@ export const CartDrawer = () => {
       {/* Drawer */}
       <div style={{
         width: '100%',
-        maxWidth: '480px',
+        maxWidth: '460px',
         height: '100%',
         background: 'var(--bg-secondary)',
         borderLeft: '1px solid var(--border-card-hover)',
@@ -95,9 +95,9 @@ export const CartDrawer = () => {
               <ShoppingBag size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.15rem', lineHeight: 1.2 }}>Project Quote & BOQ List</h3>
+              <h3 style={{ fontSize: '1.15rem', lineHeight: 1.2 }}>My Cart</h3>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {cartCount} item{cartCount !== 1 ? 's' : ''} selected
+                {cartCount} item{cartCount !== 1 ? 's' : ''} in cart
               </span>
             </div>
           </div>
@@ -115,20 +115,20 @@ export const CartDrawer = () => {
           </button>
         </div>
 
-        {/* Wholesale Status Notice Banner */}
+        {/* Status Notice Banner */}
         <div style={{
-          padding: '0.75rem 1.5rem',
-          background: 'rgba(0, 102, 255, 0.08)',
+          padding: '0.65rem 1.5rem',
+          background: 'var(--badge-bg)',
           borderBottom: '1px solid var(--border-subtle)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}>
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-            Distributor Pricing:
+            Pricing:
           </div>
-          <div className="badge badge-success" style={{ fontSize: '0.72rem', padding: '0.2rem 0.55rem' }}>
-            ✓ Wholesale & BOQ Rates
+          <div className="badge badge-success" style={{ fontSize: '0.72rem', padding: '0.15rem 0.55rem' }}>
+            ✓ Wholesale Rates on WhatsApp
           </div>
         </div>
 
@@ -164,9 +164,9 @@ export const CartDrawer = () => {
                 <ShoppingBag size={32} />
               </div>
               <div>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.3rem' }}>Your Quote List is Empty</h4>
+                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.3rem' }}>Your Cart is Empty</h4>
                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  Browse our switches, lights, and fans to build your materials quotation list.
+                  Browse our switches, lights, and fans to add products to your cart.
                 </p>
               </div>
               <button
@@ -240,11 +240,11 @@ export const CartDrawer = () => {
                     >
                       {item.name}
                     </h5>
-                    <div style={{ fontSize: '0.72rem', color: 'var(--electric-cyan)', fontWeight: 600 }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-accent)', fontWeight: 600 }}>
                       {item.series}
                     </div>
                     <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 700, marginTop: '0.15rem' }}>
-                      Wholesale Rate on WhatsApp
+                      Wholesale Price on WhatsApp
                     </div>
                   </div>
 
@@ -300,15 +300,9 @@ export const CartDrawer = () => {
             gap: '0.85rem'
           }}>
             
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                <span>Total Items in List:</span>
-                <strong style={{ color: 'var(--text-primary)' }}>{cartCount} Units</strong>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#10B981' }}>
-                <span>Pricing Type:</span>
-                <span>Wholesale & Project Rates</span>
-              </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+              <span>Total Items:</span>
+              <strong style={{ color: 'var(--text-primary)' }}>{cartCount} pcs</strong>
             </div>
 
             <button
@@ -317,17 +311,17 @@ export const CartDrawer = () => {
               style={{ width: '100%', padding: '0.85rem', fontSize: '0.95rem', gap: '0.5rem', justifyContent: 'center' }}
             >
               <MessageSquare size={18} />
-              <span>Send Quote List on WhatsApp ({distributor.phone1})</span>
+              <span>Order on WhatsApp ({distributor.phone1})</span>
             </button>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
               <button
-                onClick={handlePrintQuote}
+                onClick={handlePrintCart}
                 className="btn btn-outline btn-sm"
                 style={{ gap: '0.35rem', justifyContent: 'center' }}
               >
                 <Printer size={14} />
-                <span>Print Material List</span>
+                <span>Print Cart</span>
               </button>
               <button
                 onClick={clearCart}
@@ -335,7 +329,7 @@ export const CartDrawer = () => {
                 style={{ gap: '0.35rem', color: '#EF4444', borderColor: 'rgba(239, 68, 68, 0.3)', justifyContent: 'center' }}
               >
                 <Trash2 size={14} />
-                <span>Clear List</span>
+                <span>Clear Cart</span>
               </button>
             </div>
 
@@ -348,8 +342,8 @@ export const CartDrawer = () => {
               justifyContent: 'center',
               gap: '0.3rem'
             }}>
-              <ShieldCheck size={14} style={{ color: 'var(--electric-cyan)' }} />
-              Direct wholesale supply from Alnoor Traders (Faisalabad)
+              <ShieldCheck size={14} style={{ color: 'var(--text-accent)' }} />
+              Direct dispatch from Alnoor Traders (Faisalabad)
             </div>
 
           </div>

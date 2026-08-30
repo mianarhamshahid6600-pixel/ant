@@ -106,7 +106,7 @@ export const Footer = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Shop Now (All Items)
+                  Shop All Products
                 </button>
               </li>
               <li>
@@ -116,7 +116,7 @@ export const Footer = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Download Product Catalog & Specs
+                  Product Catalog
                 </button>
               </li>
               <li>
@@ -126,7 +126,7 @@ export const Footer = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'var(--electric-cyan)'}
                 >
-                  ✨ Live Product Simulator & Lighting Lab
+                  ✨ Live Product Demo
                 </button>
               </li>
               <li>
@@ -136,7 +136,7 @@ export const Footer = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  About Our Store & Warranty
+                  About Store & Warranty
                 </button>
               </li>
               <li>
@@ -146,7 +146,7 @@ export const Footer = () => {
                   onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Contact Us & Quotations
+                  Contact Us
                 </button>
               </li>
             </ul>

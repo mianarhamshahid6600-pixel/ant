@@ -226,11 +226,11 @@ export const QuickViewModal = () => {
                 style={{ flex: 1, gap: '0.4rem', fontSize: '0.85rem' }}
               >
                 <ShoppingBag size={16} />
-                <span>Add to Quote List</span>
+                <span>Add to Cart</span>
               </button>
             </div>
 
-            {/* Direct WhatsApp Consultation */}
+            {/* Direct WhatsApp Action */}
             <a
               href={getWhatsAppProductUrl(product, quantity)}
               target="_blank"
@@ -239,7 +239,7 @@ export const QuickViewModal = () => {
               style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
             >
               <MessageSquare size={16} />
-              <span>Contact on WhatsApp for Price ({distributor.phone1})</span>
+              <span>Order on WhatsApp ({distributor.phone1})</span>
             </a>
 
             {/* View Full Detail Page Link */}
@@ -248,7 +248,7 @@ export const QuickViewModal = () => {
               className="btn btn-outline btn-sm"
               style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
             >
-              <span>Open Full Product Page & Specs</span>
+              <span>View Product Details</span>
               <ArrowRight size={14} />
             </button>
 

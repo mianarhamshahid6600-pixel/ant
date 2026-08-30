@@ -360,7 +360,7 @@ export const ShopPage = () => {
                       }}
                     >
                       <Eye size={13} />
-                      <span>Quick Specs</span>
+                      <span>Quick View</span>
                     </button>
                   </div>
 
@@ -422,7 +422,7 @@ export const ShopPage = () => {
                           Wholesale Price
                         </div>
                         <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                          Click for Details
+                          In Stock
                         </div>
                       </div>
 
@@ -434,7 +434,7 @@ export const ShopPage = () => {
                           onClick={(e) => e.stopPropagation()}
                           className="btn btn-whatsapp btn-sm"
                           style={{ padding: '0.35rem 0.55rem', gap: '0.3rem', fontSize: '0.75rem' }}
-                          title="WhatsApp Inquiry"
+                          title="Order on WhatsApp"
                         >
                           <MessageSquare size={14} />
                           <span>WhatsApp</span>
@@ -447,7 +447,7 @@ export const ShopPage = () => {
                           }}
                           className="btn btn-primary btn-sm"
                           style={{ padding: '0.35rem 0.55rem', fontSize: '0.75rem' }}
-                          title="Add to Quote List"
+                          title="Add to Cart"
                         >
                           <ShoppingBag size={13} />
                         </button>
@@ -522,7 +522,7 @@ export const ShopPage = () => {
                   }}>
                     <div style={{ textAlign: 'right' }}>
                       <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#10B981' }}>
-                        Wholesale & Project Rates
+                        Wholesale Rate
                       </div>
                       <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                         In Stock • Faisalabad
@@ -550,7 +550,7 @@ export const ShopPage = () => {
                         style={{ gap: '0.35rem' }}
                       >
                         <ShoppingBag size={14} />
-                        <span>Add</span>
+                        <span>Add to Cart</span>
                       </button>
                     </div>
                   </div>

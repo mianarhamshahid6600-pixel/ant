@@ -136,7 +136,7 @@ export const FeaturedProducts = () => {
                     }}
                   >
                     <Eye size={13} />
-                    <span>Quick Specs</span>
+                    <span>Quick View</span>
                   </button>
                 </div>
 
@@ -205,7 +205,7 @@ export const FeaturedProducts = () => {
                         Wholesale Rate
                       </div>
                       <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                        Contact on WhatsApp
+                        In Stock
                       </div>
                     </div>
 
@@ -217,7 +217,7 @@ export const FeaturedProducts = () => {
                         onClick={(e) => e.stopPropagation()}
                         className="btn btn-whatsapp btn-sm"
                         style={{ padding: '0.35rem 0.55rem', gap: '0.3rem', fontSize: '0.75rem' }}
-                        title="Inquire Price on WhatsApp"
+                        title="Order on WhatsApp"
                       >
                         <MessageSquare size={14} />
                         <span>WhatsApp</span>
@@ -233,7 +233,7 @@ export const FeaturedProducts = () => {
                           padding: '0.35rem 0.55rem',
                           fontSize: '0.75rem'
                         }}
-                        title="Add to Quote List"
+                        title="Add to Cart"
                       >
                         <ShoppingBag size={13} />
                       </button>
@@ -254,7 +254,7 @@ export const FeaturedProducts = () => {
             className="btn btn-electric"
             style={{ gap: '0.4rem' }}
           >
-            <span>View All Products in Store</span>
+            <span>Browse All Products</span>
             <ArrowRight size={16} />
           </button>
         </div>

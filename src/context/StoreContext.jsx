@@ -83,12 +83,12 @@ export const StoreProvider = ({ children }) => {
       }
       return [...prev, { ...product, quantity }];
     });
-    showToast(`Added "${product.name.slice(0, 28)}..." to order quote!`);
+    showToast(`Added "${product.name.slice(0, 26)}..." to your cart!`);
   };
 
   const removeFromCart = (productId) => {
     setCart(prev => prev.filter(item => item.id !== productId));
-    showToast('Item removed from order.', 'info');
+    showToast('Item removed from cart.', 'info');
   };
 
   const updateQuantity = (productId, delta) => {
@@ -107,7 +107,7 @@ export const StoreProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
-    showToast('Quote list cleared.', 'info');
+    showToast('Cart cleared.', 'info');
   };
 
   // Calculations
@@ -132,41 +132,40 @@ export const StoreProvider = ({ children }) => {
   // Generate Direct WhatsApp URL for a Single Product
   const getWhatsAppProductUrl = (product, quantity = 1, notes = '') => {
     if (!product) {
-      return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about Prime Lighting products.')}`;
+      return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to order Prime Lighting products.')}`;
     }
-    let msg = `*PRODUCT PRICE INQUIRY - ALNOOR TRADERS*\n\n`;
-    msg += `Hello, I want to get the wholesale/contractor price for:\n`;
+    let msg = `*PRODUCT ORDER / INQUIRY - ALNOOR TRADERS*\n\n`;
+    msg += `Hello! I want to order / check price for:\n`;
     msg += `📦 *Product:* ${product.name}\n`;
-    msg += `🏷️ *Series:* ${product.series || 'Prime Official'}\n`;
-    msg += `🔢 *Required Quantity:* ${quantity} units\n`;
+    msg += `🏷️ *Series:* ${product.series || 'Prime'}\n`;
+    msg += `🔢 *Quantity:* ${quantity} pcs\n`;
     if (notes) {
       msg += `📝 *Note:* ${notes}\n`;
     }
-    msg += `\nPlease share best wholesale rate and stock availability. Thank you!`;
+    msg += `\nPlease confirm price and delivery. Thank you!`;
     return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   };
 
-  // Generate WhatsApp Order / Quote List Message (No numeric prices, pure BOQ list)
+  // Generate WhatsApp Order Message
   const getWhatsAppOrderUrl = () => {
     if (cart.length === 0) {
-      const baseMsg = `Hello Alnoor Traders! I would like to inquire about Prime Lighting electrical products.`;
+      const baseMsg = `Hello Alnoor Traders! I would like to check prices for Prime Lighting products.`;
       return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent(baseMsg)}`;
     }
 
-    let text = `*WHOLESALE BOQ / QUOTE REQUEST - ALNOOR TRADERS*\n`;
-    text += `*Distributor:* Alnoor Traders (Authorized Prime Distributor)\n`;
-    text += `*Location:* Bawana Bazar, Faisalabad\n`;
+    let text = `*NEW ORDER - ALNOOR TRADERS*\n`;
+    text += `*Distributor:* Alnoor Traders (Bawana Bazar, Faisalabad)\n`;
     text += `------------------------------------\n`;
 
     cart.forEach((item, index) => {
       text += `${index + 1}. *${item.name}*\n`;
-      text += `   Quantity: ${item.quantity} units\n`;
+      text += `   Quantity: ${item.quantity} pcs\n`;
       text += `   Series: ${item.series}\n`;
     });
 
     text += `------------------------------------\n`;
-    text += `*Total Items in List:* ${cartCount} units\n\n`;
-    text += `Please send the official wholesale quotation and delivery time. Thank you!`;
+    text += `*Total Items:* ${cartCount} pcs\n\n`;
+    text += `Please confirm total price and delivery time. Thank you!`;
 
     return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent(text)}`;
   };

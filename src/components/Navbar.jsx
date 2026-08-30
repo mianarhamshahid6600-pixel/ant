@@ -567,7 +567,7 @@ export const Navbar = () => {
                 textAlign: 'left'
               }}
             >
-              <span>Contact & Wholesale Inquiries</span>
+              <span>Contact Us</span>
               <ChevronRight size={16} opacity={0.5} />
             </button>
 
