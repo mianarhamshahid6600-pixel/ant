@@ -62,12 +62,31 @@ export const StoreProvider = ({ children }) => {
     }, 3000);
   };
 
+  // Page Transition Wall State ('idle', 'closing', 'opening')
+  const [transitionStatus, setTransitionStatus] = useState('idle');
+
   const navigateTo = (page, categoryFilter = null) => {
-    setCurrentPage(page);
-    if (categoryFilter) {
-      setSelectedCategory(categoryFilter);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (page === currentPage && !categoryFilter) return;
+
+    // 1. Close wall from top to bottom
+    setTransitionStatus('closing');
+
+    // 2. Once wall is down, switch page and scroll to top
+    setTimeout(() => {
+      setCurrentPage(page);
+      if (categoryFilter) {
+        setSelectedCategory(categoryFilter);
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      // 3. Open wall downwards to reveal new page
+      setTransitionStatus('opening');
+
+      // 4. Return to idle once animation completes
+      setTimeout(() => {
+        setTransitionStatus('idle');
+      }, 430);
+    }, 400);
   };
 
   // Cart Functions
@@ -124,9 +143,19 @@ export const StoreProvider = ({ children }) => {
   });
 
   const viewProductDetail = (product) => {
-    setSelectedProduct(product);
-    setCurrentPage('product');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTransitionStatus('closing');
+
+    setTimeout(() => {
+      setSelectedProduct(product);
+      setCurrentPage('product');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+
+      setTransitionStatus('opening');
+
+      setTimeout(() => {
+        setTransitionStatus('idle');
+      }, 430);
+    }, 400);
   };
 
   // Generate Direct WhatsApp URL for a Single Product
@@ -209,6 +238,8 @@ export const StoreProvider = ({ children }) => {
         toast,
         showToast,
         getWhatsAppOrderUrl,
+        transitionStatus,
+        setTransitionStatus,
         products: PRODUCTS,
         categories: CATEGORIES,
         distributor: DISTRIBUTOR_INFO

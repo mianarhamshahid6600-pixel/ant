@@ -11,6 +11,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { DemoPage } from './pages/DemoPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
+import { PageTransitionWall } from './components/PageTransitionWall';
 import { MessageSquare, Phone, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
 export const App = () => {
@@ -38,7 +39,9 @@ export const App = () => {
 
   return (
     <div className="app-container">
-      
+      {/* Top-to-Down Wall Page Transition */}
+      <PageTransitionWall />
+
       {/* Navigation Header */}
       <Navbar />
 
