@@ -68,10 +68,10 @@ export const StoreProvider = ({ children }) => {
   const navigateTo = (page, categoryFilter = null) => {
     if (page === currentPage && !categoryFilter) return;
 
-    // 1. Close wall from top to bottom (-100% -> 0%)
+    // 1. Close wall smoothly from top to bottom (-100% -> 0%)
     setTransitionStatus('closing');
 
-    // 2. Once wall reaches bottom (380ms), switch page & scroll to top
+    // 2. Once wall reaches bottom (650ms), switch page & scroll to top
     setTimeout(() => {
       setCurrentPage(page);
       if (categoryFilter) {
@@ -85,8 +85,8 @@ export const StoreProvider = ({ children }) => {
       // 4. Return to idle once animation completes
       setTimeout(() => {
         setTransitionStatus('idle');
-      }, 400);
-    }, 380);
+      }, 680);
+    }, 650);
   };
 
   // Cart Functions
@@ -154,8 +154,8 @@ export const StoreProvider = ({ children }) => {
 
       setTimeout(() => {
         setTransitionStatus('idle');
-      }, 400);
-    }, 380);
+      }, 680);
+    }, 650);
   };
 
   // Generate Direct WhatsApp URL for a Single Product

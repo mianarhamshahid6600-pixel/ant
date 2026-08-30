@@ -1,13 +1,18 @@
 import React from 'react';
 import { useStore } from '../context/StoreContext';
-import { Lightbulb, ShieldCheck, SunMedium } from 'lucide-react';
+import { Lightbulb, SunMedium } from 'lucide-react';
 
 export const PageTransitionWall = () => {
   const { transitionStatus, theme } = useStore();
 
-  if (transitionStatus === 'idle') return null;
-
   const isClosing = transitionStatus === 'closing';
+  const isOpening = transitionStatus === 'opening';
+  const isIdle = transitionStatus === 'idle';
+
+  // Always keep the wall in the DOM so CSS transitions reliably interpolate from -100% to 0% and back to -100%
+  const transformStyle = isClosing
+    ? 'translateY(0%)'
+    : 'translateY(-100%)';
 
   return (
     <div
@@ -18,11 +23,11 @@ export const PageTransitionWall = () => {
         width: '100vw',
         height: '100vh',
         zIndex: 99999,
-        pointerEvents: 'all',
+        pointerEvents: isIdle ? 'none' : 'all',
         overflow: 'hidden',
-        // Top to bottom (0%), then bottom to top (-100%)
-        transform: isClosing ? 'translateY(0%)' : 'translateY(-100%)',
-        transition: 'transform 0.38s cubic-bezier(0.7, 0, 0.25, 1)',
+        transform: transformStyle,
+        transition: isIdle ? 'none' : 'transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)',
+        willChange: 'transform',
         background: theme === 'dark'
           ? 'linear-gradient(180deg, #050C1F 0%, #081432 50%, #030814 100%)'
           : 'linear-gradient(180deg, #F0F4FA 0%, #E2ECFA 50%, #F5F8FC 100%)',
@@ -30,7 +35,7 @@ export const PageTransitionWall = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)'
+        boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)'
       }}
       className="page-transition-wall"
     >
@@ -57,16 +62,16 @@ export const PageTransitionWall = () => {
         boxShadow: '0 0 12px rgba(0, 85, 255, 0.6)'
       }} />
 
-      {/* Subtle Minimal Radial Aura */}
+      {/* Subtle Ambient Radial Glow */}
       <div style={{
         position: 'absolute',
-        width: '450px',
-        height: '450px',
+        width: '500px',
+        height: '500px',
         borderRadius: '50%',
         background: theme === 'dark' 
-          ? 'radial-gradient(circle, rgba(0, 85, 255, 0.18) 0%, transparent 70%)'
-          : 'radial-gradient(circle, rgba(0, 43, 128, 0.08) 0%, transparent 70%)',
-        filter: 'blur(50px)',
+          ? 'radial-gradient(circle, rgba(0, 85, 255, 0.22) 0%, transparent 70%)'
+          : 'radial-gradient(circle, rgba(0, 43, 128, 0.1) 0%, transparent 70%)',
+        filter: 'blur(60px)',
         pointerEvents: 'none'
       }} />
 
@@ -75,7 +80,7 @@ export const PageTransitionWall = () => {
       {/* Floating Bulb 1: Top Left (Warm Golden Glow) */}
       <div style={{
         position: 'absolute',
-        top: '14%',
+        top: '15%',
         left: '12%',
         display: 'flex',
         flexDirection: 'column',
@@ -86,25 +91,25 @@ export const PageTransitionWall = () => {
         pointerEvents: 'none'
       }}>
         <div style={{
-          width: '46px',
-          height: '46px',
+          width: '48px',
+          height: '48px',
           borderRadius: '50%',
           background: 'rgba(245, 158, 11, 0.12)',
-          border: '1px solid rgba(245, 158, 11, 0.3)',
-          boxShadow: '0 0 20px rgba(245, 158, 11, 0.35)',
+          border: '1px solid rgba(245, 158, 11, 0.35)',
+          boxShadow: '0 0 24px rgba(245, 158, 11, 0.4)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: '#F59E0B'
         }}>
-          <Lightbulb size={24} />
+          <Lightbulb size={26} />
         </div>
-        <span style={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
+        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
           3000K Warm
         </span>
       </div>
 
-      {/* Floating Bulb 2: Top Right (Electric Dark Blue Glow) */}
+      {/* Floating Bulb 2: Top Right (Cool White Glow) */}
       <div style={{
         position: 'absolute',
         top: '18%',
@@ -118,20 +123,20 @@ export const PageTransitionWall = () => {
         pointerEvents: 'none'
       }}>
         <div style={{
-          width: '44px',
-          height: '44px',
+          width: '46px',
+          height: '46px',
           borderRadius: '50%',
           background: 'rgba(0, 85, 255, 0.12)',
-          border: '1px solid rgba(0, 85, 255, 0.35)',
-          boxShadow: '0 0 20px rgba(0, 85, 255, 0.35)',
+          border: '1px solid rgba(0, 85, 255, 0.4)',
+          boxShadow: '0 0 24px rgba(0, 85, 255, 0.4)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: 'var(--text-accent)'
         }}>
-          <SunMedium size={22} />
+          <SunMedium size={24} />
         </div>
-        <span style={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
+        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
           6500K Cool
         </span>
       </div>
@@ -141,20 +146,20 @@ export const PageTransitionWall = () => {
         position: 'absolute',
         bottom: '16%',
         left: '15%',
-        padding: '0.45rem 0.85rem',
+        padding: '0.5rem 0.95rem',
         borderRadius: 'var(--radius-md)',
         background: 'var(--bg-glass)',
         border: '1px solid var(--border-card)',
         boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
         display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '0.6rem',
         animation: 'floatBulb3 5s ease-in-out infinite alternate 1s',
         pointerEvents: 'none'
       }}>
         <div style={{
-          width: '28px',
-          height: '28px',
+          width: '30px',
+          height: '30px',
           borderRadius: '4px',
           background: 'linear-gradient(135deg, #1E293B, #0F172A)',
           border: '1px solid rgba(255,255,255,0.15)',
@@ -165,8 +170,8 @@ export const PageTransitionWall = () => {
           <div style={{ width: '8px', height: '14px', borderRadius: '2px', background: '#0055FF', boxShadow: '0 0 6px #0055FF' }} />
         </div>
         <div>
-          <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-primary)' }}>Prime Art Switch</div>
-          <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)' }}>Matte Black</div>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-primary)' }}>Prime Art Switch</div>
+          <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>Luxury Series</div>
         </div>
       </div>
 
@@ -175,115 +180,105 @@ export const PageTransitionWall = () => {
         position: 'absolute',
         bottom: '18%',
         right: '13%',
-        padding: '0.45rem 0.85rem',
+        padding: '0.5rem 0.95rem',
         borderRadius: 'var(--radius-md)',
         background: 'var(--bg-glass)',
         border: '1px solid var(--border-card)',
         boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
         display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: '0.6rem',
         animation: 'floatBulb4 4.8s ease-in-out infinite alternate 1.5s',
         pointerEvents: 'none'
       }}>
         <div style={{
-          width: '28px',
-          height: '28px',
+          width: '30px',
+          height: '30px',
           borderRadius: '50%',
           background: 'radial-gradient(circle, #FFF2D6 40%, #0047AB 100%)',
-          boxShadow: '0 0 12px rgba(255, 242, 214, 0.6)',
+          boxShadow: '0 0 14px rgba(255, 242, 214, 0.6)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
         }} />
         <div>
-          <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-primary)' }}>Prime SMD Light</div>
-          <div style={{ fontSize: '0.62rem', color: '#10B981', fontWeight: 600 }}>Energy Saver</div>
+          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-primary)' }}>Prime SMD Downlight</div>
+          <div style={{ fontSize: '0.65rem', color: '#10B981', fontWeight: 600 }}>Energy Saver</div>
         </div>
       </div>
 
-      {/* ================= CENTER MINIMAL LOGO CARD ================= */}
+      {/* ================= CENTER: ONLY PRIME LOGO ================= */}
       <div style={{
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '1rem',
+        gap: '1.25rem',
         zIndex: 10
       }}>
         
-        {/* Minimal Frosted Glass Logo Container */}
+        {/* Prime Logo Glass Card */}
         <div style={{
           position: 'relative',
-          padding: '1.25rem 2.25rem',
-          borderRadius: 'var(--radius-lg)',
+          padding: '1.5rem 3rem',
+          borderRadius: 'var(--radius-xl)',
           background: theme === 'dark' ? 'rgba(10, 22, 51, 0.85)' : 'rgba(255, 255, 255, 0.95)',
-          border: `1px solid ${theme === 'dark' ? 'rgba(0, 85, 255, 0.35)' : 'rgba(0, 43, 128, 0.18)'}`,
+          border: `1px solid ${theme === 'dark' ? 'rgba(0, 85, 255, 0.4)' : 'rgba(0, 43, 128, 0.2)'}`,
           boxShadow: theme === 'dark' 
-            ? '0 15px 35px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 85, 255, 0.1)' 
-            : '0 15px 35px rgba(0, 43, 128, 0.1)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
+            ? '0 20px 50px rgba(0, 85, 255, 0.3), inset 0 0 20px rgba(0, 85, 255, 0.15)' 
+            : '0 20px 50px rgba(0, 43, 128, 0.12)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          animation: 'minimalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)'
+          animation: 'primePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
         }}>
-          <div style={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>
-            <img
-              src={theme === 'dark' ? '/images/logo-transparent-white-text.png' : '/images/logo-transparent.png'}
-              alt="Alnoor Traders ANT Logo"
-              style={{
-                height: '48px',
-                width: 'auto',
-                objectFit: 'contain',
-                filter: theme === 'dark' ? 'drop-shadow(0 0 8px rgba(0, 85, 255, 0.5))' : 'none'
-              }}
-              onError={(e) => {
-                e.target.src = '/images/logo-transparent.png';
-              }}
-            />
-            <span style={{
-              position: 'absolute',
-              top: '-8px',
-              right: '-24px',
-              fontSize: '0.62rem',
-              fontWeight: 800,
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #0055FF 0%, #002B80 100%)',
-              padding: '2px 6px',
-              borderRadius: '999px',
-              boxShadow: '0 0 8px rgba(0, 85, 255, 0.5)'
-            }}>
-              Prime
-            </span>
-          </div>
-        </div>
+          
+          {/* Official Prime Logo */}
+          <img
+            src="/images/prime-logo.png"
+            alt="Prime Logo"
+            style={{
+              height: '58px',
+              width: 'auto',
+              objectFit: 'contain',
+              filter: theme === 'dark' 
+                ? 'brightness(0) invert(1) drop-shadow(0 0 15px rgba(0, 85, 255, 0.7))' 
+                : 'drop-shadow(0 4px 10px rgba(0, 43, 128, 0.25))',
+              transition: 'all 0.3s ease'
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              if (e.target.nextSibling) {
+                e.target.nextSibling.style.display = 'block';
+              }
+            }}
+          />
 
-        {/* Minimal Clean Caption */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.4rem',
-          fontSize: '0.78rem',
-          fontWeight: 600,
-          color: 'var(--text-secondary)',
-          letterSpacing: '0.04em'
-        }}>
-          <ShieldCheck size={14} style={{ color: '#10B981' }} />
-          <span>Authorized Prime Distributor</span>
+          {/* Text Fallback if image load fails */}
+          <div style={{
+            display: 'none',
+            fontSize: '2.4rem',
+            fontWeight: 900,
+            letterSpacing: '0.15em',
+            color: 'var(--text-primary)',
+            fontFamily: 'var(--font-heading)'
+          }}>
+            PRIME
+          </div>
+
         </div>
 
         {/* Minimal Soft Pulsing Line */}
         <div style={{
-          width: '80px',
-          height: '2px',
-          background: 'linear-gradient(90deg, transparent, var(--text-accent), transparent)',
+          width: '90px',
+          height: '3px',
+          background: 'linear-gradient(90deg, transparent, #0055FF, transparent)',
           borderRadius: '999px',
-          animation: 'minimalPulse 1.2s ease-in-out infinite'
+          animation: 'primePulse 1.4s ease-in-out infinite'
         }} />
 
       </div>
@@ -292,27 +287,27 @@ export const PageTransitionWall = () => {
       <style>{`
         @keyframes floatBulb1 {
           0% { transform: translateY(0px) rotate(0deg); }
-          100% { transform: translateY(-16px) rotate(6deg); }
+          100% { transform: translateY(-18px) rotate(6deg); }
         }
         @keyframes floatBulb2 {
           0% { transform: translateY(0px) rotate(0deg); }
-          100% { transform: translateY(-20px) rotate(-8deg); }
+          100% { transform: translateY(-22px) rotate(-8deg); }
         }
         @keyframes floatBulb3 {
           0% { transform: translateY(0px); }
-          100% { transform: translateY(-12px); }
+          100% { transform: translateY(-14px); }
         }
         @keyframes floatBulb4 {
           0% { transform: translateY(0px); }
-          100% { transform: translateY(-14px); }
+          100% { transform: translateY(-16px); }
         }
-        @keyframes minimalPop {
-          0% { transform: scale(0.9); opacity: 0; }
+        @keyframes primePop {
+          0% { transform: scale(0.85); opacity: 0; }
           100% { transform: scale(1); opacity: 1; }
         }
-        @keyframes minimalPulse {
+        @keyframes primePulse {
           0% { opacity: 0.3; transform: scaleX(0.7); }
-          50% { opacity: 1; transform: scaleX(1.1); }
+          50% { opacity: 1; transform: scaleX(1.2); }
           100% { opacity: 0.3; transform: scaleX(0.7); }
         }
         @media (max-width: 640px) {
