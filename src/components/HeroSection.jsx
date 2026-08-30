@@ -125,7 +125,7 @@ export const HeroSection = () => {
       borderBottom: '1px solid var(--border-subtle)'
     }}>
       
-      {/* Background Image Layer (https://i.ibb.co/VW59cmj8/shop.jpg with smooth heavy blur for optimal text contrast) */}
+      {/* Hero Background Backdrop with Visible Blurred Store Image */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -137,24 +137,26 @@ export const HeroSection = () => {
         pointerEvents: 'none'
       }}>
         <img
-          src="https://i.ibb.co/VW59cmj8/shop.jpg"
-          alt="Alnoor Traders Physical Store"
+          src="/images/shop.jpg"
+          alt="Alnoor Traders Store Backdrop"
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center',
+            objectPosition: 'center 35%',
             filter: theme === 'dark' 
-              ? 'blur(20px) saturate(1.15) brightness(0.35)' 
-              : 'blur(20px) saturate(0.9) brightness(0.82)',
-            transform: 'scale(1.12)'
+              ? 'blur(7px) saturate(1.2) brightness(0.65)' 
+              : 'blur(7px) saturate(1.1) brightness(0.92)',
+            transform: 'scale(1.08)',
+            opacity: theme === 'dark' ? 0.5 : 0.38,
+            transition: 'all 0.4s ease'
           }}
           onError={(e) => {
-            e.target.src = '/images/shop.jpg';
+            e.target.src = 'https://i.ibb.co/VW59cmj8/shop.jpg';
           }}
         />
 
-        {/* Ambient Gradient Overlays for Readability */}
+        {/* Soft Tint Overlay for Text Contrast */}
         <div style={{
           position: 'absolute',
           top: 0,
@@ -162,8 +164,10 @@ export const HeroSection = () => {
           width: '100%',
           height: '100%',
           background: theme === 'dark'
-            ? 'linear-gradient(180deg, rgba(5, 12, 31, 0.88) 0%, rgba(8, 20, 50, 0.8) 50%, rgba(5, 12, 31, 0.94) 100%)'
-            : 'linear-gradient(180deg, rgba(240, 244, 250, 0.9) 0%, rgba(226, 236, 250, 0.84) 50%, rgba(240, 244, 250, 0.94) 100%)'
+            ? 'linear-gradient(180deg, rgba(5, 12, 31, 0.72) 0%, rgba(8, 20, 50, 0.6) 50%, rgba(5, 12, 31, 0.85) 100%)'
+            : 'linear-gradient(180deg, rgba(240, 244, 250, 0.78) 0%, rgba(226, 236, 250, 0.68) 50%, rgba(240, 244, 250, 0.86) 100%)',
+          backdropFilter: 'blur(2px)',
+          WebkitBackdropFilter: 'blur(2px)'
         }} />
 
         <div style={{
