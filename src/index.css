@@ -76,34 +76,34 @@ body.theme-dark, :root:not(.theme-light) {
    THEME - ELECTRIC LIGHT (PRISTINE ARCHITECTURAL)
    ========================================================================== */
 body.theme-light {
-  --bg-primary: #F8FAFC;
+  --bg-primary: #F4F7FC;
   --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F1F5F9;
-  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-tertiary: #EAEFF8;
+  --bg-card: #FFFFFF;
   --bg-card-hover: #FFFFFF;
-  --bg-glass: rgba(248, 250, 252, 0.88);
-  --bg-overlay: rgba(15, 23, 42, 0.5);
+  --bg-glass: rgba(255, 255, 255, 0.94);
+  --bg-overlay: rgba(10, 22, 51, 0.65);
 
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
+  --text-primary: #0A1128;
+  --text-secondary: #334155;
   --text-muted: #64748B;
-  --text-accent: #0284C7;
+  --text-accent: #0052CC;
 
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-card: rgba(0, 102, 255, 0.15);
-  --border-card-hover: rgba(0, 102, 255, 0.4);
+  --border-subtle: rgba(0, 102, 255, 0.08);
+  --border-card: rgba(0, 102, 255, 0.12);
+  --border-card-hover: rgba(0, 102, 255, 0.38);
   --border-highlight: rgba(0, 102, 255, 0.8);
 
-  --shadow-card: 0 10px 25px -5px rgba(0, 102, 255, 0.06), 0 4px 10px -2px rgba(0, 0, 0, 0.03);
-  --shadow-elevated: 0 20px 35px -10px rgba(0, 102, 255, 0.12), 0 0 20px rgba(0, 102, 255, 0.08);
+  --shadow-card: 0 4px 20px -2px rgba(0, 102, 255, 0.07), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-elevated: 0 16px 36px -6px rgba(0, 102, 255, 0.14), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
 
   --badge-bg: rgba(0, 102, 255, 0.08);
-  --badge-text: #0284C7;
-  --badge-border: rgba(0, 102, 255, 0.25);
+  --badge-text: #0052CC;
+  --badge-border: rgba(0, 102, 255, 0.22);
 
-  --hero-mesh: radial-gradient(circle at 50% 10%, rgba(0, 102, 255, 0.12) 0%, transparent 65%),
-                    radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.1) 0%, transparent 45%),
-                    radial-gradient(circle at 15% 70%, rgba(14, 165, 233, 0.08) 0%, transparent 50%);
+  --hero-mesh: radial-gradient(circle at 50% 8%, rgba(0, 102, 255, 0.12) 0%, transparent 60%),
+                    radial-gradient(circle at 85% 25%, rgba(0, 210, 255, 0.14) 0%, transparent 45%),
+                    radial-gradient(circle at 15% 65%, rgba(0, 82, 204, 0.08) 0%, transparent 50%);
 }
 
 /* Base Styles */
@@ -544,3 +544,69 @@ img {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--electric-cyan);
 }
+
+/* ==========================================================================
+   LIGHT MODE SPECIFIC ENHANCEMENTS & HIGH CONTRAST
+   ========================================================================== */
+body.theme-light .text-electric-blue {
+  background: linear-gradient(135deg, #0052CC 0%, #0088FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-light .badge-prime {
+  background: rgba(0, 82, 204, 0.08);
+  color: #0052CC;
+  border-color: rgba(0, 82, 204, 0.28);
+  box-shadow: 0 0 10px rgba(0, 82, 204, 0.08);
+}
+
+body.theme-light .btn-outline {
+  border-color: rgba(0, 102, 255, 0.25);
+  color: #0052CC;
+}
+
+body.theme-light .btn-outline:hover {
+  background: rgba(0, 102, 255, 0.08);
+  border-color: #0052CC;
+  color: #003D99;
+}
+
+body.theme-light .btn-electric {
+  background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(0, 102, 255, 0.28);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+}
+
+body.theme-light .btn-electric:hover {
+  background: linear-gradient(135deg, #0052CC 0%, #003399 100%);
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
+  color: #FFFFFF;
+}
+
+body.theme-light .glass-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 102, 255, 0.12);
+  box-shadow: 0 4px 20px -2px rgba(0, 102, 255, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+body.theme-light .glass-card:hover {
+  background: #FFFFFF;
+  border-color: rgba(0, 102, 255, 0.35);
+  box-shadow: 0 14px 32px -4px rgba(0, 102, 255, 0.12);
+}
+
+body.theme-light .product-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 102, 255, 0.12);
+}
+
+body.theme-light .product-image-wrap {
+  background: radial-gradient(circle at center, rgba(0, 102, 255, 0.05) 0%, #F8FAFC 85%);
+}
+
+body.theme-light .brand-logo-img {
+  filter: drop-shadow(0 2px 8px rgba(0, 102, 255, 0.2));
+}
+
