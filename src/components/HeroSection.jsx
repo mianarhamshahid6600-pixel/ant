@@ -125,7 +125,7 @@ export const HeroSection = () => {
       borderBottom: '1px solid var(--border-subtle)'
     }}>
       
-      {/* Background Image Layer (shop.jpeg with smooth heavy blur for optimal text contrast) */}
+      {/* Background Image Layer (https://i.ibb.co/VW59cmj8/shop.jpg with smooth heavy blur for optimal text contrast) */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -137,7 +137,7 @@ export const HeroSection = () => {
         pointerEvents: 'none'
       }}>
         <img
-          src="/images/shop.jpeg"
+          src="https://i.ibb.co/VW59cmj8/shop.jpg"
           alt="Alnoor Traders Physical Store"
           style={{
             width: '100%',
@@ -148,6 +148,9 @@ export const HeroSection = () => {
               ? 'blur(20px) saturate(1.15) brightness(0.35)' 
               : 'blur(20px) saturate(0.9) brightness(0.82)',
             transform: 'scale(1.12)'
+          }}
+          onError={(e) => {
+            e.target.src = '/images/shop.jpg';
           }}
         />
 
