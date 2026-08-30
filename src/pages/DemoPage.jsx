@@ -106,8 +106,8 @@ export const DemoPage = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '1.5rem',
-            background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.12) 0%, rgba(0, 210, 255, 0.12) 100%)',
-            border: '1px solid rgba(0, 210, 255, 0.3)'
+            background: 'var(--badge-bg)',
+            border: '1px solid var(--border-card)'
           }}
         >
           <div>

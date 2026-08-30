@@ -65,7 +65,7 @@ export const Footer = () => {
           {/* Column 2: Product Lines */}
           <div>
             <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Zap size={16} style={{ color: 'var(--electric-cyan)' }} />
+              <Zap size={16} style={{ color: 'var(--text-accent)' }} />
               Product Lines
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
@@ -81,7 +81,7 @@ export const Footer = () => {
                       alignItems: 'center',
                       gap: '0.4rem'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                     onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                   >
                     <span>›</span>
@@ -95,7 +95,7 @@ export const Footer = () => {
           {/* Column 3: Quick Navigation */}
           <div>
             <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <BookOpen size={16} style={{ color: 'var(--electric-cyan)' }} />
+              <BookOpen size={16} style={{ color: 'var(--text-accent)' }} />
               Quick Links
             </h4>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
@@ -103,7 +103,7 @@ export const Footer = () => {
                 <button
                   onClick={() => navigateTo('shop')}
                   style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Shop All Products
@@ -113,7 +113,7 @@ export const Footer = () => {
                 <button
                   onClick={() => navigateTo('catalog')}
                   style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Product Catalog
@@ -122,9 +122,9 @@ export const Footer = () => {
               <li>
                 <button
                   onClick={() => navigateTo('demo')}
-                  style={{ color: 'var(--electric-cyan)', fontWeight: 600, transition: 'color var(--transition-fast)' }}
+                  style={{ color: 'var(--text-accent)', fontWeight: 600, transition: 'color var(--transition-fast)' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--electric-cyan)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-accent)'}
                 >
                   ✨ Live Product Demo
                 </button>
@@ -133,7 +133,7 @@ export const Footer = () => {
                 <button
                   onClick={() => navigateTo('about')}
                   style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   About Store & Warranty
@@ -143,7 +143,7 @@ export const Footer = () => {
                 <button
                   onClick={() => navigateTo('contact')}
                   style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   Contact Us
@@ -176,8 +176,8 @@ export const Footer = () => {
                   width: '32px',
                   height: '32px',
                   borderRadius: 'var(--radius-sm)',
-                  background: 'rgba(0, 102, 255, 0.2)',
-                  color: '#00D2FF',
+                  background: 'var(--badge-bg)',
+                  color: 'var(--text-accent)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -202,8 +202,8 @@ export const Footer = () => {
                   width: '32px',
                   height: '32px',
                   borderRadius: 'var(--radius-sm)',
-                  background: 'rgba(0, 102, 255, 0.2)',
-                  color: '#00D2FF',
+                  background: 'var(--badge-bg)',
+                  color: 'var(--text-accent)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -231,16 +231,16 @@ export const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', color: '#94A3B8', fontSize: '0.85rem' }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                 onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
               >
-                <MapPin size={16} style={{ color: 'var(--electric-cyan)', flexShrink: 0, marginTop: '2px' }} />
+                <MapPin size={16} style={{ color: 'var(--text-accent)', flexShrink: 0, marginTop: '2px' }} />
                 <span>{distributor.address} (Open in Maps)</span>
               </a>
 
               {/* Timings */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#94A3B8', fontSize: '0.85rem' }}>
-                <Clock size={16} style={{ color: 'var(--electric-cyan)', flexShrink: 0 }} />
+                <Clock size={16} style={{ color: 'var(--text-accent)', flexShrink: 0 }} />
                 <span>10:00 AM – 8:00 PM (Closed Friday)</span>
               </div>
 
@@ -270,7 +270,7 @@ export const Footer = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: '#00D2FF',
+              color: 'var(--text-accent)',
               fontWeight: 600,
               cursor: 'pointer'
             }}

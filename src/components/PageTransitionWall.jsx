@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStore } from '../context/StoreContext';
-import { Lightbulb, Sparkles, ShieldCheck, SunMedium } from 'lucide-react';
+import { Lightbulb, ShieldCheck, SunMedium } from 'lucide-react';
 
 export const PageTransitionWall = () => {
   const { transitionStatus, theme } = useStore();
@@ -42,8 +42,8 @@ export const PageTransitionWall = () => {
         left: 0,
         width: '100%',
         height: '3px',
-        background: 'linear-gradient(90deg, transparent, #00D2FF, #0066FF, transparent)',
-        boxShadow: '0 0 12px rgba(0, 210, 255, 0.8)'
+        background: 'linear-gradient(90deg, transparent, #0055FF, #002B80, transparent)',
+        boxShadow: '0 0 12px rgba(0, 85, 255, 0.6)'
       }} />
 
       {/* Bottom Accent Line */}
@@ -53,8 +53,8 @@ export const PageTransitionWall = () => {
         left: 0,
         width: '100%',
         height: '3px',
-        background: 'linear-gradient(90deg, transparent, #0066FF, #00D2FF, transparent)',
-        boxShadow: '0 0 12px rgba(0, 210, 255, 0.8)'
+        background: 'linear-gradient(90deg, transparent, #002B80, #0055FF, transparent)',
+        boxShadow: '0 0 12px rgba(0, 85, 255, 0.6)'
       }} />
 
       {/* Subtle Minimal Radial Aura */}
@@ -64,7 +64,7 @@ export const PageTransitionWall = () => {
         height: '450px',
         borderRadius: '50%',
         background: theme === 'dark' 
-          ? 'radial-gradient(circle, rgba(0, 102, 255, 0.18) 0%, transparent 70%)'
+          ? 'radial-gradient(circle, rgba(0, 85, 255, 0.18) 0%, transparent 70%)'
           : 'radial-gradient(circle, rgba(0, 43, 128, 0.08) 0%, transparent 70%)',
         filter: 'blur(50px)',
         pointerEvents: 'none'
@@ -104,7 +104,7 @@ export const PageTransitionWall = () => {
         </span>
       </div>
 
-      {/* Floating Bulb 2: Top Right (Electric Cyan Glow) */}
+      {/* Floating Bulb 2: Top Right (Electric Dark Blue Glow) */}
       <div style={{
         position: 'absolute',
         top: '18%',
@@ -121,13 +121,13 @@ export const PageTransitionWall = () => {
           width: '44px',
           height: '44px',
           borderRadius: '50%',
-          background: 'rgba(0, 210, 255, 0.12)',
-          border: '1px solid rgba(0, 210, 255, 0.35)',
-          boxShadow: '0 0 20px rgba(0, 210, 255, 0.35)',
+          background: 'rgba(0, 85, 255, 0.12)',
+          border: '1px solid rgba(0, 85, 255, 0.35)',
+          boxShadow: '0 0 20px rgba(0, 85, 255, 0.35)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#00D2FF'
+          color: 'var(--text-accent)'
         }}>
           <SunMedium size={22} />
         </div>
@@ -162,7 +162,7 @@ export const PageTransitionWall = () => {
           alignItems: 'center',
           justifyContent: 'center'
         }}>
-          <div style={{ width: '8px', height: '14px', borderRadius: '2px', background: '#00D2FF', boxShadow: '0 0 6px #00D2FF' }} />
+          <div style={{ width: '8px', height: '14px', borderRadius: '2px', background: '#0055FF', boxShadow: '0 0 6px #0055FF' }} />
         </div>
         <div>
           <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-primary)' }}>Prime Art Switch</div>
@@ -190,7 +190,7 @@ export const PageTransitionWall = () => {
           width: '28px',
           height: '28px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, #FFF2D6 40%, #0066FF 100%)',
+          background: 'radial-gradient(circle, #FFF2D6 40%, #0047AB 100%)',
           boxShadow: '0 0 12px rgba(255, 242, 214, 0.6)',
           display: 'flex',
           alignItems: 'center',
@@ -218,10 +218,10 @@ export const PageTransitionWall = () => {
           position: 'relative',
           padding: '1.25rem 2.25rem',
           borderRadius: 'var(--radius-lg)',
-          background: theme === 'dark' ? 'rgba(10, 22, 51, 0.75)' : 'rgba(255, 255, 255, 0.9)',
-          border: `1px solid ${theme === 'dark' ? 'rgba(0, 210, 255, 0.3)' : 'rgba(0, 43, 128, 0.18)'}`,
+          background: theme === 'dark' ? 'rgba(10, 22, 51, 0.85)' : 'rgba(255, 255, 255, 0.95)',
+          border: `1px solid ${theme === 'dark' ? 'rgba(0, 85, 255, 0.35)' : 'rgba(0, 43, 128, 0.18)'}`,
           boxShadow: theme === 'dark' 
-            ? '0 15px 35px rgba(0, 102, 255, 0.25), inset 0 0 15px rgba(0, 210, 255, 0.1)' 
+            ? '0 15px 35px rgba(0, 85, 255, 0.25), inset 0 0 15px rgba(0, 85, 255, 0.1)' 
             : '0 15px 35px rgba(0, 43, 128, 0.1)',
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
@@ -238,7 +238,7 @@ export const PageTransitionWall = () => {
                 height: '48px',
                 width: 'auto',
                 objectFit: 'contain',
-                filter: theme === 'dark' ? 'drop-shadow(0 0 8px rgba(0, 210, 255, 0.5))' : 'none'
+                filter: theme === 'dark' ? 'drop-shadow(0 0 8px rgba(0, 85, 255, 0.5))' : 'none'
               }}
               onError={(e) => {
                 e.target.src = '/images/logo-transparent.png';
@@ -253,10 +253,10 @@ export const PageTransitionWall = () => {
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
               color: '#FFFFFF',
-              background: 'linear-gradient(135deg, #00D2FF 0%, #0066FF 100%)',
+              background: 'linear-gradient(135deg, #0055FF 0%, #002B80 100%)',
               padding: '2px 6px',
               borderRadius: '999px',
-              boxShadow: '0 0 8px rgba(0, 210, 255, 0.6)'
+              boxShadow: '0 0 8px rgba(0, 85, 255, 0.5)'
             }}>
               Prime
             </span>

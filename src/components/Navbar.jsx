@@ -58,7 +58,7 @@ export const Navbar = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.3rem',
-              color: '#00D2FF',
+              color: '#60A5FA',
               fontWeight: 600
             }}>
               <ShieldCheck size={14} />
@@ -83,7 +83,7 @@ export const Navbar = () => {
                   fontWeight: 600
                 }}
               >
-                <Phone size={13} style={{ color: '#00D2FF' }} />
+                <Phone size={13} style={{ color: '#60A5FA' }} />
                 <span>{distributor.phone1}</span>
               </a>
               <span style={{ opacity: 0.4 }}>/</span>
@@ -355,9 +355,9 @@ export const Navbar = () => {
                 width: '38px',
                 height: '38px',
                 borderRadius: 'var(--radius-md)',
-                background: theme === 'dark' ? 'rgba(0, 102, 255, 0.15)' : 'rgba(255, 180, 0, 0.15)',
-                color: theme === 'dark' ? '#00D2FF' : '#D97706',
-                border: `1px solid ${theme === 'dark' ? 'rgba(0, 210, 255, 0.3)' : 'rgba(217, 119, 6, 0.3)'}`,
+                background: theme === 'dark' ? 'rgba(0, 85, 255, 0.15)' : 'rgba(255, 180, 0, 0.15)',
+                color: theme === 'dark' ? '#60A5FA' : '#D97706',
+                border: `1px solid ${theme === 'dark' ? 'rgba(0, 85, 255, 0.4)' : 'rgba(217, 119, 6, 0.3)'}`,
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -396,10 +396,10 @@ export const Navbar = () => {
                 width: '42px',
                 height: '42px',
                 borderRadius: 'var(--radius-md)',
-                background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(0, 210, 255, 0.2) 100%)',
-                color: '#00D2FF',
-                border: '1px solid rgba(0, 210, 255, 0.4)',
-                boxShadow: cartCount > 0 ? '0 0 15px rgba(0, 210, 255, 0.4)' : 'none',
+                background: 'var(--badge-bg)',
+                color: 'var(--text-accent)',
+                border: '1px solid var(--border-card-hover)',
+                boxShadow: cartCount > 0 ? 'var(--glow-electric)' : 'none',
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -409,8 +409,8 @@ export const Navbar = () => {
                   position: 'absolute',
                   top: '-4px',
                   right: '-4px',
-                  background: 'linear-gradient(135deg, #00D2FF 0%, #0066FF 100%)',
-                  color: '#070B14',
+                  background: 'linear-gradient(135deg, #0055FF 0%, #002B80 100%)',
+                  color: '#FFFFFF',
                   fontSize: '0.7rem',
                   fontWeight: 800,
                   minWidth: '18px',
@@ -420,7 +420,7 @@ export const Navbar = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   padding: '0 4px',
-                  boxShadow: '0 0 8px rgba(0, 210, 255, 0.8)'
+                  boxShadow: '0 0 8px rgba(0, 85, 255, 0.6)'
                 }}>
                   {cartCount}
                 </span>

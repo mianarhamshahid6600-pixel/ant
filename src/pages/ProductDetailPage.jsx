@@ -63,7 +63,7 @@ export const ProductDetailPage = () => {
             <button 
               onClick={() => navigateTo('home')}
               style={{ color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-accent)'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
             >
               Home
@@ -72,7 +72,7 @@ export const ProductDetailPage = () => {
             <button 
               onClick={() => navigateTo('shop')}
               style={{ color: 'var(--text-secondary)', transition: 'color var(--transition-fast)' }}
-              onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}
+              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-accent)'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
             >
               Shop
@@ -271,8 +271,8 @@ export const ProductDetailPage = () => {
               marginTop: '1.25rem',
               padding: '1rem 1.25rem',
               borderRadius: 'var(--radius-lg)',
-              background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.12) 0%, rgba(0, 210, 255, 0.08) 100%)',
-              border: '1px solid rgba(0, 210, 255, 0.3)'
+              background: 'var(--badge-bg)',
+              border: '1px solid var(--border-card)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>

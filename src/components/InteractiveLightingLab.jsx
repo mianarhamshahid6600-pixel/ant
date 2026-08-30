@@ -301,12 +301,12 @@ export const InteractiveLightingLab = () => {
                   width: '54px',
                   height: '28px',
                   borderRadius: '999px',
-                  background: isOn ? 'linear-gradient(90deg, #0066FF, #00D2FF)' : 'var(--bg-primary)',
+                  background: isOn ? 'linear-gradient(90deg, #002B80, #0055FF)' : 'var(--bg-primary)',
                   border: '2px solid rgba(255,255,255,0.1)',
                   position: 'relative',
                   cursor: 'pointer',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  boxShadow: isOn ? '0 0 12px rgba(0, 210, 255, 0.4)' : 'none'
+                  boxShadow: isOn ? '0 0 12px rgba(0, 85, 255, 0.4)' : 'none'
                 }}
               >
                 <span style={{
@@ -346,7 +346,7 @@ export const InteractiveLightingLab = () => {
                   width: '100%',
                   height: '6px',
                   borderRadius: '999px',
-                  background: `linear-gradient(to right, #0066FF 0%, #00D2FF ${brightness}%, rgba(255,255,255,0.1) ${brightness}%, rgba(255,255,255,0.1) 100%)`,
+                  background: `linear-gradient(to right, #002B80 0%, #0055FF ${brightness}%, rgba(255,255,255,0.1) ${brightness}%, rgba(255,255,255,0.1) 100%)`,
                   outline: 'none',
                   cursor: isOn ? 'pointer' : 'not-allowed',
                   opacity: isOn ? 1 : 0.5

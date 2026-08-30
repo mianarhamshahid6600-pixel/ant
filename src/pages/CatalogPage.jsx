@@ -166,8 +166,8 @@ export const CatalogPage = () => {
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '1rem',
-            background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 210, 255, 0.1) 100%)',
-            border: '1px solid rgba(0, 210, 255, 0.3)'
+            background: 'var(--badge-bg)',
+            border: '1px solid var(--border-card)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -189,11 +189,11 @@ export const CatalogPage = () => {
           <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem' }}>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Main Phone:</span>{' '}
-              <strong style={{ color: 'var(--electric-cyan)' }}>{distributor.phone1}</strong>
+              <strong style={{ color: 'var(--text-accent)' }}>{distributor.phone1}</strong>
             </div>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Wholesale Line:</span>{' '}
-              <strong style={{ color: 'var(--electric-cyan)' }}>{distributor.phone2}</strong>
+              <strong style={{ color: 'var(--text-accent)' }}>{distributor.phone2}</strong>
             </div>
           </div>
         </div>
@@ -219,7 +219,7 @@ export const CatalogPage = () => {
                 
                 {/* Product Image */}
                 <div style={{
-                  background: 'radial-gradient(circle at center, rgba(0, 102, 255, 0.12) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle at center, rgba(0, 85, 255, 0.12) 0%, transparent 70%)',
                   borderRadius: 'var(--radius-lg)',
                   border: '1px solid var(--border-subtle)',
                   padding: '2rem',
@@ -240,7 +240,7 @@ export const CatalogPage = () => {
                   <div style={{
                     marginTop: '1.25rem',
                     fontSize: '0.75rem',
-                    color: 'var(--electric-cyan)',
+                    color: 'var(--text-accent)',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em'
@@ -347,9 +347,9 @@ export const CatalogPage = () => {
           marginTop: '4rem',
           textAlign: 'center',
           padding: '3rem 2rem',
-          background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.15) 0%, rgba(0, 210, 255, 0.15) 100%)',
+          background: 'var(--badge-bg)',
           borderRadius: 'var(--radius-xl)',
-          border: '1px solid rgba(0, 210, 255, 0.3)'
+          border: '1px solid var(--border-card)'
         }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Need Custom Price Lists or Tender Files?</h3>
           <p style={{ maxWidth: '600px', margin: '0 auto 1.5rem', color: 'var(--text-secondary)' }}>

@@ -81,13 +81,13 @@ export const CategoriesSection = () => {
                   width: '38px',
                   height: '38px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(0, 210, 255, 0.2) 100%)',
+                  background: 'var(--badge-bg)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--electric-cyan)',
-                  border: '1px solid rgba(0, 210, 255, 0.3)',
-                  boxShadow: '0 0 10px rgba(0, 102, 255, 0.15)'
+                  color: 'var(--text-accent)',
+                  border: '1px solid var(--badge-border)',
+                  boxShadow: '0 0 10px rgba(0, 85, 255, 0.15)'
                 }}>
                   {getCategoryIcon(cat.icon)}
                 </div>

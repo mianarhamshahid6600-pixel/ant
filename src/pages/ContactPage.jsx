@@ -97,8 +97,9 @@ export const ContactPage = () => {
                   width: '42px',
                   height: '42px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(0, 210, 255, 0.2) 100%)',
-                  color: 'var(--electric-cyan)',
+                  background: 'var(--badge-bg)',
+                  color: 'var(--text-accent)',
+                  border: '1px solid var(--badge-border)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'

@@ -134,7 +134,7 @@ export const HeroSection = () => {
         transform: 'translateX(-50%)',
         width: '560px',
         height: '280px',
-        background: 'radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, rgba(0, 210, 255, 0.08) 40%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(0, 85, 255, 0.2) 0%, rgba(0, 43, 128, 0.08) 40%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none',
         zIndex: 0
@@ -258,7 +258,7 @@ export const HeroSection = () => {
               transform: 'translate(-50%, -50%)',
               width: '280px',
               height: '280px',
-              background: 'radial-gradient(circle, rgba(0, 210, 255, 0.28) 0%, rgba(0, 102, 255, 0.15) 50%, transparent 80%)',
+              background: 'radial-gradient(circle, rgba(0, 85, 255, 0.25) 0%, rgba(0, 43, 128, 0.12) 50%, transparent 80%)',
               borderRadius: '50%',
               filter: 'blur(30px)',
               pointerEvents: 'none'
@@ -307,7 +307,7 @@ export const HeroSection = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: 'radial-gradient(circle at center, rgba(0, 102, 255, 0.14) 0%, transparent 72%)',
+                  background: 'radial-gradient(circle at center, rgba(0, 85, 255, 0.12) 0%, transparent 72%)',
                   borderRadius: 'var(--radius-md)',
                   overflow: 'hidden'
                 }}
@@ -445,7 +445,7 @@ export const HeroSection = () => {
                   key={slideIndex}
                   style={{
                     height: '100%',
-                    background: 'linear-gradient(90deg, #0066FF, #00D2FF)',
+                    background: 'linear-gradient(90deg, #0055FF, #002B80)',
                     animation: 'heroTimerProgress 7s linear infinite'
                   }}
                 />

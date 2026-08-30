@@ -241,12 +241,12 @@ export const AboutPage = () => {
                   width: '48px',
                   height: '48px',
                   borderRadius: 'var(--radius-md)',
-                  background: 'linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(0, 210, 255, 0.2) 100%)',
-                  color: 'var(--electric-cyan)',
+                  background: 'var(--badge-bg)',
+                  color: 'var(--text-accent)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: '1px solid rgba(0, 210, 255, 0.3)'
+                  border: '1px solid var(--badge-border)'
                 }}>
                   {v.icon}
                 </div>
