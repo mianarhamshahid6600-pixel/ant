@@ -121,6 +121,16 @@ export const Footer = () => {
               </li>
               <li>
                 <button
+                  onClick={() => navigateTo('demo')}
+                  style={{ color: 'var(--electric-cyan)', fontWeight: 600, transition: 'color var(--transition-fast)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--electric-cyan)'}
+                >
+                  ✨ Live Product Simulator & Lighting Lab
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => navigateTo('about')}
                   style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#00D2FF'}

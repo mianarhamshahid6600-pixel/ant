@@ -81,6 +81,15 @@ export const HeroSection = () => {
                 <BookOpen size={16} />
                 <span>View Product Catalog</span>
               </button>
+
+              <button 
+                onClick={() => navigateTo('demo')}
+                className="btn btn-outline"
+                style={{ gap: '0.4rem', borderColor: 'rgba(0, 210, 255, 0.4)', color: 'var(--electric-cyan)' }}
+              >
+                <Sparkles size={15} />
+                <span>Live Demo Lab</span>
+              </button>
             </div>
 
             {/* Trust Points */}

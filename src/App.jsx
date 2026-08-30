@@ -9,6 +9,7 @@ import { ShopPage } from './pages/ShopPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
+import { DemoPage } from './pages/DemoPage';
 import { MessageSquare, Phone, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
 export const App = () => {
@@ -20,6 +21,8 @@ export const App = () => {
         return <ShopPage />;
       case 'catalog':
         return <CatalogPage />;
+      case 'demo':
+        return <DemoPage />;
       case 'about':
         return <AboutPage />;
       case 'contact':

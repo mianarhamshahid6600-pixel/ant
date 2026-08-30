@@ -1,6 +1,5 @@
 import React from 'react';
 import { HeroSection } from '../components/HeroSection';
-import { InteractiveLightingLab } from '../components/InteractiveLightingLab';
 import { CategoriesSection } from '../components/CategoriesSection';
 import { FeaturedProducts } from '../components/FeaturedProducts';
 import { PrimePartnershipBanner } from '../components/PrimePartnershipBanner';
@@ -41,10 +40,7 @@ export const HomePage = () => {
       {/* 1. Hero Section */}
       <HeroSection />
 
-      {/* 2. Interactive Lighting Lab Simulator */}
-      <InteractiveLightingLab />
-
-      {/* 3. Categories Grid Section */}
+      {/* 2. Categories Grid Section */}
       <CategoriesSection />
 
       {/* 4. Featured Prime Products Showcase */}

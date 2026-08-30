@@ -247,6 +247,30 @@ export const Navbar = () => {
               )}
             </button>
 
+            {/* Live Product Demo Button */}
+            <button
+              onClick={() => handleNavClick('demo')}
+              style={{
+                fontWeight: 700,
+                color: currentPage === 'demo' ? '#FFFFFF' : 'var(--electric-cyan)',
+                background: currentPage === 'demo' 
+                  ? 'linear-gradient(135deg, var(--electric-cyan), var(--electric-blue))' 
+                  : 'rgba(0, 102, 255, 0.14)',
+                border: '1px solid rgba(0, 210, 255, 0.4)',
+                padding: '0.35rem 0.85rem',
+                borderRadius: 'var(--radius-full)',
+                fontSize: '0.85rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                boxShadow: currentPage === 'demo' ? 'var(--glow-electric)' : '0 0 12px rgba(0, 102, 255, 0.2)',
+                transition: 'all var(--transition-fast)'
+              }}
+            >
+              <Sparkles size={14} />
+              <span>Live Demo</span>
+            </button>
+
             <button
               onClick={() => handleNavClick('about')}
               style={{
@@ -487,6 +511,27 @@ export const Navbar = () => {
               }}
             >
               <span>Digital Catalog & Specs</span>
+              <ChevronRight size={16} opacity={0.5} />
+            </button>
+
+            <button
+              onClick={() => handleNavClick('demo')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.75rem 1rem',
+                borderRadius: 'var(--radius-md)',
+                background: currentPage === 'demo' ? 'var(--badge-bg)' : 'transparent',
+                color: currentPage === 'demo' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                fontWeight: 600,
+                textAlign: 'left'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Sparkles size={16} style={{ color: 'var(--electric-cyan)' }} />
+                <span>Live Product Demo</span>
+              </div>
               <ChevronRight size={16} opacity={0.5} />
             </button>
 
