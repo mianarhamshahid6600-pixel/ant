@@ -207,23 +207,23 @@ export const PageTransitionWall = () => {
         </div>
       </div>
 
-      {/* ================= CENTER: ONLY PRIME LOGO ================= */}
+      {/* ================= CENTER: ALNOOR TRADERS LOGO ================= */}
       <div style={{
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '1.25rem',
+        gap: '1rem',
         zIndex: 10
       }}>
         
-        {/* Prime Logo Glass Card */}
+        {/* Alnoor Traders Logo Glass Card */}
         <div style={{
           position: 'relative',
           padding: '1.5rem 3rem',
           borderRadius: 'var(--radius-xl)',
-          background: theme === 'dark' ? 'rgba(10, 22, 51, 0.85)' : 'rgba(255, 255, 255, 0.95)',
+          background: theme === 'dark' ? 'rgba(10, 22, 51, 0.88)' : 'rgba(255, 255, 255, 0.95)',
           border: `1px solid ${theme === 'dark' ? 'rgba(0, 85, 255, 0.4)' : 'rgba(0, 43, 128, 0.2)'}`,
           boxShadow: theme === 'dark' 
             ? '0 20px 50px rgba(0, 85, 255, 0.3), inset 0 0 20px rgba(0, 85, 255, 0.15)' 
@@ -237,38 +237,23 @@ export const PageTransitionWall = () => {
           animation: 'primePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
         }}>
           
-          {/* Official Prime Logo */}
+          {/* Alnoor Traders Logo Image */}
           <img
-            src="/images/prime-logo.png"
-            alt="Prime Logo"
+            src={theme === 'dark' ? '/images/logo-transparent-white-text.png' : '/images/logo-transparent.png'}
+            alt="Alnoor Traders"
             style={{
-              height: '58px',
+              height: '62px',
               width: 'auto',
               objectFit: 'contain',
               filter: theme === 'dark' 
-                ? 'brightness(0) invert(1) drop-shadow(0 0 15px rgba(0, 85, 255, 0.7))' 
-                : 'drop-shadow(0 4px 10px rgba(0, 43, 128, 0.25))',
+                ? 'drop-shadow(0 0 16px rgba(0, 85, 255, 0.55))' 
+                : 'drop-shadow(0 4px 10px rgba(0, 43, 128, 0.2))',
               transition: 'all 0.3s ease'
             }}
             onError={(e) => {
-              e.target.style.display = 'none';
-              if (e.target.nextSibling) {
-                e.target.nextSibling.style.display = 'block';
-              }
+              e.target.src = '/images/logo-transparent.png';
             }}
           />
-
-          {/* Text Fallback if image load fails */}
-          <div style={{
-            display: 'none',
-            fontSize: '2.4rem',
-            fontWeight: 900,
-            letterSpacing: '0.15em',
-            color: 'var(--text-primary)',
-            fontFamily: 'var(--font-heading)'
-          }}>
-            PRIME
-          </div>
 
         </div>
 
