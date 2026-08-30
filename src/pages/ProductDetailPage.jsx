@@ -276,10 +276,10 @@ export const ProductDetailPage = () => {
             }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
-                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--electric-cyan)', fontWeight: 800 }}>
+                  <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-accent)', fontWeight: 800 }}>
                     Distributor Pricing Status
                   </div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#FFFFFF', marginTop: '0.15rem' }}>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.15rem' }}>
                     Wholesale & Contractor Rates Available
                   </div>
                 </div>
@@ -443,7 +443,8 @@ export const ProductDetailPage = () => {
             gap: '1rem',
             borderBottom: '1px solid var(--border-card)',
             paddingBottom: '0.5rem',
-            marginBottom: '1.5rem'
+            marginBottom: '1.5rem',
+            overflowX: 'auto'
           }}>
             <button
               onClick={() => setActiveTab('specs')}
@@ -452,10 +453,11 @@ export const ProductDetailPage = () => {
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
                 fontSize: '0.95rem',
-                color: activeTab === 'specs' ? '#FFFFFF' : 'var(--text-secondary)',
+                color: activeTab === 'specs' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'specs' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'specs' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
+                whiteSpace: 'nowrap'
               }}
             >
               Technical Specifications
@@ -468,10 +470,11 @@ export const ProductDetailPage = () => {
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
                 fontSize: '0.95rem',
-                color: activeTab === 'features' ? '#FFFFFF' : 'var(--text-secondary)',
+                color: activeTab === 'features' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'features' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'features' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
+                whiteSpace: 'nowrap'
               }}
             >
               Key Features & Highlights
@@ -484,10 +487,11 @@ export const ProductDetailPage = () => {
                 borderRadius: 'var(--radius-md)',
                 fontWeight: 700,
                 fontSize: '0.95rem',
-                color: activeTab === 'distributor' ? '#FFFFFF' : 'var(--text-secondary)',
+                color: activeTab === 'distributor' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 background: activeTab === 'distributor' ? 'var(--badge-bg)' : 'transparent',
                 border: activeTab === 'distributor' ? '1px solid var(--border-card-hover)' : '1px solid transparent',
-                transition: 'all var(--transition-fast)'
+                transition: 'all var(--transition-fast)',
+                whiteSpace: 'nowrap'
               }}
             >
               Distributor Verification & Supply

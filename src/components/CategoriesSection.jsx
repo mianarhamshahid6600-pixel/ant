@@ -128,7 +128,7 @@ export const CategoriesSection = () => {
                 <h3 style={{ fontSize: '1.05rem', color: 'var(--text-primary)' }}>
                   {cat.name}
                 </h3>
-                <div style={{ fontSize: '0.75rem', color: 'var(--electric-cyan)', fontWeight: 600 }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-accent)', fontWeight: 600 }}>
                   {cat.subtitle}
                 </div>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem', lineHeight: 1.45 }}>

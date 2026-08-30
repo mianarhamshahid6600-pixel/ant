@@ -132,9 +132,9 @@ export const AboutPage = () => {
             className="glass-card"
             style={{
               padding: '2.5rem',
-              border: '1px solid rgba(0, 210, 255, 0.3)',
-              boxShadow: 'var(--glow-electric)',
-              background: 'linear-gradient(135deg, rgba(13, 21, 39, 0.95) 0%, rgba(7, 11, 20, 0.98) 100%)',
+              border: '1px solid var(--border-card-hover)',
+              boxShadow: 'var(--shadow-elevated)',
+              background: 'linear-gradient(135deg, var(--bg-card) 0%, var(--bg-secondary) 100%)',
               borderRadius: 'var(--radius-xl)'
             }}
           >
@@ -142,46 +142,47 @@ export const AboutPage = () => {
               <img 
                 src="/images/logo-transparent-white-text.png" 
                 alt="Alnoor Traders" 
+                className="brand-logo-img"
                 style={{ height: '56px', objectFit: 'contain' }} 
               />
               <div>
-                <div style={{ fontWeight: 800, fontSize: '1.25rem', color: '#FFFFFF' }}>
+                <div style={{ fontWeight: 800, fontSize: '1.25rem', color: 'var(--text-primary)' }}>
                   Alnoor Traders
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--electric-cyan)', fontWeight: 700 }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-accent)', fontWeight: 700 }}>
                   Authorized Prime Lighting Distributor
                 </div>
               </div>
             </div>
 
             <div style={{
-              background: 'rgba(0, 102, 255, 0.1)',
+              background: 'var(--badge-bg)',
               padding: '1.25rem',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid rgba(0, 210, 255, 0.2)',
+              border: '1px solid var(--border-card)',
               marginBottom: '1.5rem'
             }}>
-              <div style={{ fontSize: '0.85rem', color: '#94A3B8', lineHeight: 1.5 }}>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                 "This certifies that <strong>Alnoor Traders</strong> is an officially appointed wholesale distributor authorized to stock, supply, and warranty genuine Prime Lighting and Prime Traders electrical products."
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.85rem', color: '#94A3B8' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.4rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.4rem' }}>
                 <span>Main Phone:</span>
-                <a href={`tel:${distributor.phone1}`} style={{ color: '#00D2FF', fontWeight: 700 }}>{distributor.phone1}</a>
+                <a href={`tel:${distributor.phone1}`} style={{ color: 'var(--text-accent)', fontWeight: 700 }}>{distributor.phone1}</a>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.4rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.4rem' }}>
                 <span>Wholesale Line:</span>
-                <a href={`tel:${distributor.phone2}`} style={{ color: '#00D2FF', fontWeight: 700 }}>{distributor.phone2}</a>
+                <a href={`tel:${distributor.phone2}`} style={{ color: 'var(--text-accent)', fontWeight: 700 }}>{distributor.phone2}</a>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.4rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.4rem' }}>
                 <span>Address:</span>
-                <strong style={{ color: '#FFFFFF', textAlign: 'right' }}>{distributor.address}</strong>
+                <strong style={{ color: 'var(--text-primary)', textAlign: 'right' }}>{distributor.address}</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '0.4rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid var(--border-subtle)', paddingBottom: '0.4rem' }}>
                 <span>Hours:</span>
-                <span style={{ color: '#FFFFFF', fontWeight: 600 }}>10 AM – 8 PM (Closed Friday)</span>
+                <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>10 AM – 8 PM (Closed Friday)</span>
               </div>
             </div>
 
@@ -191,7 +192,7 @@ export const AboutPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-sm"
-                style={{ width: '100%', gap: '0.4rem', justifyContent: 'center', borderColor: 'rgba(0, 210, 255, 0.4)' }}
+                style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
               >
                 <span>View on Google Maps</span>
               </a>

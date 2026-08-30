@@ -175,7 +175,7 @@ export const Navbar = () => {
               onClick={() => handleNavClick('home')}
               style={{
                 fontWeight: currentPage === 'home' ? 700 : 500,
-                color: currentPage === 'home' ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                color: currentPage === 'home' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 position: 'relative',
                 padding: '0.4rem 0',
                 fontSize: '0.95rem'
@@ -199,7 +199,7 @@ export const Navbar = () => {
               onClick={() => handleNavClick('shop')}
               style={{
                 fontWeight: currentPage === 'shop' ? 700 : 500,
-                color: currentPage === 'shop' ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                color: currentPage === 'shop' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 position: 'relative',
                 padding: '0.4rem 0',
                 fontSize: '0.95rem'
@@ -223,7 +223,7 @@ export const Navbar = () => {
               onClick={() => handleNavClick('catalog')}
               style={{
                 fontWeight: currentPage === 'catalog' ? 700 : 500,
-                color: currentPage === 'catalog' ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                color: currentPage === 'catalog' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 position: 'relative',
                 padding: '0.4rem 0',
                 fontSize: '0.95rem',
@@ -252,18 +252,18 @@ export const Navbar = () => {
               onClick={() => handleNavClick('demo')}
               style={{
                 fontWeight: 700,
-                color: currentPage === 'demo' ? '#FFFFFF' : 'var(--electric-cyan)',
+                color: currentPage === 'demo' ? '#FFFFFF' : 'var(--text-accent)',
                 background: currentPage === 'demo' 
                   ? 'linear-gradient(135deg, var(--electric-cyan), var(--electric-blue))' 
-                  : 'rgba(0, 102, 255, 0.14)',
-                border: '1px solid rgba(0, 210, 255, 0.4)',
+                  : 'var(--badge-bg)',
+                border: '1px solid var(--border-card-hover)',
                 padding: '0.35rem 0.85rem',
                 borderRadius: 'var(--radius-full)',
                 fontSize: '0.85rem',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.35rem',
-                boxShadow: currentPage === 'demo' ? 'var(--glow-electric)' : '0 0 12px rgba(0, 102, 255, 0.2)',
+                boxShadow: currentPage === 'demo' ? 'var(--glow-electric)' : 'none',
                 transition: 'all var(--transition-fast)'
               }}
             >
@@ -275,7 +275,7 @@ export const Navbar = () => {
               onClick={() => handleNavClick('about')}
               style={{
                 fontWeight: currentPage === 'about' ? 700 : 500,
-                color: currentPage === 'about' ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                color: currentPage === 'about' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 position: 'relative',
                 padding: '0.4rem 0',
                 fontSize: '0.95rem'
@@ -299,7 +299,7 @@ export const Navbar = () => {
               onClick={() => handleNavClick('contact')}
               style={{
                 fontWeight: currentPage === 'contact' ? 700 : 500,
-                color: currentPage === 'contact' ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                color: currentPage === 'contact' ? 'var(--text-accent)' : 'var(--text-secondary)',
                 position: 'relative',
                 padding: '0.4rem 0',
                 fontSize: '0.95rem'
@@ -469,7 +469,7 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'home' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'home' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'home' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}
@@ -487,7 +487,7 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'shop' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'shop' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'shop' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}
@@ -505,7 +505,7 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'catalog' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'catalog' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'catalog' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}
@@ -523,13 +523,13 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'demo' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'demo' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'demo' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Sparkles size={16} style={{ color: 'var(--electric-cyan)' }} />
+                <Sparkles size={16} style={{ color: 'var(--text-accent)' }} />
                 <span>Live Product Demo</span>
               </div>
               <ChevronRight size={16} opacity={0.5} />
@@ -544,7 +544,7 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'about' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'about' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'about' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}
@@ -562,7 +562,7 @@ export const Navbar = () => {
                 padding: '0.75rem 1rem',
                 borderRadius: 'var(--radius-md)',
                 background: currentPage === 'contact' ? 'var(--badge-bg)' : 'transparent',
-                color: currentPage === 'contact' ? 'var(--electric-cyan)' : 'var(--text-primary)',
+                color: currentPage === 'contact' ? 'var(--text-accent)' : 'var(--text-primary)',
                 fontWeight: 600,
                 textAlign: 'left'
               }}

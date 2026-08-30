@@ -65,10 +65,10 @@ export const FeaturedProducts = () => {
                 fontSize: '0.82rem',
                 fontWeight: 600,
                 background: activeTab === tab.id 
-                  ? 'linear-gradient(135deg, var(--electric-cyan) 0%, var(--electric-blue) 100%)' 
+                  ? 'var(--badge-bg)' 
                   : 'var(--bg-card)',
-                color: activeTab === tab.id ? '#070B14' : 'var(--text-secondary)',
-                border: `1px solid ${activeTab === tab.id ? '#00D2FF' : 'var(--border-card)'}`,
+                color: activeTab === tab.id ? 'var(--text-accent)' : 'var(--text-secondary)',
+                border: `1px solid ${activeTab === tab.id ? 'var(--border-card-hover)' : 'var(--border-card)'}`,
                 boxShadow: activeTab === tab.id ? 'var(--glow-electric)' : 'none',
                 cursor: 'pointer',
                 transition: 'all var(--transition-fast)'
@@ -145,7 +145,7 @@ export const FeaturedProducts = () => {
                   
                   {/* Series and Rating */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--electric-cyan)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                       {product.series}
                     </span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', color: '#F59E0B' }}>

@@ -218,7 +218,7 @@ export const InteractiveLightingLab = () => {
             }}>
               <div>
                 <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Electricity Used</div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--electric-cyan)', fontFamily: 'var(--font-mono)' }}>
+                <div style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text-accent)', fontFamily: 'var(--font-mono)' }}>
                   {calculatedWatts} <span style={{ fontSize: '0.68rem' }}>Watts</span>
                 </div>
               </div>
@@ -327,10 +327,10 @@ export const InteractiveLightingLab = () => {
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
                 <span style={{ fontWeight: 600, fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Sliders size={14} style={{ color: 'var(--electric-cyan)' }} />
+                  <Sliders size={14} style={{ color: 'var(--text-accent)' }} />
                   Brightness Slider (Dimmer)
                 </span>
-                <span style={{ fontWeight: 700, color: 'var(--electric-cyan)', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>
+                <span style={{ fontWeight: 700, color: 'var(--text-accent)', fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>
                   {isOn ? `${brightness}%` : 'OFF'}
                 </span>
               </div>
@@ -357,7 +357,7 @@ export const InteractiveLightingLab = () => {
             {/* 3. Light Color Selector */}
             <div>
               <span style={{ fontWeight: 600, fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.45rem' }}>
-                <Sun size={14} style={{ color: 'var(--electric-cyan)' }} />
+                <Sun size={14} style={{ color: 'var(--text-accent)' }} />
                 Light Color (3-in-1 Switch):
               </span>
 
@@ -409,11 +409,11 @@ export const InteractiveLightingLab = () => {
                       padding: '0.4rem 0.6rem',
                       borderRadius: 'var(--radius-sm)',
                       background: selectedProductIndex === idx ? 'var(--badge-bg)' : 'var(--bg-tertiary)',
-                      border: `1px solid ${selectedProductIndex === idx ? 'var(--electric-cyan)' : 'var(--border-subtle)'}`,
+                      border: `1px solid ${selectedProductIndex === idx ? 'var(--border-card-hover)' : 'var(--border-subtle)'}`,
                       textAlign: 'left',
                       fontSize: '0.75rem',
                       fontWeight: selectedProductIndex === idx ? 700 : 500,
-                      color: selectedProductIndex === idx ? 'var(--electric-cyan)' : 'var(--text-secondary)',
+                      color: selectedProductIndex === idx ? 'var(--text-accent)' : 'var(--text-secondary)',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.35rem'
@@ -423,7 +423,7 @@ export const InteractiveLightingLab = () => {
                       width: '5px',
                       height: '5px',
                       borderRadius: '50%',
-                      background: selectedProductIndex === idx ? 'var(--electric-cyan)' : 'transparent'
+                      background: selectedProductIndex === idx ? 'var(--text-accent)' : 'transparent'
                     }} />
                     <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                       {p.name.replace('Prime', '').trim()}

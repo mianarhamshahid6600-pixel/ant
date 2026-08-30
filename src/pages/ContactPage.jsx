@@ -127,7 +127,7 @@ export const ContactPage = () => {
                   }}
                 >
                   <span>Primary Helpline:</span>
-                  <span style={{ color: 'var(--electric-cyan)' }}>{distributor.phone1}</span>
+                  <span style={{ color: 'var(--text-accent)' }}>{distributor.phone1}</span>
                 </a>
 
                 <a 
@@ -145,7 +145,7 @@ export const ContactPage = () => {
                   }}
                 >
                   <span>Wholesale Desk:</span>
-                  <span style={{ color: 'var(--electric-cyan)' }}>{distributor.phone2}</span>
+                  <span style={{ color: 'var(--text-accent)' }}>{distributor.phone2}</span>
                 </a>
               </div>
             </div>
@@ -180,7 +180,7 @@ export const ContactPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp"
-                style={{ width: '100%', gap: '0.5rem' }}
+                style={{ width: '100%', gap: '0.5rem', justifyContent: 'center' }}
               >
                 <MessageSquare size={18} />
                 <span>Open WhatsApp ({distributor.phone1})</span>
@@ -191,7 +191,7 @@ export const ContactPage = () => {
             <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.9rem' }}>
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <MapPin size={20} style={{ color: 'var(--electric-cyan)', flexShrink: 0, marginTop: '2px' }} />
+                  <MapPin size={20} style={{ color: 'var(--text-accent)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--text-primary)' }}>Store & Wholesale Address:</strong>
                     <div style={{ color: 'var(--text-secondary)', marginTop: '0.25rem', lineHeight: 1.45 }}>
@@ -201,7 +201,7 @@ export const ContactPage = () => {
                 </div>
 
                 <div style={{ display: 'flex', gap: '0.75rem' }}>
-                  <Clock size={20} style={{ color: 'var(--electric-cyan)', flexShrink: 0, marginTop: '2px' }} />
+                  <Clock size={20} style={{ color: 'var(--text-accent)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
                     <strong style={{ color: 'var(--text-primary)' }}>Opening Hours:</strong>
                     <div style={{ color: 'var(--text-secondary)', marginTop: '0.25rem', lineHeight: 1.45 }}>
@@ -220,9 +220,9 @@ export const ContactPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-sm"
-                style={{ width: '100%', gap: '0.4rem', justifyContent: 'center', borderColor: 'rgba(0, 210, 255, 0.4)' }}
+                style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
               >
-                <MapPin size={15} style={{ color: 'var(--electric-cyan)' }} />
+                <MapPin size={15} />
                 <span>Open on Google Maps</span>
               </a>
             </div>
@@ -405,8 +405,8 @@ export const ContactPage = () => {
                             fontSize: '0.8rem',
                             fontWeight: 600,
                             background: isSelected ? 'var(--badge-bg)' : 'var(--bg-tertiary)',
-                            color: isSelected ? 'var(--electric-cyan)' : 'var(--text-secondary)',
-                            border: `1px solid ${isSelected ? 'var(--electric-cyan)' : 'var(--border-subtle)'}`,
+                            color: isSelected ? 'var(--text-accent)' : 'var(--text-secondary)',
+                            border: `1px solid ${isSelected ? 'var(--text-accent)' : 'var(--border-subtle)'}`,
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',

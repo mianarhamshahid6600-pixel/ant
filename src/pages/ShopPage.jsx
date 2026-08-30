@@ -232,10 +232,10 @@ export const ShopPage = () => {
               fontWeight: 600,
               whiteSpace: 'nowrap',
               background: selectedCategory === 'all' 
-                ? 'linear-gradient(135deg, var(--electric-cyan), var(--electric-blue))' 
+                ? 'var(--badge-bg)' 
                 : 'var(--bg-card)',
-              color: selectedCategory === 'all' ? '#070B14' : 'var(--text-secondary)',
-              border: `1px solid ${selectedCategory === 'all' ? '#00D2FF' : 'var(--border-card)'}`,
+              color: selectedCategory === 'all' ? 'var(--text-accent)' : 'var(--text-secondary)',
+              border: `1px solid ${selectedCategory === 'all' ? 'var(--border-card-hover)' : 'var(--border-card)'}`,
               boxShadow: selectedCategory === 'all' ? 'var(--glow-electric)' : 'none',
               cursor: 'pointer'
             }}
@@ -258,10 +258,10 @@ export const ShopPage = () => {
                   fontWeight: 600,
                   whiteSpace: 'nowrap',
                   background: isSelected 
-                    ? 'linear-gradient(135deg, var(--electric-cyan), var(--electric-blue))' 
+                    ? 'var(--badge-bg)' 
                     : 'var(--bg-card)',
-                  color: isSelected ? '#070B14' : 'var(--text-secondary)',
-                  border: `1px solid ${isSelected ? '#00D2FF' : 'var(--border-card)'}`,
+                  color: isSelected ? 'var(--text-accent)' : 'var(--text-secondary)',
+                  border: `1px solid ${isSelected ? 'var(--border-card-hover)' : 'var(--border-card)'}`,
                   boxShadow: isSelected ? 'var(--glow-electric)' : 'none',
                   cursor: 'pointer'
                 }}
@@ -366,7 +366,7 @@ export const ShopPage = () => {
 
                   <div className="product-body">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--electric-cyan)', textTransform: 'uppercase' }}>
+                      <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase' }}>
                         {product.series}
                       </span>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', color: '#F59E0B' }}>
@@ -498,7 +498,7 @@ export const ShopPage = () => {
 
                   <div style={{ flex: 1, minWidth: '240px' }}>
                     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.2rem' }}>
-                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--electric-cyan)', textTransform: 'uppercase' }}>
+                      <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-accent)', textTransform: 'uppercase' }}>
                         {product.series}
                       </span>
                       {product.badge && (
