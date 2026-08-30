@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { 
-  ShoppingBag, Eye, Star, ArrowRight, Sparkles 
+  ShoppingBag, Eye, Star, ArrowRight, Sparkles, MessageSquare 
 } from 'lucide-react';
 
 export const FeaturedProducts = () => {
@@ -9,8 +9,9 @@ export const FeaturedProducts = () => {
     products, 
     addToCart, 
     setQuickViewProduct, 
-    navigateTo,
-    isContractorMode 
+    viewProductDetail,
+    getWhatsAppProductUrl,
+    navigateTo
   } = useStore();
 
   const [activeTab, setActiveTab] = useState('all');
@@ -81,12 +82,12 @@ export const FeaturedProducts = () => {
         {/* Products Grid */}
         <div className="grid-products">
           {filteredProducts.slice(0, 8).map((product) => {
-            const displayPrice = isContractorMode ? product.contractorPrice : product.price;
-
             return (
               <div 
                 key={product.id}
                 className="glass-card product-card"
+                onClick={() => viewProductDetail(product)}
+                style={{ cursor: 'pointer' }}
               >
                 {/* Top Badge */}
                 <div style={{
@@ -117,7 +118,10 @@ export const FeaturedProducts = () => {
 
                   {/* Quick View Button */}
                   <button
-                    onClick={() => setQuickViewProduct(product)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setQuickViewProduct(product);
+                    }}
                     className="btn btn-primary btn-sm"
                     style={{
                       position: 'absolute',
@@ -186,50 +190,54 @@ export const FeaturedProducts = () => {
                     ))}
                   </div>
 
-                  {/* Price Row */}
+                  {/* Action & WhatsApp Row (No numeric price) */}
                   <div style={{
                     display: 'flex',
-                    alignItems: 'baseline',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
                     marginTop: 'auto',
-                    paddingTop: '0.5rem',
-                    borderTop: '1px solid var(--border-subtle)'
+                    paddingTop: '0.55rem',
+                    borderTop: '1px solid var(--border-subtle)',
+                    gap: '0.4rem'
                   }}>
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.3rem' }}>
-                        <span style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                          Rs. {displayPrice.toLocaleString()}
-                        </span>
-                        {product.originalPrice && !isContractorMode && (
-                          <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>
-                            Rs. {product.originalPrice.toLocaleString()}
-                          </span>
-                        )}
+                      <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 700 }}>
+                        Wholesale Rate
                       </div>
-                      {isContractorMode ? (
-                        <div style={{ fontSize: '0.68rem', color: '#10B981', fontWeight: 700 }}>
-                          Wholesale Applied
-                        </div>
-                      ) : (
-                        <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                          Wholesale: Rs. {product.contractorPrice.toLocaleString()}
-                        </div>
-                      )}
+                      <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                        Contact on WhatsApp
+                      </div>
                     </div>
 
-                    <button
-                      onClick={() => addToCart(product, 1)}
-                      className="btn btn-primary btn-sm"
-                      style={{
-                        padding: '0.35rem 0.65rem',
-                        gap: '0.25rem',
-                        fontSize: '0.78rem'
-                      }}
-                      title="Add to Quote"
-                    >
-                      <ShoppingBag size={13} />
-                      <span>Add</span>
-                    </button>
+                    <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
+                      <a
+                        href={getWhatsAppProductUrl(product, 1)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="btn btn-whatsapp btn-sm"
+                        style={{ padding: '0.35rem 0.55rem', gap: '0.3rem', fontSize: '0.75rem' }}
+                        title="Inquire Price on WhatsApp"
+                      >
+                        <MessageSquare size={14} />
+                        <span>WhatsApp</span>
+                      </a>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product, 1);
+                        }}
+                        className="btn btn-primary btn-sm"
+                        style={{
+                          padding: '0.35rem 0.55rem',
+                          fontSize: '0.75rem'
+                        }}
+                        title="Add to Quote List"
+                      >
+                        <ShoppingBag size={13} />
+                      </button>
+                    </div>
                   </div>
 
                 </div>

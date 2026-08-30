@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { 
   X, ShoppingBag, MessageSquare, Star, 
-  Plus, Minus 
+  Plus, Minus, ArrowRight, ShieldCheck 
 } from 'lucide-react';
 
 export const QuickViewModal = () => {
@@ -10,7 +10,8 @@ export const QuickViewModal = () => {
     quickViewProduct, 
     setQuickViewProduct, 
     addToCart, 
-    isContractorMode,
+    viewProductDetail,
+    getWhatsAppProductUrl,
     distributor
   } = useStore();
 
@@ -19,16 +20,15 @@ export const QuickViewModal = () => {
   if (!quickViewProduct) return null;
 
   const product = quickViewProduct;
-  const currentPrice = isContractorMode ? product.contractorPrice : product.price;
 
   const handleAdd = () => {
     addToCart(product, quantity);
     setQuickViewProduct(null);
   };
 
-  const handleSingleWhatsAppInquiry = () => {
-    const text = `Hello Alnoor Traders! I want to inquire about *${product.name}* (${product.series}).\nPrice: Rs. ${currentPrice.toLocaleString()}.\nPlease confirm stock availability.`;
-    window.open(`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent(text)}`, '_blank');
+  const handleOpenDetailPage = () => {
+    setQuickViewProduct(null);
+    viewProductDetail(product);
   };
 
   return (
@@ -69,6 +69,7 @@ export const QuickViewModal = () => {
         {/* Close Button */}
         <button
           onClick={() => setQuickViewProduct(null)}
+          aria-label="Close modal"
           style={{
             position: 'absolute',
             top: '1.25rem',
@@ -123,7 +124,7 @@ export const QuickViewModal = () => {
           </div>
 
           {/* Product Details */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.15rem' }}>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--electric-cyan)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -136,37 +137,27 @@ export const QuickViewModal = () => {
               </div>
             </div>
 
-            <h3 style={{ fontSize: '1.45rem', lineHeight: 1.25, color: 'var(--text-primary)' }}>
+            <h3 style={{ fontSize: '1.35rem', lineHeight: 1.25, color: 'var(--text-primary)' }}>
               {product.name}
             </h3>
 
-            {/* Price Box */}
+            {/* Wholesale Pricing Status Banner (No numeric prices) */}
             <div style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: '0.75rem',
               padding: '0.75rem 1rem',
               background: 'var(--bg-tertiary)',
               borderRadius: 'var(--radius-md)',
               border: '1px solid var(--border-subtle)'
             }}>
-              <div>
-                <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                  Rs. {currentPrice.toLocaleString()}
-                </div>
-                <div style={{ fontSize: '0.75rem', color: isContractorMode ? '#10B981' : 'var(--text-muted)' }}>
-                  {isContractorMode ? 'Contractor Wholesale Rate' : `Retail Rate (Wholesale: Rs. ${product.contractorPrice.toLocaleString()})`}
-                </div>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#10B981' }}>
+                Wholesale & Project Rates on Request
               </div>
-              {product.originalPrice && !isContractorMode && (
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>
-                  Rs. {product.originalPrice.toLocaleString()}
-                </span>
-              )}
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
+                Direct Supply from Alnoor Traders • 10-Year Warranty
+              </div>
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
               {product.description}
             </p>
 
@@ -178,17 +169,17 @@ export const QuickViewModal = () => {
                 border: '1px solid var(--border-card)',
                 overflow: 'hidden'
               }}>
-                <div style={{ padding: '0.5rem 0.85rem', background: 'var(--bg-tertiary)', fontWeight: 700, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
-                  Technical Details
+                <div style={{ padding: '0.45rem 0.8rem', background: 'var(--bg-tertiary)', fontWeight: 700, fontSize: '0.78rem', color: 'var(--text-primary)' }}>
+                  Technical Highlights
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr', fontSize: '0.8rem' }}>
-                  {Object.entries(product.specs).map(([key, val], idx) => (
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', fontSize: '0.78rem' }}>
+                  {Object.entries(product.specs).slice(0, 4).map(([key, val], idx) => (
                     <div 
                       key={key}
                       style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        padding: '0.4rem 0.85rem',
+                        padding: '0.35rem 0.8rem',
                         background: idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.02)',
                         borderTop: '1px solid var(--border-subtle)'
                       }}
@@ -201,8 +192,8 @@ export const QuickViewModal = () => {
               </div>
             )}
 
-            {/* Quantity Selector & Add Button */}
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem' }}>
+            {/* Quantity Selector & Action Buttons */}
+            <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center' }}>
               
               <div style={{
                 display: 'flex',
@@ -210,43 +201,55 @@ export const QuickViewModal = () => {
                 background: 'var(--bg-tertiary)',
                 borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--border-subtle)',
-                padding: '0.2rem'
+                padding: '0.15rem'
               }}>
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  style={{ padding: '0.5rem 0.75rem', color: 'var(--text-primary)' }}
+                  style={{ padding: '0.45rem 0.65rem', color: 'var(--text-primary)' }}
                 >
-                  <Minus size={15} />
+                  <Minus size={14} />
                 </button>
-                <span style={{ fontWeight: 700, minWidth: '32px', textAlign: 'center', fontSize: '0.95rem' }}>
+                <span style={{ fontWeight: 700, minWidth: '28px', textAlign: 'center', fontSize: '0.9rem' }}>
                   {quantity}
                 </span>
                 <button
                   onClick={() => setQuantity(quantity + 1)}
-                  style={{ padding: '0.5rem 0.75rem', color: 'var(--text-primary)' }}
+                  style={{ padding: '0.45rem 0.65rem', color: 'var(--text-primary)' }}
                 >
-                  <Plus size={15} />
+                  <Plus size={14} />
                 </button>
               </div>
 
               <button
                 onClick={handleAdd}
                 className="btn btn-primary"
-                style={{ flex: 1, gap: '0.5rem' }}
+                style={{ flex: 1, gap: '0.4rem', fontSize: '0.85rem' }}
               >
-                <ShoppingBag size={18} />
-                <span>Add to Quote (Rs. {(currentPrice * quantity).toLocaleString()})</span>
+                <ShoppingBag size={16} />
+                <span>Add to Quote List</span>
               </button>
             </div>
 
             {/* Direct WhatsApp Consultation */}
-            <button
-              onClick={handleSingleWhatsAppInquiry}
+            <a
+              href={getWhatsAppProductUrl(product, quantity)}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn btn-whatsapp btn-sm"
-              style={{ width: '100%', gap: '0.4rem' }}
+              style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
             >
               <MessageSquare size={16} />
-              <span>Ask about this item on WhatsApp ({distributor.phone1})</span>
+              <span>Contact on WhatsApp for Price ({distributor.phone1})</span>
+            </a>
+
+            {/* View Full Detail Page Link */}
+            <button
+              onClick={handleOpenDetailPage}
+              className="btn btn-outline btn-sm"
+              style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
+            >
+              <span>Open Full Product Page & Specs</span>
+              <ArrowRight size={14} />
             </button>
 
           </div>

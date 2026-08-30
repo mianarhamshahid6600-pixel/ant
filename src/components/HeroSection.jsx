@@ -3,7 +3,8 @@ import { ShoppingBag, BookOpen, MessageSquare, ShieldCheck, Zap, Award, ArrowRig
 import { useStore } from '../context/StoreContext';
 
 export const HeroSection = () => {
-  const { navigateTo, distributor } = useStore();
+  const { navigateTo, products, viewProductDetail, getWhatsAppProductUrl, distributor } = useStore();
+  const featuredHeroProduct = products[0] || { name: 'Prime Art Series Switch', series: 'Prime Art' };
 
   return (
     <section style={{
@@ -210,15 +211,10 @@ export const HeroSection = () => {
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                  <h3 style={{ fontSize: '1.05rem' }}>Prime Art Series Switch</h3>
-                  <div style={{ textAlign: 'right' }}>
-                    <span style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                      Rs. 680
-                    </span>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'line-through', marginLeft: '0.4rem' }}>
-                      Rs. 780
-                    </span>
-                  </div>
+                  <h3 style={{ fontSize: '1.05rem' }}>{featuredHeroProduct.name}</h3>
+                  <span style={{ fontSize: '0.78rem', color: '#10B981', fontWeight: 800 }}>
+                    Wholesale Available
+                  </span>
                 </div>
 
                 <p style={{ fontSize: '0.78rem', marginTop: '0.2rem', color: 'var(--text-secondary)' }}>
@@ -228,17 +224,22 @@ export const HeroSection = () => {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                 <button 
-                  onClick={() => navigateTo('shop', 'switches-sockets')}
-                  className="btn btn-outline btn-sm"
+                  onClick={() => viewProductDetail(featuredHeroProduct)}
+                  className="btn btn-electric btn-sm"
+                  style={{ fontSize: '0.78rem', padding: '0.4rem 0.6rem' }}
                 >
-                  See Switches
+                  View Product Page
                 </button>
-                <button 
-                  onClick={() => navigateTo('catalog')}
-                  className="btn btn-primary btn-sm"
+                <a 
+                  href={getWhatsAppProductUrl(featuredHeroProduct, 1)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-whatsapp btn-sm"
+                  style={{ fontSize: '0.78rem', padding: '0.4rem 0.6rem', gap: '0.3rem' }}
                 >
-                  View Details
-                </button>
+                  <MessageSquare size={13} />
+                  <span>WhatsApp Price</span>
+                </a>
               </div>
 
             </div>

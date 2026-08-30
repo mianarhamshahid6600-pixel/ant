@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
 import { 
   Search, Grid, List, Star, 
-  ShoppingBag, Eye, X, Filter, Sparkles, RotateCcw 
+  ShoppingBag, Eye, Filter, Sparkles, RotateCcw, MessageSquare, ArrowRight 
 } from 'lucide-react';
 
 export const ShopPage = () => {
@@ -13,17 +13,19 @@ export const ShopPage = () => {
     setSelectedCategory, 
     searchQuery, 
     setSearchQuery,
-    priceRange, 
     sortBy, 
     setSortBy,
     addToCart, 
     setQuickViewProduct,
-    isContractorMode,
-    setIsContractorMode
+    viewProductDetail,
+    getWhatsAppProductUrl
   } = useStore();
 
   const [viewMode, setViewMode] = useState('grid');
   const [selectedSeries, setSelectedSeries] = useState('all');
+
+  // Extract all unique series
+  const allSeries = ['all', ...Array.from(new Set(products.map(p => p.series).filter(Boolean)))];
 
   // Filtering Logic
   const filteredProducts = products.filter(product => {
@@ -35,16 +37,11 @@ export const ShopPage = () => {
       return false;
     }
 
-    const effectivePrice = isContractorMode ? product.contractorPrice : product.price;
-    if (effectivePrice > priceRange) {
-      return false;
-    }
-
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchName = product.name.toLowerCase().includes(q);
-      const matchSeries = product.series.toLowerCase().includes(q);
-      const matchDesc = product.description.toLowerCase().includes(q);
+      const matchSeries = product.series && product.series.toLowerCase().includes(q);
+      const matchDesc = product.description && product.description.toLowerCase().includes(q);
       if (!matchName && !matchSeries && !matchDesc) {
         return false;
       }
@@ -55,14 +52,10 @@ export const ShopPage = () => {
 
   // Sorting Logic
   const sortedProducts = [...filteredProducts].sort((a, b) => {
-    const priceA = isContractorMode ? a.contractorPrice : a.price;
-    const priceB = isContractorMode ? b.contractorPrice : b.price;
-
-    if (sortBy === 'price-low') return priceA - priceB;
-    if (sortBy === 'price-high') return priceB - priceA;
-    if (sortBy === 'rating') return b.rating - a.rating;
-    if (sortBy === 'reviews') return b.reviewsCount - a.reviewsCount;
-    return 0;
+    if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0);
+    if (sortBy === 'reviews') return (b.reviewsCount || 0) - (a.reviewsCount || 0);
+    if (sortBy === 'name') return a.name.localeCompare(b.name);
+    return 0; // Default popular order
   });
 
   const handleResetFilters = () => {
@@ -77,16 +70,16 @@ export const ShopPage = () => {
       <div className="container">
         
         {/* Page Header */}
-        <div style={{ marginBottom: '2.5rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
           <div className="badge badge-prime" style={{ marginBottom: '0.6rem' }}>
             <Sparkles size={13} />
-            Alnoor Traders Catalog
+            Alnoor Traders Wholesale Catalog
           </div>
           <h1>
-            Prime Electrical <span className="text-electric-blue">Store & Stock</span>
+            Prime Electrical <span className="text-electric-blue">Product Catalog</span>
           </h1>
           <p style={{ marginTop: '0.5rem', maxWidth: '650px', fontSize: '1.05rem' }}>
-            Browse our full stock of switches, luxury glass plates, ceiling lights, low-power fans, and circuit breakers.
+            Browse our full stock of switches, luxury tempered glass plates, SMD downlights, low-wattage BLDC fans, and circuit breakers.
           </p>
         </div>
 
@@ -95,7 +88,7 @@ export const ShopPage = () => {
           className="glass-card"
           style={{
             padding: '1.25rem 1.5rem',
-            marginBottom: '2rem',
+            marginBottom: '1.75rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -117,61 +110,74 @@ export const ShopPage = () => {
             <Search size={18} style={{ color: 'var(--electric-cyan)' }} />
             <input 
               type="text"
-              placeholder="Search by switch model, wattage, series, or keyword..."
+              placeholder="Search switch model, wattage, series, or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '100%', color: 'var(--text-primary)' }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text-primary)',
+                outline: 'none',
+                width: '100%',
+                fontSize: '0.9rem'
+              }}
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')}>
-                <X size={16} style={{ color: 'var(--text-muted)' }} />
+              <button 
+                onClick={() => setSearchQuery('')}
+                style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}
+              >
+                Clear
               </button>
             )}
           </div>
 
-          {/* Sort & View Controls */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          {/* Controls */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
             
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Sort by:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{
-                  background: 'var(--bg-tertiary)',
-                  color: 'var(--text-primary)',
-                  border: '1px solid var(--border-subtle)',
-                  padding: '0.55rem 0.85rem',
-                  borderRadius: 'var(--radius-md)',
-                  fontSize: '0.85rem',
-                  cursor: 'pointer'
-                }}
-              >
-                <option value="popular">Most Popular</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="reviews">Top Reviewed</option>
-              </select>
-            </div>
-
-            {/* Contractor Mode Switch */}
-            <button
-              onClick={() => setIsContractorMode(!isContractorMode)}
-              className="badge"
+            {/* Series Filter */}
+            <select
+              value={selectedSeries}
+              onChange={(e) => setSelectedSeries(e.target.value)}
               style={{
-                cursor: 'pointer',
-                background: isContractorMode ? '#10B981' : 'var(--bg-tertiary)',
-                color: isContractorMode ? '#FFFFFF' : 'var(--text-muted)',
+                padding: '0.6rem 0.85rem',
+                borderRadius: 'var(--radius-md)',
+                background: 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
                 border: '1px solid var(--border-subtle)',
-                padding: '0.5rem 0.85rem',
-                fontSize: '0.8rem'
+                fontSize: '0.85rem',
+                cursor: 'pointer'
               }}
             >
-              {isContractorMode ? '✓ Wholesale Rates ON' : 'Wholesale Rates'}
-            </button>
+              <option value="all">All Series</option>
+              {allSeries.filter(s => s !== 'all').map((series) => (
+                <option key={series} value={series}>
+                  {series}
+                </option>
+              ))}
+            </select>
 
-            {/* View Mode Toggle */}
+            {/* Sort Filter */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              style={{
+                padding: '0.6rem 0.85rem',
+                borderRadius: 'var(--radius-md)',
+                background: 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-subtle)',
+                fontSize: '0.85rem',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="popular">Most Popular</option>
+              <option value="rating">Highest Rated</option>
+              <option value="reviews">Most Reviewed</option>
+              <option value="name">Alphabetical (A-Z)</option>
+            </select>
+
+            {/* View Mode Switcher */}
             <div style={{
               display: 'flex',
               background: 'var(--bg-tertiary)',
@@ -220,9 +226,9 @@ export const ShopPage = () => {
           <button
             onClick={() => setSelectedCategory('all')}
             style={{
-              padding: '0.5rem 1.15rem',
+              padding: '0.45rem 1.1rem',
               borderRadius: 'var(--radius-full)',
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               fontWeight: 600,
               whiteSpace: 'nowrap',
               background: selectedCategory === 'all' 
@@ -246,9 +252,9 @@ export const ShopPage = () => {
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 style={{
-                  padding: '0.5rem 1.15rem',
+                  padding: '0.45rem 1.1rem',
                   borderRadius: 'var(--radius-full)',
-                  fontSize: '0.85rem',
+                  fontSize: '0.82rem',
                   fontWeight: 600,
                   whiteSpace: 'nowrap',
                   background: isSelected 
@@ -294,7 +300,7 @@ export const ShopPage = () => {
             <div>
               <h3 style={{ fontSize: '1.25rem' }}>No matching products found</h3>
               <p style={{ marginTop: '0.35rem', color: 'var(--text-muted)' }}>
-                Try adjusting your search keyword or clearing the category filter.
+                Try adjusting your search keyword or resetting the filters.
               </p>
             </div>
             <button
@@ -309,14 +315,17 @@ export const ShopPage = () => {
         ) : viewMode === 'grid' ? (
           <div className="grid-products">
             {sortedProducts.map((product) => {
-              const displayPrice = isContractorMode ? product.contractorPrice : product.price;
-
               return (
-                <div key={product.id} className="glass-card product-card">
+                <div 
+                  key={product.id} 
+                  className="glass-card product-card"
+                  onClick={() => viewProductDetail(product)}
+                  style={{ cursor: 'pointer' }}
+                >
                   
                   {product.badge && (
-                    <div style={{ position: 'absolute', top: '12px', left: '12px', zIndex: 2 }}>
-                      <span className="badge badge-prime" style={{ fontSize: '0.65rem' }}>
+                    <div style={{ position: 'absolute', top: '10px', left: '10px', zIndex: 2 }}>
+                      <span className="badge badge-prime" style={{ fontSize: '0.62rem', padding: '0.15rem 0.45rem' }}>
                         {product.badge}
                       </span>
                     </div>
@@ -333,60 +342,64 @@ export const ShopPage = () => {
                     />
 
                     <button
-                      onClick={() => setQuickViewProduct(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setQuickViewProduct(product);
+                      }}
                       className="btn btn-primary btn-sm"
                       style={{
                         position: 'absolute',
-                        bottom: '12px',
+                        bottom: '8px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         opacity: 0.95,
                         boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-                        padding: '0.4rem 0.85rem',
-                        fontSize: '0.8rem',
-                        gap: '0.35rem'
+                        padding: '0.35rem 0.75rem',
+                        fontSize: '0.75rem',
+                        gap: '0.3rem'
                       }}
                     >
-                      <Eye size={14} />
+                      <Eye size={13} />
                       <span>Quick Specs</span>
                     </button>
                   </div>
 
                   <div className="product-body">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                      <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--electric-cyan)', textTransform: 'uppercase' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+                      <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--electric-cyan)', textTransform: 'uppercase' }}>
                         {product.series}
                       </span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.8rem', color: '#F59E0B' }}>
-                        <Star size={13} fill="#F59E0B" />
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', color: '#F59E0B' }}>
+                        <Star size={12} fill="#F59E0B" />
                         <span>{product.rating}</span>
                       </div>
                     </div>
 
                     <h4 style={{
-                      fontSize: '1rem',
+                      fontSize: '0.92rem',
                       fontWeight: 700,
-                      marginBottom: '0.5rem',
+                      marginBottom: '0.35rem',
                       color: 'var(--text-primary)',
                       display: '-webkit-box',
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
-                      minHeight: '2.4em'
+                      minHeight: '2.4em',
+                      lineHeight: 1.3
                     }}>
                       {product.name}
                     </h4>
 
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.6rem' }}>
                       {product.features?.slice(0, 2).map((feat, i) => (
                         <span 
                           key={i} 
                           style={{
-                            fontSize: '0.7rem',
+                            fontSize: '0.68rem',
                             background: 'var(--bg-tertiary)',
                             color: 'var(--text-secondary)',
-                            padding: '2px 6px',
-                            borderRadius: '4px',
+                            padding: '1px 5px',
+                            borderRadius: '3px',
                             border: '1px solid var(--border-subtle)'
                           }}
                         >
@@ -397,29 +410,48 @@ export const ShopPage = () => {
 
                     <div style={{
                       display: 'flex',
-                      alignItems: 'baseline',
+                      alignItems: 'center',
                       justifyContent: 'space-between',
                       marginTop: 'auto',
-                      paddingTop: '0.75rem',
-                      borderTop: '1px solid var(--border-subtle)'
+                      paddingTop: '0.55rem',
+                      borderTop: '1px solid var(--border-subtle)',
+                      gap: '0.4rem'
                     }}>
                       <div>
-                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                          Rs. {displayPrice.toLocaleString()}
+                        <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 700 }}>
+                          Wholesale Price
                         </div>
-                        <div style={{ fontSize: '0.7rem', color: isContractorMode ? '#10B981' : 'var(--text-muted)' }}>
-                          {isContractorMode ? 'Wholesale Price' : `Wholesale: Rs. ${product.contractorPrice.toLocaleString()}`}
+                        <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                          Click for Details
                         </div>
                       </div>
 
-                      <button
-                        onClick={() => addToCart(product, 1)}
-                        className="btn btn-primary btn-sm"
-                        style={{ padding: '0.5rem 0.85rem', gap: '0.35rem' }}
-                      >
-                        <ShoppingBag size={15} />
-                        <span>Add</span>
-                      </button>
+                      <div style={{ display: 'flex', gap: '0.35rem' }}>
+                        <a
+                          href={getWhatsAppProductUrl(product, 1)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="btn btn-whatsapp btn-sm"
+                          style={{ padding: '0.35rem 0.55rem', gap: '0.3rem', fontSize: '0.75rem' }}
+                          title="WhatsApp Inquiry"
+                        >
+                          <MessageSquare size={14} />
+                          <span>WhatsApp</span>
+                        </a>
+
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            addToCart(product, 1);
+                          }}
+                          className="btn btn-primary btn-sm"
+                          style={{ padding: '0.35rem 0.55rem', fontSize: '0.75rem' }}
+                          title="Add to Quote List"
+                        >
+                          <ShoppingBag size={13} />
+                        </button>
+                      </div>
                     </div>
 
                   </div>
@@ -430,23 +462,23 @@ export const ShopPage = () => {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {sortedProducts.map((product) => {
-              const displayPrice = isContractorMode ? product.contractorPrice : product.price;
-
               return (
                 <div 
                   key={product.id}
                   className="glass-card"
+                  onClick={() => viewProductDetail(product)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '1.5rem',
-                    padding: '1.25rem',
-                    flexWrap: 'wrap'
+                    gap: '1.25rem',
+                    padding: '1.15rem',
+                    flexWrap: 'wrap',
+                    cursor: 'pointer'
                   }}
                 >
                   <div style={{
-                    width: '100px',
-                    height: '100px',
+                    width: '90px',
+                    height: '90px',
                     borderRadius: 'var(--radius-md)',
                     background: 'radial-gradient(circle at center, rgba(0, 102, 255, 0.1) 0%, transparent 70%)',
                     display: 'flex',
@@ -465,7 +497,7 @@ export const ShopPage = () => {
                   </div>
 
                   <div style={{ flex: 1, minWidth: '240px' }}>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.25rem' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.2rem' }}>
                       <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--electric-cyan)', textTransform: 'uppercase' }}>
                         {product.series}
                       </span>
@@ -475,8 +507,8 @@ export const ShopPage = () => {
                         </span>
                       )}
                     </div>
-                    <h4 style={{ fontSize: '1.1rem', color: 'var(--text-primary)' }}>{product.name}</h4>
-                    <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                    <h4 style={{ fontSize: '1.05rem', color: 'var(--text-primary)' }}>{product.name}</h4>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: '0.2rem' }}>
                       {product.description}
                     </p>
                   </div>
@@ -486,27 +518,36 @@ export const ShopPage = () => {
                     flexDirection: 'column',
                     alignItems: 'flex-end',
                     gap: '0.5rem',
-                    minWidth: '150px'
+                    minWidth: '180px'
                   }}>
                     <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                        Rs. {displayPrice.toLocaleString()}
+                      <div style={{ fontSize: '0.85rem', fontWeight: 800, color: '#10B981' }}>
+                        Wholesale & Project Rates
                       </div>
-                      <div style={{ fontSize: '0.75rem', color: isContractorMode ? '#10B981' : 'var(--text-muted)' }}>
-                        {isContractorMode ? 'Wholesale Price' : `Wholesale: Rs. ${product.contractorPrice.toLocaleString()}`}
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                        In Stock • Faisalabad
                       </div>
                     </div>
 
-                    <div style={{ display: 'flex', gap: '0.5rem' }}>
-                      <button
-                        onClick={() => setQuickViewProduct(product)}
-                        className="btn btn-outline btn-sm"
+                    <div style={{ display: 'flex', gap: '0.4rem' }}>
+                      <a
+                        href={getWhatsAppProductUrl(product, 1)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="btn btn-whatsapp btn-sm"
+                        style={{ gap: '0.35rem' }}
                       >
-                        <Eye size={14} />
-                      </button>
+                        <MessageSquare size={14} />
+                        <span>WhatsApp</span>
+                      </a>
                       <button
-                        onClick={() => addToCart(product, 1)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          addToCart(product, 1);
+                        }}
                         className="btn btn-primary btn-sm"
+                        style={{ gap: '0.35rem' }}
                       >
                         <ShoppingBag size={14} />
                         <span>Add</span>
