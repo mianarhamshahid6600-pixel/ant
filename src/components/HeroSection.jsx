@@ -3,7 +3,7 @@ import { ShoppingBag, BookOpen, ShieldCheck, ArrowRight, Sparkles, ChevronLeft, 
 import { useStore } from '../context/StoreContext';
 
 export const HeroSection = () => {
-  const { navigateTo } = useStore();
+  const { navigateTo, theme } = useStore();
 
   // 1. Text Animation Headlines (rotates every 3.5 seconds)
   const textHeadlines = [
@@ -120,25 +120,62 @@ export const HeroSection = () => {
   return (
     <section style={{
       position: 'relative',
-      padding: '3rem 0 3.5rem',
-      background: 'var(--hero-mesh)',
+      padding: '3.25rem 0 3.75rem',
       overflow: 'hidden',
       borderBottom: '1px solid var(--border-subtle)'
     }}>
       
-      {/* Background Ambient Glow */}
+      {/* Background Image Layer (shop.jpeg with smooth heavy blur for optimal text contrast) */}
       <div style={{
         position: 'absolute',
-        top: '10%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '560px',
-        height: '280px',
-        background: 'radial-gradient(circle, rgba(0, 85, 255, 0.2) 0%, rgba(0, 43, 128, 0.08) 40%, transparent 70%)',
-        filter: 'blur(60px)',
-        pointerEvents: 'none',
-        zIndex: 0
-      }} />
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }}>
+        <img
+          src="/images/shop.jpeg"
+          alt="Alnoor Traders Physical Store"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            filter: theme === 'dark' 
+              ? 'blur(20px) saturate(1.15) brightness(0.35)' 
+              : 'blur(20px) saturate(0.9) brightness(0.82)',
+            transform: 'scale(1.12)'
+          }}
+        />
+
+        {/* Ambient Gradient Overlays for Readability */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: theme === 'dark'
+            ? 'linear-gradient(180deg, rgba(5, 12, 31, 0.88) 0%, rgba(8, 20, 50, 0.8) 50%, rgba(5, 12, 31, 0.94) 100%)'
+            : 'linear-gradient(180deg, rgba(240, 244, 250, 0.9) 0%, rgba(226, 236, 250, 0.84) 50%, rgba(240, 244, 250, 0.94) 100%)'
+        }} />
+
+        <div style={{
+          position: 'absolute',
+          top: '10%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '560px',
+          height: '280px',
+          background: theme === 'dark'
+            ? 'radial-gradient(circle, rgba(0, 85, 255, 0.22) 0%, rgba(0, 43, 128, 0.1) 40%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(0, 43, 128, 0.1) 0%, transparent 70%)',
+          filter: 'blur(60px)'
+        }} />
+      </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{
