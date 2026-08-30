@@ -165,11 +165,11 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links (Clean & Streamlined) */}
           <nav style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '1.75rem'
+            gap: '2rem'
           }} className="desktop-nav">
             <button
               onClick={() => handleNavClick('home')}
@@ -189,7 +189,7 @@ export const Navbar = () => {
                   left: 0,
                   width: '100%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, var(--electric-cyan), var(--electric-blue))',
+                  background: 'linear-gradient(90deg, #0055FF, #002B80)',
                   borderRadius: '2px'
                 }} />
               )}
@@ -205,7 +205,7 @@ export const Navbar = () => {
                 fontSize: '0.95rem'
               }}
             >
-              Shop Now
+              Shop
               {currentPage === 'shop' && (
                 <span style={{
                   position: 'absolute',
@@ -213,7 +213,7 @@ export const Navbar = () => {
                   left: 0,
                   width: '100%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, var(--electric-cyan), var(--electric-blue))',
+                  background: 'linear-gradient(90deg, #0055FF, #002B80)',
                   borderRadius: '2px'
                 }} />
               )}
@@ -241,79 +241,7 @@ export const Navbar = () => {
                   left: 0,
                   width: '100%',
                   height: '2px',
-                  background: 'linear-gradient(90deg, var(--electric-cyan), var(--electric-blue))',
-                  borderRadius: '2px'
-                }} />
-              )}
-            </button>
-
-            {/* Live Product Demo Button */}
-            <button
-              onClick={() => handleNavClick('demo')}
-              style={{
-                fontWeight: 700,
-                color: currentPage === 'demo' ? '#FFFFFF' : 'var(--text-accent)',
-                background: currentPage === 'demo' 
-                  ? 'linear-gradient(135deg, var(--electric-cyan), var(--electric-blue))' 
-                  : 'var(--badge-bg)',
-                border: '1px solid var(--border-card-hover)',
-                padding: '0.35rem 0.85rem',
-                borderRadius: 'var(--radius-full)',
-                fontSize: '0.85rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                boxShadow: currentPage === 'demo' ? 'var(--glow-electric)' : 'none',
-                transition: 'all var(--transition-fast)'
-              }}
-            >
-              <Sparkles size={14} />
-              <span>Live Demo</span>
-            </button>
-
-            <button
-              onClick={() => handleNavClick('about')}
-              style={{
-                fontWeight: currentPage === 'about' ? 700 : 500,
-                color: currentPage === 'about' ? 'var(--text-accent)' : 'var(--text-secondary)',
-                position: 'relative',
-                padding: '0.4rem 0',
-                fontSize: '0.95rem'
-              }}
-            >
-              About Distributor
-              {currentPage === 'about' && (
-                <span style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '2px',
-                  background: 'linear-gradient(90deg, var(--electric-cyan), var(--electric-blue))',
-                  borderRadius: '2px'
-                }} />
-              )}
-            </button>
-
-            <button
-              onClick={() => handleNavClick('contact')}
-              style={{
-                fontWeight: currentPage === 'contact' ? 700 : 500,
-                color: currentPage === 'contact' ? 'var(--text-accent)' : 'var(--text-secondary)',
-                position: 'relative',
-                padding: '0.4rem 0',
-                fontSize: '0.95rem'
-              }}
-            >
-              Contact
-              {currentPage === 'contact' && (
-                <span style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '2px',
-                  background: 'linear-gradient(90deg, var(--electric-cyan), var(--electric-blue))',
+                  background: 'linear-gradient(90deg, #0055FF, #002B80)',
                   borderRadius: '2px'
                 }} />
               )}
@@ -362,26 +290,6 @@ export const Navbar = () => {
               }}
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-            </button>
-
-            {/* Quick Catalog Button */}
-            <button
-              onClick={() => handleNavClick('catalog')}
-              className="btn btn-outline btn-sm hidden-mobile"
-              style={{ gap: '0.35rem' }}
-            >
-              <BookOpen size={15} />
-              <span>Catalog</span>
-            </button>
-
-            {/* Primary Shop Now Button */}
-            <button
-              onClick={() => handleNavClick('shop')}
-              className="btn btn-primary btn-sm hidden-mobile"
-              style={{ gap: '0.4rem' }}
-            >
-              <ShoppingBag size={15} />
-              <span>Shop Now</span>
             </button>
 
             {/* Cart & Quote Drawer Toggle with Counter */}

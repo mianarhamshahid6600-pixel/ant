@@ -98,55 +98,60 @@ export const Footer = () => {
               <BookOpen size={16} style={{ color: 'var(--text-accent)' }} />
               Quick Links
             </h4>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.9rem' }}>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem' }}>
               <li>
                 <button
                   onClick={() => navigateTo('shop')}
-                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
+                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Shop All Products
+                  <span>›</span>
+                  <span>Shop All Products</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => navigateTo('catalog')}
-                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
+                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Product Catalog
+                  <span>›</span>
+                  <span>Product Catalog & Specs</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => navigateTo('demo')}
-                  style={{ color: 'var(--text-accent)', fontWeight: 600, transition: 'color var(--transition-fast)' }}
+                  style={{ color: 'var(--text-accent)', fontWeight: 700, transition: 'color var(--transition-fast)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-accent)'}
                 >
-                  ✨ Live Product Demo
+                  <span>✨</span>
+                  <span>Live Product Demo</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => navigateTo('about')}
-                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
+                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  About Store & Warranty
+                  <span>›</span>
+                  <span>About Distributor & Warranty</span>
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => navigateTo('contact')}
-                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)' }}
+                  style={{ color: '#94A3B8', transition: 'color var(--transition-fast)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#60A5FA'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
-                  Contact Us
+                  <span>›</span>
+                  <span>Contact Us & Directions</span>
                 </button>
               </li>
             </ul>
@@ -155,8 +160,8 @@ export const Footer = () => {
           {/* Column 4: Contact & Phone */}
           <div>
             <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Phone size={16} style={{ color: 'var(--electric-cyan)' }} />
-              Contact Us
+              <Phone size={16} style={{ color: 'var(--text-accent)' }} />
+              Distributor Desk
             </h4>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem' }}>
