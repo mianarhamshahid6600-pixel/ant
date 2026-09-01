@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStore } from './context/StoreContext';
+import { TopNotificationBar } from './components/TopNotificationBar';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
@@ -39,6 +40,9 @@ export const App = () => {
 
   return (
     <div className="app-container">
+      {/* Top Animated Moving Ticker Bar */}
+      <TopNotificationBar />
+
       {/* Top-to-Down Wall Page Transition */}
       <PageTransitionWall />
 
@@ -71,7 +75,7 @@ export const App = () => {
         gap: '0.75rem'
       }}>
         <a
-          href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about Prime Lighting products.')}`}
+          href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about your electrical and lighting products.')}`}
           target="_blank"
           rel="noopener noreferrer"
           style={{
@@ -91,7 +95,7 @@ export const App = () => {
           className="animate-pulse-glow"
         >
           <MessageSquare size={20} />
-          <span>Quick Quote: {distributor.phone1}</span>
+          <span>WhatsApp: {distributor.phone1}</span>
         </a>
       </aside>
 

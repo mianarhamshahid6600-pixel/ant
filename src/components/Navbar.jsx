@@ -37,94 +37,6 @@ export const Navbar = () => {
 
   return (
     <>
-      {/* Top Distributor Utility Bar */}
-      <div style={{
-        background: 'linear-gradient(90deg, #070B14 0%, #0D1527 50%, #070B14 100%)',
-        borderBottom: '1px solid rgba(0, 102, 255, 0.25)',
-        color: '#94A3B8',
-        fontSize: '0.8rem',
-        padding: '0.45rem 0'
-      }}>
-        <div className="container" style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          {/* Left: Authorized Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.3rem',
-              color: '#60A5FA',
-              fontWeight: 600
-            }}>
-              <ShieldCheck size={14} />
-              Authorized Distributor of Prime Traders
-            </span>
-            <span style={{ opacity: 0.4 }}>|</span>
-            <span style={{ display: 'none', md: 'inline' }}>
-              Switches • Bulbs • Fans • SMDs • Dimmers • Breakers
-            </span>
-          </div>
-
-          {/* Right: Quick Direct Call & WhatsApp */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <a
-                href={`tel:${distributor.phone1}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  color: '#FFFFFF',
-                  fontWeight: 600
-                }}
-              >
-                <Phone size={13} style={{ color: '#60A5FA' }} />
-                <span>{distributor.phone1}</span>
-              </a>
-              <span style={{ opacity: 0.4 }}>/</span>
-              <a
-                href={`tel:${distributor.phone2}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.3rem',
-                  color: '#FFFFFF',
-                  fontWeight: 600
-                }}
-              >
-                <span>{distributor.phone2}</span>
-              </a>
-            </div>
-
-            <a
-              href={`https://wa.me/${distributor.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-                background: 'rgba(37, 211, 102, 0.15)',
-                color: '#25D366',
-                padding: '2px 8px',
-                borderRadius: '999px',
-                border: '1px solid rgba(37, 211, 102, 0.3)',
-                fontWeight: 700,
-                fontSize: '0.75rem'
-              }}
-            >
-              <MessageSquare size={12} />
-              <span>WhatsApp Instant</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Glass Navbar */}
       <header style={{
         position: 'sticky',
@@ -144,7 +56,7 @@ export const Navbar = () => {
           paddingBottom: '0.85rem'
         }}>
 
-          {/* Brand Logo with Top-Right "Prime" Badge */}
+          {/* Brand Logo */}
           <div
             className="brand-container"
             onClick={() => handleNavClick('home')}
@@ -159,9 +71,6 @@ export const Navbar = () => {
                   e.target.src = '/images/logo-transparent.png';
                 }}
               />
-              <span className="brand-prime-sup">
-                Prime
-              </span>
             </div>
           </div>
 
@@ -532,7 +441,7 @@ export const Navbar = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
               <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.15rem' }}>
                 <Search size={18} style={{ color: 'var(--electric-cyan)' }} />
-                Search Prime Electrical Products
+                Search Electrical & Lighting Products
               </h3>
               <button
                 onClick={() => setShowSearchModal(false)}

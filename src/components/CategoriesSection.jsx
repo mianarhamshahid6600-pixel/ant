@@ -1,172 +1,258 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { 
-  ToggleRight, Sliders, SunMedium, Lightbulb, 
-  Fan, ShieldCheck, Zap, ArrowRight, Sparkles 
-} from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const CategoriesSection = () => {
-  const { categories, navigateTo } = useStore();
+  const { categories, navigateTo, theme } = useStore();
+  const sliderRef = useRef(null);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const getCategoryIcon = (iconName) => {
-    switch (iconName) {
-      case 'ToggleRight': return <ToggleRight size={18} />;
-      case 'Sliders': return <Sliders size={18} />;
-      case 'SunMedium': return <SunMedium size={18} />;
-      case 'Lightbulb': return <Lightbulb size={18} />;
-      case 'Fan': return <Fan size={18} />;
-      case 'ShieldCheck': return <ShieldCheck size={18} />;
-      case 'Zap': return <Zap size={18} />;
-      default: return <Zap size={18} />;
+  // Duplicate list for infinite smooth continuous loop
+  const repeatedCategories = [...categories, ...categories, ...categories];
+
+  const handleScroll = (direction) => {
+    if (sliderRef.current) {
+      const scrollAmount = direction === 'left' ? -300 : 300;
+      sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <section className="section" style={{ background: 'var(--bg-primary)' }}>
+    <section className="section" style={{ background: 'var(--bg-primary)', padding: '3.5rem 0 4rem', overflow: 'hidden' }}>
       <div className="container">
         
-        {/* Section Header */}
+        {/* Section Header with Left/Right Controls */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'flex-end',
+          alignItems: 'center',
           flexWrap: 'wrap',
-          gap: '0.75rem',
-          marginBottom: '1.75rem'
+          gap: '1rem',
+          marginBottom: '2rem'
         }}>
           <div>
-            <div className="badge badge-prime" style={{ marginBottom: '0.4rem', fontSize: '0.72rem', padding: '0.2rem 0.6rem' }}>
-              <Sparkles size={12} />
-              Product Lines
-            </div>
-            <h2>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.35rem)', fontWeight: 800 }}>
               Browse by <span className="text-electric-blue">Category</span>
             </h2>
-            <p style={{ marginTop: '0.35rem', maxWidth: '580px', fontSize: '0.92rem' }}>
-              Choose from luxury switches, bright ceiling lights, low-power fans, and tested circuit breakers.
+            <p style={{ marginTop: '0.4rem', fontSize: '1.05rem', color: 'var(--text-secondary)' }}>
+              Hover to view category • Click to explore full collection
             </p>
           </div>
 
-          <button 
-            onClick={() => navigateTo('shop')}
-            className="btn btn-outline btn-sm"
-            style={{ gap: '0.4rem' }}
-          >
-            <span>View All Categories</span>
-            <ArrowRight size={14} />
-          </button>
-        </div>
-
-        {/* Categories Grid */}
-        <div className="grid-categories">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              onClick={() => navigateTo('shop', cat.id)}
-              className="glass-card"
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {/* Scroll Left Button */}
+            <button
+              onClick={() => handleScroll('left')}
+              aria-label="Scroll left"
+              className="btn btn-outline"
               style={{
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                padding: '1.15rem',
-                gap: '0.85rem',
-                border: '1px solid var(--border-card)',
-                transition: 'all var(--transition-normal)'
-              }}
-            >
-              
-              {/* Card Top: Icon & Badge */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: 'var(--radius-md)',
-                  background: 'var(--badge-bg)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'var(--text-accent)',
-                  border: '1px solid var(--badge-border)',
-                  boxShadow: '0 0 10px rgba(0, 85, 255, 0.15)'
-                }}>
-                  {getCategoryIcon(cat.icon)}
-                </div>
-
-                <span className="badge" style={{ fontSize: '0.68rem', padding: '0.15rem 0.5rem' }}>
-                  {cat.badge}
-                </span>
-              </div>
-
-              {/* Thumbnail */}
-              <div style={{
-                height: '110px',
-                width: '100%',
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: 'radial-gradient(circle at center, rgba(0, 102, 255, 0.08) 0%, transparent 70%)',
-                borderRadius: 'var(--radius-md)',
-                overflow: 'hidden'
-              }}>
+                borderWidth: '1.5px'
+              }}
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            {/* Scroll Right Button */}
+            <button
+              onClick={() => handleScroll('right')}
+              aria-label="Scroll right"
+              className="btn btn-outline"
+              style={{
+                width: '44px',
+                height: '44px',
+                padding: 0,
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: '1.5px'
+              }}
+            >
+              <ChevronRight size={22} />
+            </button>
+
+            <button 
+              onClick={() => navigateTo('shop')}
+              className="btn btn-primary"
+              style={{ gap: '0.45rem', padding: '0.65rem 1.4rem', fontSize: '0.95rem', fontWeight: 700, marginLeft: '0.5rem' }}
+            >
+              <span>View All</span>
+              <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Full-width Single-Line Moving Strip */}
+      <div 
+        ref={sliderRef}
+        className="category-slider-container"
+        style={{
+          width: '100%',
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          padding: '1rem 0'
+        }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div 
+          className={`category-slider-track ${isPaused ? 'paused' : ''}`}
+          style={{
+            display: 'flex',
+            gap: '1.5rem',
+            width: 'max-content',
+            paddingLeft: '1.5rem',
+            paddingRight: '1.5rem',
+            animation: 'marqueeLeft 36s linear infinite'
+          }}
+        >
+          {repeatedCategories.map((cat, idx) => (
+            <div
+              key={`${cat.id}-${idx}`}
+              onClick={() => navigateTo('shop', cat.id)}
+              className="category-image-card"
+              style={{
+                width: '250px',
+                height: '240px',
+                borderRadius: 'var(--radius-xl)',
+                background: theme === 'dark' 
+                  ? 'linear-gradient(145deg, rgba(13, 27, 62, 0.85) 0%, rgba(7, 15, 38, 0.95) 100%)' 
+                  : '#FFFFFF',
+                border: theme === 'dark' ? '1px solid rgba(0, 85, 255, 0.25)' : '1px solid rgba(0, 43, 128, 0.14)',
+                boxShadow: theme === 'dark' ? '0 8px 24px rgba(0, 0, 0, 0.45)' : '0 4px 18px rgba(0, 43, 128, 0.08)',
+                cursor: 'pointer',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+                transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              
+              {/* Category Product Image (Only element visible by default) */}
+              <div style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1.75rem',
+                transition: 'transform 0.4s ease'
+              }} className="cat-img-wrapper">
                 <img 
                   src={cat.image} 
                   alt={cat.name}
                   style={{
-                    maxHeight: '85%',
+                    maxHeight: '160px',
                     maxWidth: '85%',
                     objectFit: 'contain',
-                    transition: 'transform 0.4s ease'
+                    filter: theme === 'dark' 
+                      ? 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6))' 
+                      : 'drop-shadow(0 8px 16px rgba(0, 31, 91, 0.15))',
+                    transition: 'transform 0.35s ease'
                   }}
+                  className="cat-card-img"
                   onError={(e) => {
                     e.target.src = cat.fallbackImage;
                   }}
                 />
               </div>
 
-              {/* Text Info */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                <h3 style={{ fontSize: '1.05rem', color: 'var(--text-primary)' }}>
-                  {cat.name}
-                </h3>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-accent)', fontWeight: 600 }}>
-                  {cat.subtitle}
-                </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.2rem', lineHeight: 1.45 }}>
-                  {cat.description}
-                </p>
-              </div>
-
-              {/* Bottom Row */}
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginTop: 'auto',
-                paddingTop: '0.6rem',
-                borderTop: '1px solid var(--border-subtle)'
-              }}>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                  {cat.count}+ Models
-                </span>
-
-                <div style={{
+              {/* Bold Category Name Display on Hover */}
+              <div 
+                className="category-hover-overlay"
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '1.1rem 1rem',
+                  background: theme === 'dark'
+                    ? 'linear-gradient(180deg, transparent 0%, rgba(3, 10, 26, 0.92) 30%, rgba(3, 10, 26, 0.98) 100%)'
+                    : 'linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.92) 30%, rgba(255, 255, 255, 0.98) 100%)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
                   display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  gap: '0.2rem',
+                  justifyContent: 'center',
+                  gap: '0.25rem',
+                  transform: 'translateY(100%)',
+                  opacity: 0,
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  borderTop: theme === 'dark' ? '1px solid rgba(0, 85, 255, 0.4)' : '1px solid rgba(0, 43, 128, 0.15)'
+                }}
+              >
+                <span style={{
+                  fontSize: '1.15rem',
+                  fontWeight: 800,
+                  color: theme === 'dark' ? '#FFFFFF' : '#030A18',
+                  textAlign: 'center',
+                  lineHeight: 1.25,
+                  letterSpacing: '0.01em'
+                }}>
+                  {cat.name}
+                </span>
+                
+                <span style={{
                   fontSize: '0.8rem',
                   fontWeight: 700,
-                  color: 'var(--electric-cyan)'
+                  color: 'var(--text-accent)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  marginTop: '2px'
                 }}>
-                  <span>View</span>
+                  <span>View Products</span>
                   <ArrowRight size={13} />
-                </div>
+                </span>
               </div>
 
             </div>
           ))}
         </div>
-
       </div>
+
+      <style>{`
+        @keyframes marqueeLeft {
+          0% {
+            transform: translateX(0%);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+        .category-slider-container::-webkit-scrollbar {
+          display: none;
+        }
+        .category-slider-track.paused {
+          animation-play-state: paused !important;
+        }
+        .category-image-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 16px 36px rgba(0, 85, 255, 0.35) !important;
+          border-color: rgba(0, 102, 255, 0.7) !important;
+        }
+        .category-image-card:hover .cat-card-img {
+          transform: scale(1.1);
+        }
+        .category-image-card:hover .category-hover-overlay {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      `}</style>
     </section>
   );
 };

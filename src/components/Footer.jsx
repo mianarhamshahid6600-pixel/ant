@@ -46,19 +46,16 @@ export const Footer = () => {
                     e.target.src = '/images/logo-transparent.png';
                   }}
                 />
-                <span className="brand-prime-sup">
-                  Prime
-                </span>
               </div>
             </div>
 
             <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: '#94A3B8' }}>
-              Alnoor Traders is the authorized distributor of <strong>Prime Traders & Prime Lighting</strong>. Supplying genuine switches, tempered glass switchboards, SMD lights, inverter fans, and safety circuit breakers across Pakistan.
+              Alnoor Traders is a leading wholesale supplier of modern electrical and lighting products. Supplying genuine switches, tempered glass switchboards, SMD lights, inverter fans, and safety circuit breakers across Pakistan.
             </p>
 
             <div className="badge badge-prime" style={{ width: 'fit-content', padding: '0.4rem 0.8rem' }}>
               <ShieldCheck size={14} />
-              <span>Authorized Prime Stockist</span>
+              <span>100% Certified Stock</span>
             </div>
           </div>
 
@@ -140,7 +137,7 @@ export const Footer = () => {
                   onMouseLeave={(e) => e.currentTarget.style.color = '#94A3B8'}
                 >
                   <span>›</span>
-                  <span>About Distributor & Warranty</span>
+                  <span>About Us & Store Warranty</span>
                 </button>
               </li>
               <li>
@@ -161,7 +158,7 @@ export const Footer = () => {
           <div>
             <h4 style={{ color: '#FFFFFF', fontSize: '1.1rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <Phone size={16} style={{ color: 'var(--text-accent)' }} />
-              Distributor Desk
+              Store Support Desk
             </h4>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.9rem' }}>
@@ -220,7 +217,7 @@ export const Footer = () => {
 
               {/* WhatsApp Button */}
               <a 
-                href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about Prime products.')}`}
+                href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about your products.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp btn-sm"
@@ -266,7 +263,7 @@ export const Footer = () => {
           fontSize: '0.85rem'
         }}>
           <div>
-            © {new Date().getFullYear()} <strong style={{ color: '#FFFFFF' }}>Alnoor Traders</strong>. Authorized Distributor of Prime Traders & Prime Lighting. All Rights Reserved.
+            © {new Date().getFullYear()} <strong style={{ color: '#FFFFFF' }}>Alnoor Traders</strong>. Wholesale Electrical & Modern Lighting Store. All Rights Reserved.
           </div>
 
           <button

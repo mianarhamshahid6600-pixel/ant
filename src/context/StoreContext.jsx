@@ -161,12 +161,12 @@ export const StoreProvider = ({ children }) => {
   // Generate Direct WhatsApp URL for a Single Product
   const getWhatsAppProductUrl = (product, quantity = 1, notes = '') => {
     if (!product) {
-      return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to order Prime Lighting products.')}`;
+      return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to order electrical and lighting products.')}`;
     }
     let msg = `*PRODUCT ORDER / INQUIRY - ALNOOR TRADERS*\n\n`;
     msg += `Hello! I want to order / check price for:\n`;
     msg += `📦 *Product:* ${product.name}\n`;
-    msg += `🏷️ *Series:* ${product.series || 'Prime'}\n`;
+    msg += `🏷️ *Series:* ${product.series || 'Alnoor'}\n`;
     msg += `🔢 *Quantity:* ${quantity} pcs\n`;
     if (notes) {
       msg += `📝 *Note:* ${notes}\n`;
@@ -178,12 +178,12 @@ export const StoreProvider = ({ children }) => {
   // Generate WhatsApp Order Message
   const getWhatsAppOrderUrl = () => {
     if (cart.length === 0) {
-      const baseMsg = `Hello Alnoor Traders! I would like to check prices for Prime Lighting products.`;
+      const baseMsg = `Hello Alnoor Traders! I would like to check prices for electrical and lighting products.`;
       return `https://wa.me/${DISTRIBUTOR_INFO.whatsappNumber}?text=${encodeURIComponent(baseMsg)}`;
     }
 
     let text = `*NEW ORDER - ALNOOR TRADERS*\n`;
-    text += `*Distributor:* Alnoor Traders (Bawana Bazar, Faisalabad)\n`;
+    text += `*Store:* Alnoor Traders (Bawana Bazar, Faisalabad)\n`;
     text += `------------------------------------\n`;
 
     cart.forEach((item, index) => {

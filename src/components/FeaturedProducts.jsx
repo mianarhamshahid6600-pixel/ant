@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from '../context/StoreContext';
-import { 
-  ShoppingBag, Eye, Star, ArrowRight, Sparkles, MessageSquare 
-} from 'lucide-react';
+import { ShoppingBag, Eye, Star, ArrowRight, MessageSquare } from 'lucide-react';
 
 export const FeaturedProducts = () => {
   const { 
@@ -17,7 +15,7 @@ export const FeaturedProducts = () => {
   const [activeTab, setActiveTab] = useState('all');
 
   const tabs = [
-    { id: 'all', label: 'All Featured' },
+    { id: 'all', label: 'All Products' },
     { id: 'switches-sockets', label: 'Switches & Sockets' },
     { id: 'dimmers-regulators', label: 'Dimmers' },
     { id: 'smd-downlights', label: 'SMD Lights' },
@@ -30,45 +28,41 @@ export const FeaturedProducts = () => {
     : products.filter(p => p.category === activeTab);
 
   return (
-    <section className="section" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)' }}>
+    <section className="section" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', padding: '4.5rem 0' }}>
       <div className="container">
         
-        {/* Header */}
-        <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto 1.75rem' }}>
-          <div className="badge badge-prime" style={{ marginBottom: '0.4rem', fontSize: '0.72rem', padding: '0.2rem 0.6rem' }}>
-            <Sparkles size={12} />
-            Top Recommendations
-          </div>
-          <h2>
-            Popular Prime <span className="text-electric-blue">Products</span>
+        {/* Clean, Spacious Section Header */}
+        <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 2.5rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.35rem)', fontWeight: 800 }}>
+            Featured <span className="text-electric-blue">Electrical Products</span>
           </h2>
-          <p style={{ marginTop: '0.35rem', fontSize: '0.92rem' }}>
-            Top-selling switches, bright ceiling lights, low-power fans, and tested circuit breakers.
+          <p style={{ marginTop: '0.6rem', fontSize: '1.05rem', color: 'var(--text-secondary)' }}>
+            High-quality switches, ceiling lights, low-power fans, and safety circuit breakers.
           </p>
         </div>
 
-        {/* Tab Switcher */}
+        {/* Spacious, Easy-to-Click Tab Switcher */}
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          gap: '0.4rem',
+          gap: '0.6rem',
           flexWrap: 'wrap',
-          marginBottom: '1.75rem'
+          marginBottom: '2.5rem'
         }}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               style={{
-                padding: '0.35rem 0.95rem',
+                padding: '0.55rem 1.25rem',
                 borderRadius: 'var(--radius-full)',
-                fontSize: '0.82rem',
-                fontWeight: 600,
+                fontSize: '0.92rem',
+                fontWeight: 700,
                 background: activeTab === tab.id 
                   ? 'var(--badge-bg)' 
                   : 'var(--bg-card)',
                 color: activeTab === tab.id ? 'var(--text-accent)' : 'var(--text-secondary)',
-                border: `1px solid ${activeTab === tab.id ? 'var(--border-card-hover)' : 'var(--border-card)'}`,
+                border: `1.5px solid ${activeTab === tab.id ? 'var(--border-card-hover)' : 'var(--border-card)'}`,
                 boxShadow: activeTab === tab.id ? 'var(--glow-electric)' : 'none',
                 cursor: 'pointer',
                 transition: 'all var(--transition-fast)'
@@ -79,7 +73,7 @@ export const FeaturedProducts = () => {
           ))}
         </div>
 
-        {/* Products Grid */}
+        {/* Spacious Products Grid */}
         <div className="grid-products">
           {filteredProducts.slice(0, 8).map((product) => {
             return (
@@ -87,30 +81,33 @@ export const FeaturedProducts = () => {
                 key={product.id}
                 className="glass-card product-card"
                 onClick={() => viewProductDetail(product)}
-                style={{ cursor: 'pointer' }}
-              >
-                {/* Top Badge */}
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  left: '10px',
-                  zIndex: 2,
+                style={{ 
+                  cursor: 'pointer', 
+                  borderRadius: 'var(--radius-lg)',
+                  padding: '0',
                   display: 'flex',
-                  gap: '0.3rem'
-                }}>
-                  {product.badge && (
-                    <span className="badge badge-prime" style={{ fontSize: '0.62rem', padding: '0.15rem 0.45rem' }}>
-                      {product.badge}
-                    </span>
-                  )}
-                </div>
-
-                {/* Product Image */}
-                <div className="product-image-wrap">
+                  flexDirection: 'column',
+                  overflow: 'hidden'
+                }}
+              >
+                {/* Product Image Wrap */}
+                <div 
+                  className="product-image-wrap" 
+                  style={{ 
+                    padding: '1.5rem',
+                    background: 'radial-gradient(circle at center, rgba(0, 85, 255, 0.08) 0%, transparent 70%)',
+                    height: '210px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative'
+                  }}
+                >
                   <img 
                     src={product.image} 
                     alt={product.name}
                     className="product-image"
+                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                     onError={(e) => {
                       e.target.src = product.fallbackImage;
                     }}
@@ -125,119 +122,83 @@ export const FeaturedProducts = () => {
                     className="btn btn-primary btn-sm"
                     style={{
                       position: 'absolute',
-                      bottom: '8px',
+                      bottom: '10px',
                       left: '50%',
                       transform: 'translateX(-50%)',
                       opacity: 0.95,
-                      boxShadow: '0 3px 12px rgba(0,0,0,0.35)',
-                      padding: '0.3rem 0.7rem',
-                      fontSize: '0.75rem',
-                      gap: '0.3rem'
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                      padding: '0.4rem 0.9rem',
+                      fontSize: '0.82rem',
+                      gap: '0.35rem',
+                      borderRadius: 'var(--radius-full)'
                     }}
                   >
-                    <Eye size={13} />
+                    <Eye size={14} />
                     <span>Quick View</span>
                   </button>
                 </div>
 
                 {/* Card Body */}
-                <div className="product-body">
+                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                   
-                  {/* Series and Rating */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      {product.series}
-                    </span>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.75rem', color: '#F59E0B' }}>
-                      <Star size={12} fill="#F59E0B" />
-                      <span>{product.rating}</span>
-                      <span style={{ color: 'var(--text-muted)', fontSize: '0.68rem' }}>({product.reviewsCount})</span>
-                    </div>
+                  {/* Category / Series Label */}
+                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+                    {product.series}
                   </div>
 
-                  {/* Title */}
-                  <h4 style={{
-                    fontSize: '0.92rem',
-                    fontWeight: 700,
-                    marginBottom: '0.3rem',
+                  {/* Clear Product Title */}
+                  <h3 style={{
+                    fontSize: '1.08rem',
+                    fontWeight: 800,
+                    marginBottom: '0.5rem',
                     color: 'var(--text-primary)',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    minHeight: '2.4em',
-                    lineHeight: 1.3
+                    lineHeight: 1.35
                   }}>
                     {product.name}
-                  </h4>
+                  </h3>
 
-                  {/* Feature Pills */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginBottom: '0.6rem' }}>
-                    {product.features?.slice(0, 2).map((feat, i) => (
-                      <span 
-                        key={i} 
-                        style={{
-                          fontSize: '0.68rem',
-                          background: 'var(--bg-tertiary)',
-                          color: 'var(--text-secondary)',
-                          padding: '1px 5px',
-                          borderRadius: '3px',
-                          border: '1px solid var(--border-subtle)'
-                        }}
-                      >
-                        {feat}
-                      </span>
-                    ))}
+                  {/* Pricing and Availability Note */}
+                  <div style={{ marginTop: '0.25rem', marginBottom: '1.25rem' }}>
+                    <div style={{ fontSize: '0.92rem', color: '#10B981', fontWeight: 700 }}>
+                      Wholesale Price on Request
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                      10-Year Warranty • 100% Genuine
+                    </div>
                   </div>
 
-                  {/* Action & WhatsApp Row (No numeric price) */}
+                  {/* Large, Easy-to-Click Buttons */}
                   <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
+                    display: 'grid',
+                    gridTemplateColumns: '1fr auto',
+                    gap: '0.6rem',
                     marginTop: 'auto',
-                    paddingTop: '0.55rem',
-                    borderTop: '1px solid var(--border-subtle)',
-                    gap: '0.4rem'
+                    paddingTop: '0.85rem',
+                    borderTop: '1px solid var(--border-subtle)'
                   }}>
-                    <div>
-                      <div style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 700 }}>
-                        Wholesale Rate
-                      </div>
-                      <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                        In Stock
-                      </div>
-                    </div>
+                    <a
+                      href={getWhatsAppProductUrl(product, 1)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="btn btn-whatsapp"
+                      style={{ padding: '0.6rem 0.9rem', gap: '0.4rem', fontSize: '0.88rem', justifyContent: 'center', fontWeight: 700 }}
+                    >
+                      <MessageSquare size={16} />
+                      <span>Order on WhatsApp</span>
+                    </a>
 
-                    <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
-                      <a
-                        href={getWhatsAppProductUrl(product, 1)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="btn btn-whatsapp btn-sm"
-                        style={{ padding: '0.35rem 0.55rem', gap: '0.3rem', fontSize: '0.75rem' }}
-                        title="Order on WhatsApp"
-                      >
-                        <MessageSquare size={14} />
-                        <span>WhatsApp</span>
-                      </a>
-
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          addToCart(product, 1);
-                        }}
-                        className="btn btn-primary btn-sm"
-                        style={{
-                          padding: '0.35rem 0.55rem',
-                          fontSize: '0.75rem'
-                        }}
-                        title="Add to Cart"
-                      >
-                        <ShoppingBag size={13} />
-                      </button>
-                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product, 1);
+                      }}
+                      className="btn btn-primary"
+                      style={{ padding: '0.6rem 0.85rem' }}
+                      title="Add to Cart"
+                    >
+                      <ShoppingBag size={17} />
+                    </button>
                   </div>
 
                 </div>
@@ -248,14 +209,14 @@ export const FeaturedProducts = () => {
         </div>
 
         {/* View All Button */}
-        <div style={{ textAlign: 'center', marginTop: '2.25rem' }}>
+        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
           <button 
             onClick={() => navigateTo('shop')}
             className="btn btn-electric"
-            style={{ gap: '0.4rem' }}
+            style={{ gap: '0.5rem', padding: '0.85rem 2.2rem', fontSize: '1.05rem', fontWeight: 700 }}
           >
-            <span>Browse All Products</span>
-            <ArrowRight size={16} />
+            <span>Browse Full Product Catalog</span>
+            <ArrowRight size={18} />
           </button>
         </div>
 

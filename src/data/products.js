@@ -2,7 +2,7 @@ export const CATEGORIES = [
   {
     id: 'switches-sockets',
     name: 'Switches & Sockets',
-    subtitle: 'Prime Art, 6M, Glass & Designer Series',
+    subtitle: 'Art, 6M, Glass & Designer Luxury Series',
     icon: 'ToggleRight',
     count: 24,
     badge: 'Popular',
@@ -79,12 +79,12 @@ export const CATEGORIES = [
 ];
 
 export const PRODUCTS = [
-  // Switches & Sockets - Prime Art Series
+  // Switches & Sockets - Art Series
   {
     id: 'art-black-1',
-    name: 'Prime Art Series - Matte Black 1-Gang Switch',
+    name: 'Art Series - Matte Black 1-Gang Switch',
     category: 'switches-sockets',
-    series: 'Prime Art Series',
+    series: 'Art Luxury Series',
     price: 680,
     contractorPrice: 520,
     originalPrice: 780,
@@ -108,9 +108,9 @@ export const PRODUCTS = [
   },
   {
     id: 'art-white-1',
-    name: 'Prime Art Series - Pure White 2-Gang Switch',
+    name: 'Art Series - Pure White 2-Gang Switch',
     category: 'switches-sockets',
-    series: 'Prime Art Series',
+    series: 'Art Luxury Series',
     price: 740,
     contractorPrice: 580,
     originalPrice: 850,
@@ -134,9 +134,9 @@ export const PRODUCTS = [
   },
   {
     id: 'art-grey-1',
-    name: 'Prime Art Series - Space Grey Universal Socket',
+    name: 'Art Series - Space Grey Universal Socket',
     category: 'switches-sockets',
-    series: 'Prime Art Series',
+    series: 'Art Luxury Series',
     price: 890,
     contractorPrice: 710,
     originalPrice: 990,
@@ -160,9 +160,9 @@ export const PRODUCTS = [
   },
   {
     id: 'art-brown-1',
-    name: 'Prime Art Series - Walnut Brown 4-Gang Board',
+    name: 'Art Series - Walnut Brown 4-Gang Board',
     category: 'switches-sockets',
-    series: 'Prime Art Series',
+    series: 'Art Luxury Series',
     price: 1150,
     contractorPrice: 920,
     originalPrice: 1300,
@@ -187,9 +187,9 @@ export const PRODUCTS = [
   // 6M Series
   {
     id: '6m-black-1',
-    name: 'Prime 6M Series - Carbon Black 6-Module Plate',
+    name: '6M Series - Carbon Black 6-Module Plate',
     category: 'switches-sockets',
-    series: 'Prime 6M Series',
+    series: '6M Architectural Series',
     price: 1450,
     contractorPrice: 1180,
     originalPrice: 1650,
@@ -212,9 +212,9 @@ export const PRODUCTS = [
   },
   {
     id: '6m-gray-1',
-    name: 'Prime 6M Series - Metallic Grey 6-Module Plate',
+    name: '6M Series - Metallic Grey 6-Module Plate',
     category: 'switches-sockets',
-    series: 'Prime 6M Series',
+    series: '6M Architectural Series',
     price: 1450,
     contractorPrice: 1180,
     originalPrice: 1650,
@@ -239,9 +239,9 @@ export const PRODUCTS = [
   // LG Series Luxury Glass
   {
     id: 'lg-series-1',
-    name: 'Prime LG Series - Toughened Glass Luxury Switchboard',
+    name: 'LG Series - Toughened Glass Luxury Switchboard',
     category: 'switches-sockets',
-    series: 'LG Series Glass',
+    series: 'LG Crystal Series Glass',
     price: 1850,
     contractorPrice: 1490,
     originalPrice: 2100,
@@ -263,12 +263,12 @@ export const PRODUCTS = [
     features: ['Real tempered glass surface', 'Water and stain resistant', 'Never fades or turns dull', 'Chrome push buttons']
   },
 
-  // Rock & MS Gold / Pearl Series
+  // Rock Series
   {
     id: 'rock-gold-1',
-    name: 'Prime Rock Series - Brushed Champagne Gold Switch',
+    name: 'Rock Series - Brushed Champagne Gold Switch',
     category: 'switches-sockets',
-    series: 'Rock Series',
+    series: 'Rock Designer Series',
     price: 980,
     contractorPrice: 790,
     originalPrice: 1120,
@@ -290,9 +290,9 @@ export const PRODUCTS = [
   },
   {
     id: 'rock-grey-1',
-    name: 'Prime Rock Series - Textured Gunmetal Switch',
+    name: 'Rock Series - Textured Gunmetal Switch',
     category: 'switches-sockets',
-    series: 'Rock Series',
+    series: 'Rock Designer Series',
     price: 980,
     contractorPrice: 790,
     originalPrice: 1120,
@@ -314,9 +314,9 @@ export const PRODUCTS = [
   },
   {
     id: 'ms-pearl-1',
-    name: 'Prime MS Series - Glossy Pearl White Switch',
+    name: 'MS Series - Glossy Pearl White Switch',
     category: 'switches-sockets',
-    series: 'MS Series',
+    series: 'MS Classic Series',
     price: 620,
     contractorPrice: 480,
     originalPrice: 720,
@@ -338,9 +338,9 @@ export const PRODUCTS = [
   },
   {
     id: 's1-series-1',
-    name: 'Prime S1 Series - Dual USB + Type-C Fast Charger Socket',
+    name: 'S1 Series - Dual USB + Type-C Fast Charger Socket',
     category: 'switches-sockets',
-    series: 'S1 Series',
+    series: 'S1 Smart Series',
     price: 1350,
     contractorPrice: 1080,
     originalPrice: 1550,
@@ -366,9 +366,9 @@ export const PRODUCTS = [
   // Dimmers & Regulators
   {
     id: 'dimmer-rotary-1',
-    name: 'Prime Silent Rotary Dimmer & Fan Controller (500W)',
+    name: 'Silent Rotary Dimmer & Fan Controller (500W)',
     category: 'dimmers-regulators',
-    series: 'Prime Control Line',
+    series: 'Pro Control Line',
     price: 920,
     contractorPrice: 740,
     originalPrice: 1080,
@@ -391,9 +391,9 @@ export const PRODUCTS = [
   },
   {
     id: 'dimmer-touch-glass',
-    name: 'Prime Smart Touch Glass Dimmer & Fan Switch',
+    name: 'Smart Touch Glass Dimmer & Fan Switch',
     category: 'dimmers-regulators',
-    series: 'LG Series Glass',
+    series: 'LG Crystal Series Glass',
     price: 2450,
     contractorPrice: 1950,
     originalPrice: 2800,
@@ -418,9 +418,9 @@ export const PRODUCTS = [
   // SMD Downlights & Panel Lights
   {
     id: 'smd-slim-12w',
-    name: 'Prime Ultra-Slim SMD Downlight 12W (3 Colors in 1)',
+    name: 'Ultra-Slim SMD Downlight 12W (3 Colors in 1)',
     category: 'smd-downlights',
-    series: 'Prime OptiGlow Series',
+    series: 'OptiGlow Series',
     price: 540,
     contractorPrice: 420,
     originalPrice: 650,
@@ -445,9 +445,9 @@ export const PRODUCTS = [
   },
   {
     id: 'smd-slim-18w',
-    name: 'Prime High-Brightness SMD Panel Light 18W',
+    name: 'High-Brightness SMD Panel Light 18W',
     category: 'smd-downlights',
-    series: 'Prime OptiGlow Series',
+    series: 'OptiGlow Series',
     price: 780,
     contractorPrice: 610,
     originalPrice: 920,
@@ -470,9 +470,9 @@ export const PRODUCTS = [
   },
   {
     id: 'smd-cob-7w',
-    name: 'Prime Anti-Glare COB Spotlight 7W (Rotates 360°)',
+    name: 'Anti-Glare COB Spotlight 7W (Rotates 360°)',
     category: 'smd-downlights',
-    series: 'Prime Architectural Spotlight',
+    series: 'Architectural Spotlight',
     price: 680,
     contractorPrice: 530,
     originalPrice: 800,
@@ -497,9 +497,9 @@ export const PRODUCTS = [
   // LED Bulbs & Eco Lamps
   {
     id: 'bulb-18w',
-    name: 'Prime High-Output LED Bulb 18W (Screw & Pin Base)',
+    name: 'High-Output LED Bulb 18W (Screw & Pin Base)',
     category: 'led-bulbs',
-    series: 'Prime EcoPower',
+    series: 'EcoPower Series',
     price: 360,
     contractorPrice: 280,
     originalPrice: 450,
@@ -523,9 +523,9 @@ export const PRODUCTS = [
   },
   {
     id: 'bulb-t-bulb-30w',
-    name: 'Prime T-Bulb High-Power Commercial Lamp 30W',
+    name: 'T-Bulb High-Power Commercial Lamp 30W',
     category: 'led-bulbs',
-    series: 'Prime EcoPower',
+    series: 'EcoPower Series',
     price: 680,
     contractorPrice: 530,
     originalPrice: 820,
@@ -550,9 +550,9 @@ export const PRODUCTS = [
   // Fans
   {
     id: 'fan-bldc-inverter',
-    name: 'Prime Inverter BLDC 30W Energy Saver Ceiling Fan 56"',
+    name: 'Inverter BLDC 30W Energy Saver Ceiling Fan 56"',
     category: 'fans',
-    series: 'Prime AeroInverter',
+    series: 'AeroInverter Series',
     price: 9800,
     contractorPrice: 8400,
     originalPrice: 11500,
@@ -577,9 +577,9 @@ export const PRODUCTS = [
   },
   {
     id: 'fan-royal-deluxe',
-    name: 'Prime Royal Designer Ceiling Fan 56" (Antique Gold)',
+    name: 'Royal Designer Ceiling Fan 56" (Antique Gold)',
     category: 'fans',
-    series: 'Prime Royal Series',
+    series: 'Royal Designer Series',
     price: 8500,
     contractorPrice: 7200,
     originalPrice: 9900,
@@ -604,9 +604,9 @@ export const PRODUCTS = [
   // Circuit Breakers & Distribution Boxes
   {
     id: 'breaker-mcb-single',
-    name: 'Prime Single Pole Circuit Breaker (MCB 6A to 63A)',
+    name: 'Single Pole Circuit Breaker (MCB 6A to 63A)',
     category: 'breakers-db',
-    series: 'Prime SafeGuard',
+    series: 'SafeGuard Safety Series',
     price: 320,
     contractorPrice: 240,
     originalPrice: 400,
@@ -630,9 +630,9 @@ export const PRODUCTS = [
   },
   {
     id: 'breaker-db-acrylic-12',
-    name: 'Prime Smoked Glass Concealed DB Box (12 to 16 Breakers)',
+    name: 'Smoked Glass Concealed DB Box (12 to 16 Breakers)',
     category: 'breakers-db',
-    series: 'Prime SafeGuard',
+    series: 'SafeGuard Safety Series',
     price: 2400,
     contractorPrice: 1950,
     originalPrice: 2850,
@@ -658,9 +658,9 @@ export const PRODUCTS = [
   // Flood Lights
   {
     id: 'flood-light-100w',
-    name: 'Prime Heavy-Duty LED Flood Light 100W (Waterproof IP66)',
+    name: 'Heavy-Duty LED Flood Light 100W (Waterproof IP66)',
     category: 'flood-lights',
-    series: 'Prime LuminaPro',
+    series: 'LuminaPro Series',
     price: 2850,
     contractorPrice: 2250,
     originalPrice: 3400,
@@ -687,8 +687,8 @@ export const PRODUCTS = [
 
 export const DISTRIBUTOR_INFO = {
   shopName: 'Alnoor Traders',
-  parentBrand: 'Prime Traders / Prime Lighting',
-  tagline: 'Authorized Distributor of Prime Lighting & Electrical Products',
+  parentBrand: 'Alnoor Lighting & Electricals',
+  tagline: 'Wholesale Electrical Switches & Modern Lighting Products',
   phone1: '03146600174',
   phone2: '03246600174',
   whatsappNumber: '923146600174',
@@ -700,7 +700,7 @@ export const DISTRIBUTOR_INFO = {
   googleMapsUrl: 'https://www.google.com/maps/place/PRIME+LIGHTS/@31.4188934,73.0566153,14z/data=!4m10!1m3!11m2!2sesQzUjvAR9Em6PX0CDzqhZEp_K4zdg!3e1!3m5!1s0x392243670b16cd61:0xaf9277275354a08d!8m2!3d31.4188934!4d73.0772147!16s%2Fg%2F11jp1v3kw9?entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D',
   timings: '10:00 AM – 8:00 PM (Saturday to Thursday, Closed on Friday)',
   timingsShort: '10:00 AM – 8:00 PM (Closed Friday)',
-  authorizedBadge: 'Authorized Prime Distributor Certificate #ANT-PRIME-2024-901',
+  authorizedBadge: 'Certified Electrical Store Certificate #ANT-2024-901',
   keyStats: [
     { label: 'Original Products', value: '100% Genuine' },
     { label: 'Years in Electricals', value: '15+ Years' },

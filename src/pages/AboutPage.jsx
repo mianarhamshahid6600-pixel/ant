@@ -12,7 +12,7 @@ export const AboutPage = () => {
     {
       icon: <ShieldCheck size={24} />,
       title: '100% Original Products',
-      desc: 'Every switch, light, and breaker sold by Alnoor Traders is 100% genuine and sourced directly from Prime manufacturing lines.'
+      desc: 'Every switch, light, and breaker sold by Alnoor Traders is 100% genuine and sourced directly from certified manufacturing lines.'
     },
     {
       icon: <Truck size={24} />,
@@ -42,7 +42,7 @@ export const AboutPage = () => {
     },
     {
       title: '6,000A Short-Circuit Safety Test',
-      desc: 'Prime MCBs trip instantly to cut off short circuits and protect your home wiring.'
+      desc: 'Safety MCBs trip instantly to cut off short circuits and protect your home wiring.'
     },
     {
       title: 'Surge-Protected LED Drivers',
@@ -56,15 +56,11 @@ export const AboutPage = () => {
         
         {/* Page Hero Header */}
         <div style={{ textAlign: 'center', maxWidth: '750px', margin: '0 auto 4rem' }}>
-          <div className="badge badge-prime" style={{ marginBottom: '0.75rem' }}>
-            <Building2 size={14} />
-            About Us
-          </div>
-          <h1>
-            Authorized Distributor of <br />
-            <span className="text-electric-blue">Prime Traders & Lighting</span>
+          <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800 }}>
+            Premier Wholesale Store for <br />
+            <span className="text-electric-blue">Electrical & Modern Lighting</span>
           </h1>
-          <p style={{ marginTop: '1rem', fontSize: '1.1rem', lineHeight: 1.6 }}>
+          <p style={{ marginTop: '1.25rem', fontSize: '1.15rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
             Alnoor Traders is your trusted source for modern electrical switches, bright LED lighting, low-power fans, and tested circuit breakers in Pakistan.
           </p>
         </div>
@@ -79,21 +75,17 @@ export const AboutPage = () => {
         }} className="about-grid">
           
           {/* Left Text */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div className="badge" style={{ width: 'fit-content' }}>
-              Our Story
-            </div>
-
-            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.35rem)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.35rem)', fontWeight: 800 }}>
               Providing Safe, Elegant & Durable Electrical Products
             </h2>
 
             <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
-              Founded with the goal of bringing high-quality, safe, and beautiful electrical products to Pakistani homes and offices, <strong>Alnoor Traders</strong> is proud to be an authorized primary distributor for <strong>Prime Traders & Prime Lighting</strong>.
+              Founded with the goal of bringing high-quality, safe, and beautiful electrical products to Pakistani homes and offices, <strong>Alnoor Traders</strong> is proud to supply certified wholesale electrical and modern lighting solutions.
             </p>
 
             <p style={{ fontSize: '1rem', lineHeight: 1.7, color: 'var(--text-secondary)' }}>
-              We know that good switches and lights make a home both safe and beautiful. By working directly with Prime Lighting, we supply genuine products made with pure copper contacts, fire-proof materials, and real warranties at fair wholesale prices.
+              We know that good switches and lights make a home both safe and beautiful. We supply genuine products made with pure copper contacts, fire-proof materials, and real warranties at fair wholesale prices.
             </p>
 
             <div style={{
@@ -121,7 +113,7 @@ export const AboutPage = () => {
                 <div style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--electric-cyan)', fontFamily: 'var(--font-heading)' }}>
                   100%
                 </div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Original Prime Stock</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Original Certified Stock</div>
               </div>
             </div>
 
@@ -150,7 +142,7 @@ export const AboutPage = () => {
                   Alnoor Traders
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-accent)', fontWeight: 700 }}>
-                  Authorized Prime Lighting Distributor
+                  Wholesale Electrical & Lighting Store
                 </div>
               </div>
             </div>
@@ -163,7 +155,7 @@ export const AboutPage = () => {
               marginBottom: '1.5rem'
             }}>
               <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                "This certifies that <strong>Alnoor Traders</strong> is an officially appointed wholesale distributor authorized to stock, supply, and warranty genuine Prime Lighting and Prime Traders electrical products."
+                "This certifies that <strong>Alnoor Traders</strong> is an established wholesale electrical store dedicated to stock, supply, and warranty genuine quality electrical and lighting products."
               </div>
             </div>
 
@@ -204,7 +196,7 @@ export const AboutPage = () => {
                 style={{ width: '100%', gap: '0.4rem', justifyContent: 'center' }}
               >
                 <MessageSquare size={16} />
-                <span>Chat with Distributor Desk</span>
+                <span>Chat with Support Desk</span>
               </a>
             </div>
 

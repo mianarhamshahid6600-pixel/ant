@@ -317,7 +317,7 @@ export const ProductDetailPage = () => {
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-accent)', fontWeight: 800 }}>
-                    Official Distributor Supply
+                    Official Certified Supply
                   </div>
                   <div style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '0.15rem' }}>
                     Direct Wholesale Rates Available
@@ -584,7 +584,7 @@ export const ProductDetailPage = () => {
                 cursor: 'pointer'
               }}
             >
-              Distributor Guarantee
+              Store Guarantee
             </button>
           </div>
 
@@ -592,7 +592,7 @@ export const ProductDetailPage = () => {
           {activeTab === 'specs' && (
             <div className="glass-card" style={{ padding: '1.75rem' }}>
               <h3 style={{ fontSize: '1.2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-                Official Prime Lighting Product Specifications
+                Official Product Technical Specifications
               </h3>
               
               <div style={{
@@ -627,7 +627,7 @@ export const ProductDetailPage = () => {
                   border: '1px solid var(--border-subtle)',
                   fontSize: '0.85rem'
                 }}>
-                  <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>Distributor</span>
+                  <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>Supplier</span>
                   <strong style={{ color: 'var(--text-accent)', textAlign: 'right' }}>Alnoor Traders (Faisalabad)</strong>
                 </div>
 
@@ -685,14 +685,14 @@ export const ProductDetailPage = () => {
             </div>
           )}
 
-          {/* Tab 3: Distributor Verification */}
+          {/* Tab 3: Store Guarantee */}
           {activeTab === 'distributor' && (
             <div className="glass-card" style={{ padding: '1.75rem' }}>
               <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
-                Official Prime Traders Distribution Guarantee
+                Alnoor Traders Authenticity & Quality Guarantee
               </h3>
               <p style={{ fontSize: '0.88rem', color: 'var(--text-secondary)', lineHeight: 1.6, maxWidth: '750px' }}>
-                All switches, LED panels, dimmers, and breakers sold by <strong>Alnoor Traders</strong> are sourced directly from the authorized manufacturing lines of <strong>Prime Lighting</strong>. We guarantee 100% genuine products with complete batch serial verification.
+                All switches, LED panels, dimmers, and breakers sold by <strong>Alnoor Traders</strong> are sourced directly from certified high-grade manufacturing lines. We guarantee 100% genuine products with complete batch serial verification.
               </p>
 
               <div style={{

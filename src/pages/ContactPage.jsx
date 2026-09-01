@@ -67,15 +67,11 @@ export const ContactPage = () => {
         
         {/* Header */}
         <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 3.5rem' }}>
-          <div className="badge badge-prime" style={{ marginBottom: '0.75rem' }}>
-            <Phone size={13} />
-            Get in Touch
-          </div>
-          <h1>
+          <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800 }}>
             Contact <span className="text-electric-blue">Alnoor Traders</span>
           </h1>
-          <p style={{ marginTop: '0.75rem', fontSize: '1.05rem' }}>
-            Contact our distributor team directly for wholesale prices, bulk orders, and stock availability.
+          <p style={{ marginTop: '1rem', fontSize: '1.15rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            Contact our wholesale team directly for product prices, bulk orders, and stock availability.
           </p>
         </div>
 
@@ -177,7 +173,7 @@ export const ContactPage = () => {
               </p>
 
               <a 
-                href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about Prime Lighting products.')}`}
+                href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! I would like to inquire about your electrical and lighting products.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-whatsapp"
@@ -239,13 +235,9 @@ export const ContactPage = () => {
               boxShadow: 'var(--glow-electric)'
             }}
           >
-            <div style={{ marginBottom: '1.75rem' }}>
-              <div className="badge badge-prime" style={{ marginBottom: '0.5rem' }}>
-                <Sparkles size={12} />
-                Quick Message
-              </div>
-              <h2 style={{ fontSize: '1.5rem' }}>Send Us a Message</h2>
-              <p style={{ fontSize: '0.9rem', marginTop: '0.35rem' }}>
+            <div style={{ marginBottom: '2rem' }}>
+              <h2 style={{ fontSize: '1.65rem', fontWeight: 800 }}>Send Us a Message</h2>
+              <p style={{ fontSize: '1.05rem', marginTop: '0.45rem', color: 'var(--text-secondary)' }}>
                 Fill in the details below to ask for wholesale rates or place an order.
               </p>
             </div>
@@ -273,7 +265,7 @@ export const ContactPage = () => {
                 </div>
                 <h3>Inquiry Sent Successfully!</h3>
                 <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', maxWidth: '400px' }}>
-                  Our distributor team is reviewing your requirements and will reply on WhatsApp / Phone shortly.
+                  Our sales team is reviewing your requirements and will reply on WhatsApp / Phone shortly.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

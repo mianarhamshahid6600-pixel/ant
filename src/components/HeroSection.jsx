@@ -1,131 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { ShoppingBag, BookOpen, ShieldCheck, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
+import { ShoppingBag, BookOpen, ArrowRight, Phone } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const HeroSection = () => {
-  const { navigateTo, theme } = useStore();
-
-  // 1. Text Animation Headlines (rotates every 3.5 seconds)
-  const textHeadlines = [
-    { main: "Welcome to Alnoor Traders", highlight: "Authorized Prime Distributor", badge: "Official Prime Stockist" },
-    { main: "3rd Big Distributor of Prime", highlight: "Serving Faisalabad & Pakistan", badge: "Wholesale & Projects" },
-    { main: "Adding Value to Your Lifestyle", highlight: "Luxury Switches & Modern Lights", badge: "10-Year Warranty" },
-    { main: "100% Genuine Electricals", highlight: "Direct Wholesale Rates", badge: "Guaranteed Quality" }
-  ];
-
-  const [textIndex, setTextIndex] = useState(0);
-  const [textFade, setTextFade] = useState(true);
-
-  useEffect(() => {
-    const textInterval = setInterval(() => {
-      setTextFade(false);
-      setTimeout(() => {
-        setTextIndex((prev) => (prev + 1) % textHeadlines.length);
-        setTextFade(true);
-      }, 350);
-    }, 3800);
-
-    return () => clearInterval(textInterval);
-  }, [textHeadlines.length]);
-
-  // 2. Right Side Showcase Images (rotates every 7 seconds)
-  const imageSlides = [
-    {
-      id: 1,
-      title: "Prime Art Series Switch",
-      subtitle: "Matte Black Luxury Wall Switch",
-      series: "Prime Art Series",
-      badge: "10-Year Warranty",
-      image: "/images/products/art-black.png",
-      fallback: "https://primelighting.net/wp-content/uploads/2024/09/ART-BLACK.png",
-      tag: "Luxury Living"
-    },
-    {
-      id: 2,
-      title: "Prime LG Glass Switchboard",
-      subtitle: "Crystal Tempered Glass Surface",
-      series: "LG Crystal Series",
-      badge: "Scratch & Fire Proof",
-      image: "/images/products/lg-series.png",
-      fallback: "https://primelighting.net/wp-content/uploads/2024/09/ART-WHITE.png",
-      tag: "Modern Interior"
-    },
-    {
-      id: 3,
-      title: "Prime 12W SMD Ceiling Light",
-      subtitle: "3-in-1 Color Changing Downlight",
-      series: "SMD Series",
-      badge: "A+ Energy Saver",
-      image: "/images/products/smd.jpg",
-      fallback: "https://primelighting.net/wp-content/uploads/2024/09/ART-BLACK.png",
-      tag: "Soft Ambient Light"
-    },
-    {
-      id: 4,
-      title: "Prime Rock Gold Switch",
-      subtitle: "Premium Brushed Metal Finish",
-      series: "Rock Series",
-      badge: "Pure Silver Contacts",
-      image: "/images/products/rock-gold.png",
-      fallback: "https://primelighting.net/wp-content/uploads/2024/09/ART-BLACK.png",
-      tag: "Designer Series"
-    },
-    {
-      id: 5,
-      title: "Prime Heavy Circuit Breaker",
-      subtitle: "High Breaking Capacity MCB & DB",
-      series: "Safety Series",
-      badge: "Short-Circuit Protection",
-      image: "/images/products/breaker.jpg",
-      fallback: "https://primelighting.net/wp-content/uploads/2024/09/ART-WHITE.png",
-      tag: "Home Safety"
-    }
-  ];
-
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [slideFade, setSlideFade] = useState(true);
-
-  // 7-second image timer
-  useEffect(() => {
-    const slideInterval = setInterval(() => {
-      setSlideFade(false);
-      setTimeout(() => {
-        setSlideIndex((prev) => (prev + 1) % imageSlides.length);
-        setSlideFade(true);
-      }, 400);
-    }, 7000);
-
-    return () => clearInterval(slideInterval);
-  }, [imageSlides.length]);
-
-  const goToSlide = (index) => {
-    setSlideFade(false);
-    setTimeout(() => {
-      setSlideIndex(index);
-      setSlideFade(true);
-    }, 200);
-  };
-
-  const nextSlide = () => {
-    goToSlide((slideIndex + 1) % imageSlides.length);
-  };
-
-  const prevSlide = () => {
-    goToSlide((slideIndex - 1 + imageSlides.length) % imageSlides.length);
-  };
-
-  const currentText = textHeadlines[textIndex];
-  const currentSlide = imageSlides[slideIndex];
+  const { navigateTo, theme, distributor } = useStore();
 
   return (
     <section style={{
       position: 'relative',
-      padding: '3.25rem 0 3.75rem',
+      padding: '4.5rem 0 5rem',
       overflow: 'hidden',
       borderBottom: '1px solid var(--border-subtle)'
     }}>
       
-      {/* Hero Background Backdrop with Visible Blurred Store Image */}
+      {/* Background Store Image with Soft Focus */}
       <div style={{
         position: 'absolute',
         top: 0,
@@ -145,18 +33,18 @@ export const HeroSection = () => {
             objectFit: 'cover',
             objectPosition: 'center 35%',
             filter: theme === 'dark' 
-              ? 'blur(7px) saturate(1.2) brightness(0.65)' 
-              : 'blur(7px) saturate(1.1) brightness(0.92)',
-            transform: 'scale(1.08)',
-            opacity: theme === 'dark' ? 0.5 : 0.38,
+              ? 'blur(2.5px) saturate(1.2) brightness(0.82)' 
+              : 'blur(2.5px) saturate(1.1) brightness(1.02)',
+            transform: 'scale(1.02)',
+            opacity: theme === 'dark' ? 0.78 : 0.82,
             transition: 'all 0.4s ease'
           }}
           onError={(e) => {
-            e.target.src = 'https://i.ibb.co/VW59cmj8/shop.jpg';
+            e.target.src = '/images/shop.jpeg';
           }}
         />
 
-        {/* Soft Tint Overlay for Text Contrast */}
+        {/* Soft Contrast Tint Overlay */}
         <div style={{
           position: 'absolute',
           top: 0,
@@ -164,358 +52,125 @@ export const HeroSection = () => {
           width: '100%',
           height: '100%',
           background: theme === 'dark'
-            ? 'linear-gradient(180deg, rgba(5, 12, 31, 0.72) 0%, rgba(8, 20, 50, 0.6) 50%, rgba(5, 12, 31, 0.85) 100%)'
-            : 'linear-gradient(180deg, rgba(240, 244, 250, 0.78) 0%, rgba(226, 236, 250, 0.68) 50%, rgba(240, 244, 250, 0.86) 100%)',
-          backdropFilter: 'blur(2px)',
-          WebkitBackdropFilter: 'blur(2px)'
-        }} />
-
-        <div style={{
-          position: 'absolute',
-          top: '10%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: '560px',
-          height: '280px',
-          background: theme === 'dark'
-            ? 'radial-gradient(circle, rgba(0, 85, 255, 0.22) 0%, rgba(0, 43, 128, 0.1) 40%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(0, 43, 128, 0.1) 0%, transparent 70%)',
-          filter: 'blur(60px)'
+            ? 'linear-gradient(180deg, rgba(5, 12, 31, 0.65) 0%, rgba(8, 20, 50, 0.5) 50%, rgba(5, 12, 31, 0.8) 100%)'
+            : 'linear-gradient(180deg, rgba(240, 244, 250, 0.62) 0%, rgba(255, 255, 255, 0.48) 50%, rgba(240, 244, 250, 0.72) 100%)',
         }} />
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+        
+        {/* Spacious, Clean & Calm Hero Content Container */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(300px, 1.2fr) minmax(280px, 0.95fr)',
-          gap: '2.5rem',
-          alignItems: 'center'
-        }} className="hero-grid">
-          
-          {/* ================= LEFT COLUMN: ANIMATED TITLE & EASY DESCRIPTION ================= */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            
-            {/* Animated Pill Badge */}
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-              <div 
-                className="badge badge-prime" 
-                style={{ 
-                  padding: '0.35rem 0.85rem', 
-                  fontSize: '0.78rem',
-                  transition: 'opacity 0.3s ease',
-                  opacity: textFade ? 1 : 0.4
-                }}
-              >
-                <Sparkles size={14} />
-                <span>{currentText.badge}</span>
-              </div>
+          maxWidth: '820px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1.75rem'
+        }}>
 
-              <div className="badge badge-success" style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem' }}>
-                <ShieldCheck size={14} />
-                <span>100% Original Prime Products</span>
-              </div>
-            </div>
-
-            {/* Dynamic Animated Switching Title */}
-            <div style={{ minHeight: '125px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <h1 
-                style={{
-                  fontSize: 'clamp(1.9rem, 3.8vw, 2.75rem)',
-                  lineHeight: 1.2,
-                  fontWeight: 800,
-                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-                  opacity: textFade ? 1 : 0,
-                  transform: textFade ? 'translateY(0)' : 'translateY(8px)'
-                }}
-              >
-                {currentText.main} <br />
-                <span className="text-electric-blue">
-                  {currentText.highlight}
-                </span>
-              </h1>
-            </div>
-
-            {/* Natural & Easy to Understand Description */}
-            <p style={{
-              fontSize: '1.02rem',
-              lineHeight: 1.6,
-              maxWidth: '560px',
-              color: 'var(--text-secondary)'
-            }}>
-              We are an authorized distributor of <strong style={{ color: 'var(--text-primary)' }}>Prime</strong> electrical products in Faisalabad. Buy genuine luxury switches, tempered glass switchboards, LED lights, low-power fans, and safety circuit breakers at direct wholesale prices.
-            </p>
-
-            {/* BIG HEIGHT ACTION BUTTONS */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1rem',
-              flexWrap: 'wrap',
-              marginTop: '0.5rem'
-            }}>
-              <button 
-                onClick={() => navigateTo('shop')}
-                className="btn btn-electric"
-                style={{
-                  minHeight: '52px',
-                  padding: '0.9rem 2rem',
-                  fontSize: '1.05rem',
-                  fontWeight: 700,
-                  borderRadius: 'var(--radius-md)',
-                  gap: '0.5rem',
-                  boxShadow: 'var(--glow-electric)'
-                }}
-              >
-                <ShoppingBag size={20} />
-                <span>Shop Now</span>
-                <ArrowRight size={18} />
-              </button>
-
-              <button 
-                onClick={() => navigateTo('catalog')}
-                className="btn btn-outline"
-                style={{
-                  minHeight: '52px',
-                  padding: '0.9rem 1.85rem',
-                  fontSize: '1.05rem',
-                  fontWeight: 700,
-                  borderRadius: 'var(--radius-md)',
-                  gap: '0.5rem',
-                  borderWidth: '2px'
-                }}
-              >
-                <BookOpen size={20} />
-                <span>Visit Catalog</span>
-              </button>
-            </div>
-
-          </div>
-
-          {/* ================= RIGHT COLUMN: 7-SECOND ANIMATED SHOWCASE ================= */}
-          <div style={{ position: 'relative' }}>
-            
-            {/* Ambient Background Glow Behind Slider */}
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '280px',
-              height: '280px',
-              background: 'radial-gradient(circle, rgba(0, 85, 255, 0.25) 0%, rgba(0, 43, 128, 0.12) 50%, transparent 80%)',
-              borderRadius: '50%',
-              filter: 'blur(30px)',
-              pointerEvents: 'none'
-            }} />
-
-            {/* Slider Showcase Card */}
-            <div 
-              className="glass-card"
+          {/* Large, Easy-to-Read Title */}
+          <h1 
+            style={{
+              fontSize: 'clamp(2rem, 4vw, 3.1rem)',
+              lineHeight: 1.2,
+              fontWeight: 800,
+              textShadow: theme === 'dark' ? '0 2px 14px rgba(0, 0, 0, 0.85)' : '0 1px 2px rgba(255, 255, 255, 0.95)',
+              color: theme === 'dark' ? '#FFFFFF' : '#030A18'
+            }}
+          >
+            Welcome to Alnoor Traders <br />
+            <span 
+              className="text-electric-blue"
               style={{
-                position: 'relative',
-                padding: '1.5rem',
-                borderRadius: 'var(--radius-lg)',
-                border: '1px solid var(--border-card-hover)',
-                boxShadow: 'var(--glow-electric)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem',
-                overflow: 'hidden'
+                color: theme === 'dark' ? '#60A5FA' : '#001A4D',
+                fontWeight: 800,
+                display: 'inline-block',
+                marginTop: '0.25rem',
+                textShadow: theme === 'dark' ? '0 2px 12px rgba(0, 0, 0, 0.8)' : '0 1px 2px rgba(255, 255, 255, 0.95)'
               }}
             >
-              
-              {/* Card Top: Series Tag & Warranty Badge */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span className="badge badge-prime" style={{ fontSize: '0.72rem', padding: '0.2rem 0.6rem' }}>
-                  {currentSlide.series}
-                </span>
+              Luxury Switches & Modern Lighting
+            </span>
+          </h1>
 
-                <span style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  color: 'var(--text-accent)',
-                  background: 'var(--badge-bg)',
-                  padding: '0.2rem 0.55rem',
-                  borderRadius: 'var(--radius-full)',
-                  border: '1px solid var(--border-card)'
-                }}>
-                  {currentSlide.badge}
-                </span>
-              </div>
+          {/* Spacious, Clear Description */}
+          <p style={{
+            fontSize: '1.15rem',
+            lineHeight: 1.7,
+            maxWidth: '720px',
+            color: theme === 'dark' ? '#E2E8F0' : '#0A1629',
+            fontWeight: theme === 'dark' ? 400 : 600,
+            textShadow: theme === 'dark' ? '0 1px 6px rgba(0, 0, 0, 0.8)' : 'none'
+          }}>
+            Supplying genuine electrical switches, tempered glass switchboards, energy-saving LED lights, low-power fans, and safety circuit breakers across Faisalabad and Pakistan at fair wholesale prices.
+          </p>
 
-              {/* Product Image Area with Smooth 7s Animation Transition */}
-              <div 
-                style={{
-                  position: 'relative',
-                  height: '220px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  background: 'radial-gradient(circle at center, rgba(0, 85, 255, 0.12) 0%, transparent 72%)',
-                  borderRadius: 'var(--radius-md)',
-                  overflow: 'hidden'
-                }}
-              >
-                <img 
-                  key={currentSlide.id}
-                  src={currentSlide.image} 
-                  alt={currentSlide.title} 
-                  style={{
-                    maxHeight: '85%',
-                    maxWidth: '85%',
-                    objectFit: 'contain',
-                    filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.45))',
-                    transition: 'all 0.45s ease',
-                    opacity: slideFade ? 1 : 0,
-                    transform: slideFade ? 'scale(1)' : 'scale(0.95)'
-                  }}
-                  onError={(e) => {
-                    e.target.src = currentSlide.fallback;
-                  }}
-                />
+          {/* Big, Easy-to-Click Action Buttons */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.25rem',
+            flexWrap: 'wrap',
+            marginTop: '0.5rem'
+          }}>
+            <button 
+              onClick={() => navigateTo('shop')}
+              className="btn btn-electric"
+              style={{
+                minHeight: '52px',
+                padding: '0.85rem 2.2rem',
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                borderRadius: 'var(--radius-md)',
+                gap: '0.6rem',
+                boxShadow: theme === 'dark' 
+                  ? '0 6px 20px rgba(0, 85, 255, 0.45)' 
+                  : '0 6px 18px rgba(0, 43, 128, 0.22)'
+              }}
+            >
+              <ShoppingBag size={20} />
+              <span>Shop All Products</span>
+              <ArrowRight size={18} />
+            </button>
 
-                {/* Next & Previous Arrow Controls */}
-                <button
-                  onClick={prevSlide}
-                  aria-label="Previous slide"
-                  style={{
-                    position: 'absolute',
-                    left: '8px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--bg-glass)',
-                    color: 'var(--text-primary)',
-                    border: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    opacity: 0.85,
-                    transition: 'all var(--transition-fast)'
-                  }}
-                >
-                  <ChevronLeft size={16} />
-                </button>
+            <button 
+              onClick={() => navigateTo('catalog')}
+              className="btn btn-outline"
+              style={{
+                minHeight: '52px',
+                padding: '0.85rem 2rem',
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                borderRadius: 'var(--radius-md)',
+                gap: '0.6rem',
+                borderWidth: '2px'
+              }}
+            >
+              <BookOpen size={20} />
+              <span>View Catalog</span>
+            </button>
 
-                <button
-                  onClick={nextSlide}
-                  aria-label="Next slide"
-                  style={{
-                    position: 'absolute',
-                    right: '8px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    width: '32px',
-                    height: '32px',
-                    borderRadius: '50%',
-                    background: 'var(--bg-glass)',
-                    color: 'var(--text-primary)',
-                    border: '1px solid var(--border-subtle)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    opacity: 0.85,
-                    transition: 'all var(--transition-fast)'
-                  }}
-                >
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-
-              {/* Slide Meta Description */}
-              <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-end',
-                paddingTop: '0.25rem',
-                transition: 'opacity 0.35s ease',
-                opacity: slideFade ? 1 : 0
-              }}>
-                <div>
-                  <h4 style={{ fontSize: '1.05rem', color: 'var(--text-primary)', fontWeight: 700 }}>
-                    {currentSlide.title}
-                  </h4>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>
-                    {currentSlide.subtitle}
-                  </div>
-                </div>
-
-                <div className="badge badge-success" style={{ fontSize: '0.72rem', padding: '0.15rem 0.5rem' }}>
-                  {currentSlide.tag}
-                </div>
-              </div>
-
-              {/* Slide Dots and 7-Second Progress Bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.25rem' }}>
-                {/* Dots */}
-                <div style={{ display: 'flex', gap: '0.4rem' }}>
-                  {imageSlides.map((slide, idx) => (
-                    <button
-                      key={slide.id}
-                      onClick={() => goToSlide(idx)}
-                      aria-label={`Go to slide ${idx + 1}`}
-                      style={{
-                        width: slideIndex === idx ? '22px' : '8px',
-                        height: '8px',
-                        borderRadius: '999px',
-                        background: slideIndex === idx ? 'var(--text-accent)' : 'var(--border-subtle)',
-                        border: 'none',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                    />
-                  ))}
-                </div>
-
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                  Auto-switch (7s)
-                </span>
-              </div>
-
-              {/* 7-Second Animated Progress Bar */}
-              <div style={{
-                width: '100%',
-                height: '3px',
-                background: 'var(--border-subtle)',
-                borderRadius: '999px',
-                overflow: 'hidden',
-                marginTop: '0.1rem'
-              }}>
-                <div 
-                  key={slideIndex}
-                  style={{
-                    height: '100%',
-                    background: 'linear-gradient(90deg, #0055FF, #002B80)',
-                    animation: 'heroTimerProgress 7s linear infinite'
-                  }}
-                />
-              </div>
-
-            </div>
-
+            <a
+              href={`tel:${distributor.phone1}`}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.25rem',
+                fontSize: '1rem',
+                fontWeight: 700,
+                color: theme === 'dark' ? '#93C5FD' : '#001B4E',
+                textDecoration: 'none',
+                marginLeft: '0.25rem'
+              }}
+            >
+              <Phone size={18} style={{ color: '#60A5FA' }} />
+              <span>Call: {distributor.phone1}</span>
+            </a>
           </div>
 
         </div>
 
       </div>
-
-      {/* Embedded Animations Style */}
-      <style>{`
-        @keyframes heroTimerProgress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-        @media (max-width: 868px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-            gap: 2rem !important;
-          }
-        }
-      `}</style>
 
     </section>
   );

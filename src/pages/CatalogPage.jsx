@@ -10,7 +10,7 @@ export const CatalogPage = () => {
   const catalogSeries = [
     {
       id: 'art-series',
-      title: 'Prime Art Luxury Switch Series',
+      title: 'Art Luxury Switch Series',
       subtitle: 'Modern Matte Finish Switches & Universal Sockets',
       cover: '/images/products/art-black.png',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/ART-BLACK.png',
@@ -25,7 +25,7 @@ export const CatalogPage = () => {
     },
     {
       id: '6m-series',
-      title: 'Prime 6M Architectural Grid Series',
+      title: '6M Architectural Grid Series',
       subtitle: 'Wide Switchboards with Rose Gold Trim Border',
       cover: '/images/products/6m-black.png',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/6m-BLACK.png',
@@ -40,7 +40,7 @@ export const CatalogPage = () => {
     },
     {
       id: 'lg-glass',
-      title: 'Prime LG Real Glass Series',
+      title: 'LG Real Glass Series',
       subtitle: '4mm Diamond-Cut Tempered Glass Switchboards',
       cover: '/images/products/lg-series.png',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/LG.png',
@@ -55,7 +55,7 @@ export const CatalogPage = () => {
     },
     {
       id: 'smd-lighting',
-      title: 'Prime OptiGlow Slim SMD Ceiling Lights',
+      title: 'OptiGlow Slim SMD Ceiling Lights',
       subtitle: '3-in-1 Color Switching Panels with Built-in Surge Protectors',
       cover: '/images/products/smd.jpg',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/SMD-2-scaled.jpg',
@@ -70,7 +70,7 @@ export const CatalogPage = () => {
     },
     {
       id: 'bldc-fans',
-      title: 'Prime AeroInverter BLDC Ceiling Fans',
+      title: 'AeroInverter BLDC Ceiling Fans',
       subtitle: 'Super Low-Power 30W Inverter Motor with Wireless Remote',
       cover: '/images/products/mm-series.png',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/MM.png',
@@ -85,7 +85,7 @@ export const CatalogPage = () => {
     },
     {
       id: 'circuit-breakers',
-      title: 'Prime SafeGuard Breakers & DB Boxes',
+      title: 'SafeGuard Breakers & DB Boxes',
       subtitle: 'Certified Miniature Circuit Breakers & Acrylic Distribution Boxes',
       cover: '/images/products/breaker.jpg',
       fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/BREAKER-scaled.jpg',
@@ -120,14 +120,10 @@ export const CatalogPage = () => {
           borderBottom: '1px solid var(--border-subtle)'
         }}>
           <div>
-            <div className="badge badge-prime" style={{ marginBottom: '0.6rem' }}>
-              <BookOpen size={13} />
-              Product Catalog & Specs
-            </div>
-            <h1>
-              Prime Digital <span className="text-electric-blue">Product Catalog</span>
+            <h1 style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800 }}>
+              Alnoor Digital <span className="text-electric-blue">Product Catalog</span>
             </h1>
-            <p style={{ marginTop: '0.5rem', maxWidth: '650px', fontSize: '1.05rem' }}>
+            <p style={{ marginTop: '0.75rem', maxWidth: '650px', fontSize: '1.15rem', color: 'var(--text-secondary)' }}>
               Official product catalog and technical specifications for builders, electricians, and homeowners.
             </p>
           </div>
@@ -143,7 +139,7 @@ export const CatalogPage = () => {
             </button>
 
             <a
-              href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! Please send me the complete Prime Lighting product catalog PDF.')}`}
+              href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent('Hello Alnoor Traders! Please send me the complete product catalog PDF.')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-whatsapp"
@@ -155,7 +151,7 @@ export const CatalogPage = () => {
           </div>
         </div>
 
-        {/* Distributor Verification Letterhead */}
+        {/* Store Information Letterhead */}
         <div 
           className="glass-card"
           style={{
@@ -178,10 +174,10 @@ export const CatalogPage = () => {
             />
             <div>
               <div style={{ fontWeight: 800, fontSize: '1.15rem', color: 'var(--text-primary)' }}>
-                Alnoor Traders (Prime Authorized Distributor)
+                Alnoor Traders
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                Official Wholesale Distributor of Prime Traders & Prime Lighting Systems
+                Wholesale Electrical Switches & Modern Lighting Systems
               </div>
             </div>
           </div>
@@ -253,13 +249,10 @@ export const CatalogPage = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   
                   <div>
-                    <div className="badge badge-prime" style={{ fontSize: '0.7rem', marginBottom: '0.4rem' }}>
-                      Prime Genuine Product
-                    </div>
-                    <h3 style={{ fontSize: '1.45rem', color: 'var(--text-primary)' }}>
+                    <h3 style={{ fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 800 }}>
                       {series.title}
                     </h3>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                    <p style={{ fontSize: '0.98rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
                       {series.subtitle}
                     </p>
                   </div>
@@ -353,7 +346,7 @@ export const CatalogPage = () => {
         }}>
           <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Need Custom Price Lists or Tender Files?</h3>
           <p style={{ maxWidth: '600px', margin: '0 auto 1.5rem', color: 'var(--text-secondary)' }}>
-            Contact our distributor team for wholesale catalogs, project quotes, and sample boards.
+            Contact our sales team for wholesale catalogs, project quotes, and sample boards.
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <a 

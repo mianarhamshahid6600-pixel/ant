@@ -329,53 +329,20 @@ export const ShopPage = () => {
                 {/* Product Image Area */}
                 <div 
                   className="product-image-wrap"
-                  style={viewMode === 'list' ? { width: '180px', flexShrink: 0, aspectRatio: 'auto', height: '100%' } : {}}
+                  style={{
+                    ...(viewMode === 'list' ? { width: '180px', flexShrink: 0, aspectRatio: 'auto', height: '100%' } : { height: '200px' }),
+                    background: 'radial-gradient(circle at center, rgba(0, 85, 255, 0.08) 0%, transparent 70%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1.25rem'
+                  }}
                 >
-                  {/* Badges */}
-                  <div style={{ position: 'absolute', top: '8px', left: '8px', zIndex: 2, display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <span className="badge badge-prime" style={{ fontSize: '0.65rem', padding: '0.15rem 0.45rem' }}>
-                      {product.series || 'Prime'}
-                    </span>
-                    {product.badge && (
-                      <span className="badge badge-success" style={{ fontSize: '0.62rem', padding: '0.12rem 0.4rem' }}>
-                        {product.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Quick View Button on Card */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setQuickViewProduct(product);
-                    }}
-                    aria-label="Quick view product"
-                    style={{
-                      position: 'absolute',
-                      top: '8px',
-                      right: '8px',
-                      zIndex: 2,
-                      width: '32px',
-                      height: '32px',
-                      borderRadius: 'var(--radius-md)',
-                      background: 'var(--bg-glass)',
-                      color: 'var(--text-primary)',
-                      border: '1px solid var(--border-subtle)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      opacity: 0.9,
-                      transition: 'all var(--transition-fast)'
-                    }}
-                    title="Quick Preview"
-                  >
-                    <Eye size={15} />
-                  </button>
-
                   <img 
                     src={product.image} 
                     alt={product.name}
                     className="product-image"
+                    style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
                     onError={(e) => {
                       if (product.fallbackImage && e.target.src !== product.fallbackImage) {
                         e.target.src = product.fallbackImage;
@@ -385,68 +352,38 @@ export const ShopPage = () => {
                 </div>
 
                 {/* Product Body */}
-                <div className="product-body" style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '1rem', gap: '0.5rem' }}>
+                <div className="product-body" style={{ display: 'flex', flexDirection: 'column', flex: 1, padding: '1.25rem', gap: '0.6rem' }}>
                   
-                  {/* Rating */}
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', color: '#F59E0B', fontSize: '0.78rem' }}>
-                      <Star size={12} fill="#F59E0B" />
-                      <strong style={{ color: 'var(--text-primary)' }}>{product.rating || '4.9'}</strong>
-                      <span style={{ color: 'var(--text-muted)' }}>({product.reviewsCount || 42})</span>
-                    </div>
-
-                    <span style={{ fontSize: '0.7rem', color: '#10B981', fontWeight: 600 }}>
-                      10-Yr Warranty
-                    </span>
+                  {/* Category / Series */}
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                    {product.series}
                   </div>
 
                   {/* Title */}
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, lineHeight: 1.35, color: 'var(--text-primary)' }}>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, lineHeight: 1.35, color: 'var(--text-primary)' }}>
                     {product.name}
                   </h3>
 
-                  {/* Specs Quick Pills */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginTop: '0.15rem' }}>
-                    {product.specs && Object.entries(product.specs).slice(0, 2).map(([key, val], idx) => (
-                      <span 
-                        key={idx}
-                        style={{
-                          fontSize: '0.7rem',
-                          background: 'var(--bg-tertiary)',
-                          color: 'var(--text-muted)',
-                          padding: '0.15rem 0.45rem',
-                          borderRadius: 'var(--radius-sm)',
-                          border: '1px solid var(--border-subtle)'
-                        }}
-                      >
-                        {val}
-                      </span>
-                    ))}
-                  </div>
-
                   {/* Pricing Status & Action Buttons */}
-                  <div style={{ marginTop: 'auto', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ marginTop: 'auto', paddingTop: '0.85rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                     
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--text-accent)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                        Wholesale Rate
-                      </span>
-                      <span style={{ fontSize: '0.75rem', color: '#10B981', fontWeight: 600 }}>
-                        In Stock
+                      <span style={{ fontSize: '0.88rem', fontWeight: 700, color: '#10B981' }}>
+                        Wholesale Rate on WhatsApp
                       </span>
                     </div>
 
                     {/* Button Row */}
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           addToCart(product, 1);
                         }}
-                        className="btn btn-primary btn-sm"
-                        style={{ gap: '0.3rem', fontSize: '0.8rem', padding: '0.45rem 0.6rem' }}
+                        className="btn btn-primary"
+                        style={{ gap: '0.4rem', fontSize: '0.88rem', padding: '0.55rem 0.75rem', fontWeight: 700 }}
                       >
-                        <ShoppingBag size={14} />
+                        <ShoppingBag size={15} />
                         <span>Add to Cart</span>
                       </button>
 
@@ -455,11 +392,11 @@ export const ShopPage = () => {
                           e.stopPropagation();
                           viewProductDetail(product);
                         }}
-                        className="btn btn-outline btn-sm"
-                        style={{ gap: '0.25rem', fontSize: '0.8rem', padding: '0.45rem 0.6rem' }}
+                        className="btn btn-outline"
+                        style={{ gap: '0.35rem', fontSize: '0.88rem', padding: '0.55rem 0.75rem', fontWeight: 700 }}
                       >
-                        <span>Details</span>
-                        <ArrowRight size={13} />
+                        <span>View Details</span>
+                        <ArrowRight size={14} />
                       </button>
                     </div>
 
