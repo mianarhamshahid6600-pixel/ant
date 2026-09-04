@@ -300,9 +300,8 @@ export const ProductDetailPage = () => {
                 <Star size={15} fill="#F59E0B" />
                 <strong style={{ color: 'var(--text-primary)', fontSize: '0.95rem' }}>{product.rating || '4.9'}</strong>
               </div>
-              <span style={{ color: 'var(--text-muted)' }}>•</span>
               <span style={{ color: 'var(--text-secondary)' }}>
-                {product.reviewsCount || 68} Verified Contractors & Homeowners
+                {product.reviewsCount ? `${product.reviewsCount} Verified Contractor Orders` : 'Verified Genuine Product'}
               </span>
             </div>
 

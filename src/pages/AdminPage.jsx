@@ -5,7 +5,7 @@ import {
   Settings, Plus, Search, Edit, Trash2, Eye, EyeOff, Copy,
   CheckCircle, AlertTriangle, ArrowRight, ShieldCheck, Download,
   Upload, RotateCcw, LogOut, ExternalLink, Star, Phone, Truck,
-  DollarSign, Hash, X, Check, Save, Info, Tag, Sliders
+  DollarSign, Hash, X, Check, Save, Info, Tag, Sliders, Database, RefreshCw
 } from 'lucide-react';
 
 export const AdminPage = () => {
@@ -47,10 +47,23 @@ export const AdminPage = () => {
     resetToFactoryDefaults,
     exportStoreData,
     importStoreData,
-    showToast
+    showToast,
+    cloudStatus,
+    lastSyncTime,
+    isCloudSyncing,
+    syncNowWithCloud
   } = useStore();
 
   const [activeTab, setActiveTab] = useState('products');
+
+  // Manual Customer Order Modal State
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  const [orderCustomerName, setOrderCustomerName] = useState('');
+  const [orderCustomerPhone, setOrderCustomerPhone] = useState('');
+  const [orderCustomerCity, setOrderCustomerCity] = useState('');
+  const [orderCustomerItems, setOrderCustomerItems] = useState('');
+  const [orderCustomerTotal, setOrderCustomerTotal] = useState('');
+  const [orderType, setOrderType] = useState('Walk-in Customer');
 
   // Product Filters
   const [productSearch, setProductSearch] = useState('');
@@ -146,9 +159,20 @@ export const AdminPage = () => {
                 <ShieldCheck size={15} />
                 <span>STORE MASTER ADMIN</span>
               </div>
-              <span style={{ fontSize: '0.85rem', color: '#10B981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10B981', display: 'inline-block' }} />
-                Live Sync Enabled
+              <span style={{
+                fontSize: '0.78rem',
+                color: cloudStatus === 'connected' ? '#10B981' : '#F59E0B',
+                fontWeight: 700,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                background: cloudStatus === 'connected' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)',
+                padding: '0.25rem 0.65rem',
+                borderRadius: '6px',
+                border: `1px solid ${cloudStatus === 'connected' ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 158, 11, 0.35)'}`
+              }}>
+                <Database size={13} />
+                <span>Firebase Database: {cloudStatus === 'connected' ? 'Live Connected' : 'Connecting...'} {lastSyncTime ? `(${lastSyncTime})` : ''}</span>
               </span>
             </div>
             <h1 style={{ fontSize: 'clamp(1.75rem, 3vw, 2.3rem)', fontWeight: 800, margin: 0 }}>
@@ -159,7 +183,18 @@ export const AdminPage = () => {
             </p>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={syncNowWithCloud}
+              disabled={isCloudSyncing}
+              className="btn btn-outline"
+              style={{ gap: '0.45rem', padding: '0.65rem 1.1rem', fontSize: '0.88rem', color: '#38BDF8', borderColor: 'rgba(56, 189, 248, 0.4)', fontWeight: 700 }}
+              title="Force sync all store data to Firebase Cloud Database"
+            >
+              <RefreshCw size={14} className={isCloudSyncing ? 'spin-icon' : ''} />
+              <span>{isCloudSyncing ? 'Syncing...' : 'Sync Database'}</span>
+            </button>
+
             <button
               onClick={() => navigateTo('home')}
               className="btn btn-primary"
@@ -839,7 +874,7 @@ export const AdminPage = () => {
                     value={tickerSettings.phone1}
                     onChange={(e) => updateTicker({ phone1: e.target.value })}
                     className="admin-input"
-                    placeholder="03146600174"
+                    placeholder="Enter primary phone number"
                   />
                 </div>
 
@@ -852,7 +887,7 @@ export const AdminPage = () => {
                     value={tickerSettings.phone2}
                     onChange={(e) => updateTicker({ phone2: e.target.value })}
                     className="admin-input"
-                    placeholder="03246600174"
+                    placeholder="Enter secondary phone number"
                   />
                 </div>
 
@@ -865,7 +900,7 @@ export const AdminPage = () => {
                     value={tickerSettings.deliveryText}
                     onChange={(e) => updateTicker({ deliveryText: e.target.value })}
                     className="admin-input"
-                    placeholder="Free Delivery over Faisalabad"
+                    placeholder="Enter delivery announcement text"
                   />
                 </div>
 
@@ -878,7 +913,7 @@ export const AdminPage = () => {
                     value={tickerSettings.customNotice || ''}
                     onChange={(e) => updateTicker({ customNotice: e.target.value })}
                     className="admin-input"
-                    placeholder="e.g. Ramadan Special Timings or Eid Wholesale Deals"
+                    placeholder="Enter custom promotional or seasonal announcement"
                   />
                 </div>
 
@@ -957,7 +992,7 @@ export const AdminPage = () => {
                     value={promotions.badge || ''}
                     onChange={(e) => updatePromotionSettings({ badge: e.target.value })}
                     className="admin-input"
-                    placeholder="Special Wholesale Offer"
+                    placeholder="Enter badge label"
                   />
                 </div>
 
@@ -970,7 +1005,7 @@ export const AdminPage = () => {
                     value={promotions.title || ''}
                     onChange={(e) => updatePromotionSettings({ title: e.target.value })}
                     className="admin-input"
-                    placeholder="⚡ Mega Builder & Contractor Discount Week!"
+                    placeholder="Enter headline"
                   />
                 </div>
 
@@ -983,7 +1018,7 @@ export const AdminPage = () => {
                     value={promotions.subtitle || ''}
                     onChange={(e) => updatePromotionSettings({ subtitle: e.target.value })}
                     className="admin-input"
-                    placeholder="Describe the offer..."
+                    placeholder="Enter promo details..."
                   />
                 </div>
 
@@ -1009,7 +1044,7 @@ export const AdminPage = () => {
                       value={promotions.btnText || ''}
                       onChange={(e) => updatePromotionSettings({ btnText: e.target.value })}
                       className="admin-input"
-                      placeholder="Claim Offer on WhatsApp"
+                      placeholder="Enter button text"
                     />
                   </div>
                 </div>
@@ -1353,19 +1388,20 @@ export const AdminPage = () => {
               </div>
 
               <button
-                onClick={() => addManualOrder({
-                  customerName: 'Direct Walk-in Contractor',
-                  phone: '03146600174',
-                  city: 'Faisalabad (Rail Bazaar)',
-                  items: [{ name: 'Art Series Switches Package', qty: 20, price: 680 }],
-                  total: 13600,
-                  type: 'Walk-in Inquiry'
-                })}
-                className="btn btn-outline"
+                onClick={() => {
+                  setOrderCustomerName('');
+                  setOrderCustomerPhone('');
+                  setOrderCustomerCity('');
+                  setOrderCustomerItems('');
+                  setOrderCustomerTotal('');
+                  setOrderType('Walk-in Customer');
+                  setIsOrderModalOpen(true);
+                }}
+                className="btn btn-primary"
                 style={{ gap: '0.4rem', fontWeight: 700 }}
               >
                 <Plus size={15} />
-                <span>+ Log Test Order</span>
+                <span>+ Record Customer Order</span>
               </button>
             </div>
 
@@ -1482,6 +1518,78 @@ export const AdminPage = () => {
         {activeTab === 'settings' && (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.75rem' }}>
             
+            {/* Firebase Cloud Database Live Connection Card */}
+            <div className="glass-card" style={{ padding: '1.5rem', border: '1.5px solid rgba(0, 102, 255, 0.4)', gridColumn: '1 / -1' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
+                    background: 'rgba(0, 102, 255, 0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'var(--text-accent)'
+                  }}>
+                    <Database size={22} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>
+                      Firebase Cloud Database (Live Connected)
+                    </h3>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '2px' }}>
+                      All products, prices, stock, promotions, and orders sync live across all visitors
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span style={{
+                    fontSize: '0.78rem',
+                    fontWeight: 800,
+                    padding: '4px 12px',
+                    borderRadius: '999px',
+                    background: cloudStatus === 'connected' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                    color: cloudStatus === 'connected' ? '#10B981' : '#F59E0B',
+                    border: `1px solid ${cloudStatus === 'connected' ? 'rgba(16, 185, 129, 0.4)' : 'rgba(245, 158, 11, 0.4)'}`,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}>
+                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: cloudStatus === 'connected' ? '#10B981' : '#F59E0B' }} />
+                    {cloudStatus === 'connected' ? 'Cloud Sync Active' : 'Connecting to Database...'}
+                  </span>
+
+                  <button
+                    onClick={syncNowWithCloud}
+                    disabled={isCloudSyncing}
+                    className="btn btn-primary btn-sm"
+                    style={{ gap: '0.4rem', fontWeight: 700 }}
+                  >
+                    <RefreshCw size={13} className={isCloudSyncing ? 'spin-icon' : ''} />
+                    <span>{isCloudSyncing ? 'Syncing...' : 'Upload & Sync All Data Now'}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: '0.75rem',
+                padding: '0.85rem 1rem',
+                background: 'var(--bg-tertiary)',
+                borderRadius: 'var(--radius-md)',
+                fontSize: '0.82rem',
+                border: '1px solid var(--border-subtle)'
+              }}>
+                <div><strong style={{ color: 'var(--text-muted)' }}>Project ID:</strong> <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>alnoor-traders</span></div>
+                <div><strong style={{ color: 'var(--text-muted)' }}>Database URL:</strong> <span style={{ color: 'var(--text-accent)', fontWeight: 700 }}>alnoor-traders.firebaseapp.com</span></div>
+                <div><strong style={{ color: 'var(--text-muted)' }}>Storage Bucket:</strong> <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>alnoor-traders.firebasestorage.app</span></div>
+                <div><strong style={{ color: 'var(--text-muted)' }}>Last Synced:</strong> <span style={{ color: '#10B981', fontWeight: 700 }}>{lastSyncTime || 'Active'}</span></div>
+              </div>
+            </div>
+
             {/* PIN Settings */}
             <div className="glass-card" style={{ padding: '1.5rem' }}>
               <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: '0 0 0.5rem' }}>
@@ -1769,6 +1877,159 @@ export const AdminPage = () => {
           </div>
         )}
 
+        {/* ================= RECORD CUSTOMER ORDER MODAL ================= */}
+        {isOrderModalOpen && (
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999,
+            background: 'rgba(3, 7, 18, 0.8)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1.25rem'
+          }}>
+            <div className="glass-card" style={{
+              width: '100%',
+              maxWidth: '520px',
+              background: 'var(--bg-secondary)',
+              borderRadius: '18px',
+              padding: '1.75rem',
+              border: '1px solid var(--border-card-hover)'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>
+                  Record New Customer Order / Quote
+                </h3>
+                <button 
+                  onClick={() => setIsOrderModalOpen(false)}
+                  style={{ color: 'var(--text-muted)', background: 'none', border: 'none', cursor: 'pointer' }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                if (!orderCustomerName.trim()) {
+                  showToast('Please enter customer name', 'warning');
+                  return;
+                }
+                addManualOrder({
+                  customerName: orderCustomerName.trim(),
+                  phone: orderCustomerPhone.trim() || 'Walk-in (No Phone)',
+                  city: orderCustomerCity.trim() || 'Faisalabad',
+                  items: orderCustomerItems.trim() 
+                    ? orderCustomerItems.split(',').map(item => ({ name: item.trim(), qty: 1, price: Number(orderCustomerTotal) || 0 }))
+                    : [{ name: 'Store Order Package', qty: 1, price: Number(orderCustomerTotal) || 0 }],
+                  total: Number(orderCustomerTotal) || 0,
+                  type: orderType
+                });
+                setIsOrderModalOpen(false);
+              }} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                    Customer / Contractor Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Enter customer or company name"
+                    value={orderCustomerName}
+                    onChange={(e) => setOrderCustomerName(e.target.value)}
+                    className="admin-input"
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                      Contact Phone / WhatsApp
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter contact number"
+                      value={orderCustomerPhone}
+                      onChange={(e) => setOrderCustomerPhone(e.target.value)}
+                      className="admin-input"
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                      City / Area
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter city or location"
+                      value={orderCustomerCity}
+                      onChange={(e) => setOrderCustomerCity(e.target.value)}
+                      className="admin-input"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                    Items / Products List (Comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter items (e.g. 20x Art Black Switch, 10x 12W SMD Light)"
+                    value={orderCustomerItems}
+                    onChange={(e) => setOrderCustomerItems(e.target.value)}
+                    className="admin-input"
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                      Total Amount (PKR)
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Total amount"
+                      value={orderCustomerTotal}
+                      onChange={(e) => setOrderCustomerTotal(e.target.value)}
+                      className="admin-input"
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, marginBottom: '0.3rem' }}>
+                      Order Source / Type
+                    </label>
+                    <select
+                      value={orderType}
+                      onChange={(e) => setOrderType(e.target.value)}
+                      className="admin-input"
+                    >
+                      <option value="Walk-in Customer">Walk-in Customer</option>
+                      <option value="Phone Inquiry">Phone Inquiry</option>
+                      <option value="Contractor Bulk Order">Contractor Bulk Order</option>
+                      <option value="Architect Quotation">Architect Quotation</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
+                  <button type="button" onClick={() => setIsOrderModalOpen(false)} className="btn btn-outline">
+                    Cancel
+                  </button>
+                  <button type="submit" className="btn btn-primary" style={{ fontWeight: 700 }}>
+                    Save Order to Database
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
       </div>
 
       {/* Admin Utility CSS */}
@@ -1937,7 +2198,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="admin-input"
-              placeholder="e.g. Art Series - Matte Black 1-Gang Switch"
+              placeholder="Enter product title"
             />
           </div>
 
@@ -1966,7 +2227,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
                 value={series}
                 onChange={(e) => setSeries(e.target.value)}
                 className="admin-input"
-                placeholder="e.g. Art Luxury Series"
+                placeholder="Enter series name"
               />
             </div>
 
@@ -1979,7 +2240,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
                 value={badge}
                 onChange={(e) => setBadge(e.target.value)}
                 className="admin-input"
-                placeholder="e.g. Bestseller, Top Rated"
+                placeholder="Enter badge (optional)"
               />
             </div>
           </div>
@@ -2130,7 +2391,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="admin-input"
-              placeholder="Sleek matte finish, fire-proof polymer, copper terminals..."
+              placeholder="Enter product overview and material details..."
             />
           </div>
 
@@ -2161,7 +2422,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
                   />
                   <input
                     type="text"
-                    placeholder="Value (e.g. 220V AC)"
+                    placeholder="Spec Value"
                     value={spec.value}
                     onChange={(e) => handleSpecChange(i, 'value', e.target.value)}
                     className="admin-input"
@@ -2198,7 +2459,7 @@ const ProductFormModal = ({ product, categories, standardImages, onClose, onSave
                 <div key={i} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                   <input
                     type="text"
-                    placeholder="e.g. Smooth, quiet click"
+                    placeholder="Enter feature bullet"
                     value={feat}
                     onChange={(e) => handleFeatureChange(i, e.target.value)}
                     className="admin-input"
@@ -2301,7 +2562,7 @@ const CategoryFormModal = ({ category, standardImages, onClose, onSave }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="admin-input"
-              placeholder="e.g. Smart Switches & Sockets"
+              placeholder="Enter category name"
             />
           </div>
 
@@ -2314,7 +2575,7 @@ const CategoryFormModal = ({ category, standardImages, onClose, onSave }) => {
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
               className="admin-input"
-              placeholder="e.g. Luxury Glass & Designer Series"
+              placeholder="Enter category focus or subtitle"
             />
           </div>
 
@@ -2445,7 +2706,7 @@ const SeriesFormModal = ({ series, standardImages, onClose, onSave }) => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="admin-input"
-              placeholder="e.g. Art Luxury Switch Series"
+              placeholder="Enter series title"
             />
           </div>
 
@@ -2458,6 +2719,7 @@ const SeriesFormModal = ({ series, standardImages, onClose, onSave }) => {
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
               className="admin-input"
+              placeholder="Enter series overview"
             />
           </div>
 
@@ -2482,7 +2744,7 @@ const SeriesFormModal = ({ series, standardImages, onClose, onSave }) => {
               value={finishesText}
               onChange={(e) => setFinishesText(e.target.value)}
               className="admin-input"
-              placeholder="Matte Black, Pure White, Space Grey"
+              placeholder="Enter finishes (e.g. Matte Black, Pure White)"
             />
           </div>
 

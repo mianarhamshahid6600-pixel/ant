@@ -8,6 +8,22 @@ import {
   DEFAULT_TICKER_SETTINGS, 
   DEFAULT_PROMOTIONS 
 } from '../data/products';
+import {
+  subscribeToStoreData,
+  saveProductsToCloud,
+  saveCategoriesToCloud,
+  saveCatalogSeriesToCloud,
+  saveSiteContentToCloud,
+  saveTickerToCloud,
+  savePromotionsToCloud,
+  saveDistributorToCloud,
+  saveSecurityPinToCloud,
+  saveOrderToCloud,
+  updateOrderStatusInCloud,
+  deleteOrderFromCloud,
+  syncAllToCloud,
+  checkDatabaseInitialized
+} from '../services/firestoreService';
 
 const StoreContext = createContext();
 
@@ -29,7 +45,12 @@ export const StoreProvider = ({ children }) => {
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [sortBy, setSortBy] = useState('popular');
 
-  // Products Dynamic State (LocalStorage persistent)
+  // Cloud Database Status
+  const [cloudStatus, setCloudStatus] = useState('connecting'); // 'connecting' | 'connected' | 'offline'
+  const [lastSyncTime, setLastSyncTime] = useState('');
+  const [isCloudSyncing, setIsCloudSyncing] = useState(false);
+
+  // Products Dynamic State (LocalStorage + Cloud Firestore)
   const [products, setProducts] = useState(() => {
     try {
       const saved = localStorage.getItem('alnoor_products');
@@ -39,7 +60,7 @@ export const StoreProvider = ({ children }) => {
     }
   });
 
-  // Categories Dynamic State (LocalStorage persistent)
+  // Categories Dynamic State (LocalStorage + Cloud Firestore)
   const [categories, setCategories] = useState(() => {
     try {
       const saved = localStorage.getItem('alnoor_categories');
@@ -129,44 +150,110 @@ export const StoreProvider = ({ children }) => {
   // Toast Notification
   const [toast, setToast] = useState(null);
 
-  // Orders / WhatsApp Inquiry Logs
+  // Orders / Real Customer Inquiry Logs (No sample or placeholder fake orders)
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem('alnoor_orders');
-      return saved ? JSON.parse(saved) : [
-        {
-          id: 'ORD-1001',
-          date: '2026-09-02 14:30',
-          customerName: 'Muhammad Tariq (Contractor)',
-          phone: '03001234567',
-          city: 'Faisalabad (Madina Town)',
-          items: [
-            { name: 'Art Series - Matte Black 1-Gang Switch', qty: 40, price: 520 },
-            { name: 'Art Series - Space Grey Universal Socket', qty: 25, price: 710 }
-          ],
-          total: 38550,
-          status: 'Confirmed',
-          type: 'Contractor Order'
-        },
-        {
-          id: 'ORD-1002',
-          date: '2026-09-03 11:15',
-          customerName: 'Sheikh Imran (Architect)',
-          phone: '03219876543',
-          city: 'Faisalabad (D Ground)',
-          items: [
-            { name: 'LG Real Glass Series - 8-Gang Luxury Board', qty: 6, price: 2950 },
-            { name: 'OptiGlow 12W 3-in-1 SMD Panel', qty: 30, price: 580 }
-          ],
-          total: 35100,
-          status: 'Pending',
-          type: 'WhatsApp Quote'
-        }
-      ];
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Filter out legacy dummy sample orders if any exist
+        return parsed.filter(o => o.id !== 'ORD-1001' && o.id !== 'ORD-1002');
+      }
+      return [];
     } catch {
       return [];
     }
   });
+
+  // Real-time Firestore Cloud Synchronization & Auto-Seed
+  useEffect(() => {
+    // Initial verification: seed cloud database if empty
+    checkDatabaseInitialized()
+      .then((initialized) => {
+        if (!initialized) {
+          syncAllToCloud({
+            products,
+            categories,
+            catalogSeries,
+            siteContent,
+            tickerSettings,
+            promotions,
+            distributor,
+            adminPin
+          }).then((res) => {
+            if (res.success) {
+              setCloudStatus('connected');
+              setLastSyncTime(new Date().toLocaleTimeString());
+            }
+          }).catch(() => {});
+        } else {
+          setCloudStatus('connected');
+        }
+      })
+      .catch(() => {});
+
+    // Listen to real-time updates from Firebase Cloud Firestore
+    const unsubscribe = subscribeToStoreData({
+      onProducts: (cloudProducts) => {
+        if (Array.isArray(cloudProducts) && cloudProducts.length > 0) {
+          setProducts(cloudProducts);
+          setLastSyncTime(new Date().toLocaleTimeString());
+        }
+      },
+      onCategories: (cloudCategories) => {
+        if (Array.isArray(cloudCategories) && cloudCategories.length > 0) {
+          setCategories(cloudCategories);
+          setLastSyncTime(new Date().toLocaleTimeString());
+        }
+      },
+      onCatalogSeries: (cloudSeries) => {
+        if (Array.isArray(cloudSeries) && cloudSeries.length > 0) {
+          setCatalogSeries(cloudSeries);
+        }
+      },
+      onSiteContent: (cloudContent) => {
+        if (cloudContent && typeof cloudContent === 'object') {
+          setSiteContent(cloudContent);
+        }
+      },
+      onTicker: (cloudTicker) => {
+        if (cloudTicker && typeof cloudTicker === 'object') {
+          setTickerSettings(cloudTicker);
+        }
+      },
+      onPromotions: (cloudPromos) => {
+        if (cloudPromos && typeof cloudPromos === 'object') {
+          setPromotions(cloudPromos);
+        }
+      },
+      onDistributor: (cloudDistributor) => {
+        if (cloudDistributor && typeof cloudDistributor === 'object') {
+          setDistributor(cloudDistributor);
+        }
+      },
+      onSecurityPin: (cloudPin) => {
+        if (cloudPin && typeof cloudPin === 'string') {
+          setAdminPin(cloudPin);
+        }
+      },
+      onOrders: (cloudOrders) => {
+        if (Array.isArray(cloudOrders)) {
+          const cleanOrders = cloudOrders.filter(o => o.id !== 'ORD-1001' && o.id !== 'ORD-1002');
+          setOrders(cleanOrders);
+        }
+      },
+      onStatusChange: (status) => {
+        setCloudStatus(status);
+        if (status === 'connected') {
+          setLastSyncTime(new Date().toLocaleTimeString());
+        }
+      }
+    });
+
+    return () => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+    };
+  }, []);
 
   // Apply Theme class to document body
   useEffect(() => {
@@ -174,7 +261,7 @@ export const StoreProvider = ({ children }) => {
     localStorage.setItem('alnoor_theme', theme);
   }, [theme]);
 
-  // Sync Data to LocalStorage
+  // Sync Data to LocalStorage (Instant local cache)
   useEffect(() => {
     localStorage.setItem('alnoor_products', JSON.stringify(products));
   }, [products]);
@@ -216,25 +303,24 @@ export const StoreProvider = ({ children }) => {
   };
 
   const showToast = (message, type = 'success') => {
-    setToast({ message, type });
+    setToast({ message, type, id: Date.now() });
     setTimeout(() => {
       setToast(null);
-    }, 3200);
+    }, 3800);
   };
 
-  // Page Transition Wall State ('idle', 'closing', 'opening')
+  // Page Navigation
   const [transitionStatus, setTransitionStatus] = useState('idle');
 
-  const navigateTo = (page, categoryFilter = null) => {
-    if (page === currentPage && !categoryFilter) return;
-
+  const navigateTo = (pageName, category = 'all') => {
+    if (pageName === 'shop' && category !== 'all') {
+      setSelectedCategory(category);
+    }
+    
     setTransitionStatus('closing');
 
     setTimeout(() => {
-      setCurrentPage(page);
-      if (categoryFilter) {
-        setSelectedCategory(categoryFilter);
-      }
+      setCurrentPage(pageName);
       window.scrollTo({ top: 0, behavior: 'instant' });
 
       setTransitionStatus('opening');
@@ -245,7 +331,7 @@ export const StoreProvider = ({ children }) => {
     }, 650);
   };
 
-  // ================= ADMIN AUTHENTICATION =================
+  // Admin PIN verification
   const verifyAdminPin = (enteredPin) => {
     if (enteredPin === adminPin) {
       setIsAdminAuthenticated(true);
@@ -274,11 +360,12 @@ export const StoreProvider = ({ children }) => {
     }
     setAdminPin(newPin);
     localStorage.setItem('alnoor_admin_pin', newPin);
-    showToast('Master PIN updated successfully!', 'success');
+    saveSecurityPinToCloud(newPin);
+    showToast('Master PIN updated and saved to database!', 'success');
     return true;
   };
 
-  // ================= PRODUCT CRUD OPERATIONS =================
+  // ================= PRODUCT CRUD OPERATIONS (SYNCED TO CLOUD) =================
   const addProduct = (productData) => {
     const newId = productData.id || `prod-${Date.now()}`;
     const newProduct = {
@@ -296,73 +383,79 @@ export const StoreProvider = ({ children }) => {
       features: productData.features || []
     };
 
-    setProducts(prev => [newProduct, ...prev]);
-    showToast(`Product "${newProduct.name.slice(0, 24)}..." created successfully!`);
+    const nextList = [newProduct, ...products];
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast(`Product "${newProduct.name.slice(0, 24)}..." created & saved to database!`);
     return newProduct;
   };
 
   const updateProduct = (productId, updatedFields) => {
-    setProducts(prev =>
-      prev.map(item => {
-        if (item.id === productId) {
-          const updated = {
-            ...item,
-            ...updatedFields,
-            price: updatedFields.price !== undefined ? Number(updatedFields.price) : item.price,
-            contractorPrice: updatedFields.contractorPrice !== undefined ? Number(updatedFields.contractorPrice) : item.contractorPrice,
-            originalPrice: updatedFields.originalPrice !== undefined ? Number(updatedFields.originalPrice) : item.originalPrice
-          };
-          return updated;
-        }
-        return item;
-      })
-    );
-    showToast('Product updated successfully!');
+    const nextList = products.map(item => {
+      if (item.id === productId) {
+        return {
+          ...item,
+          ...updatedFields,
+          price: updatedFields.price !== undefined ? Number(updatedFields.price) : item.price,
+          contractorPrice: updatedFields.contractorPrice !== undefined ? Number(updatedFields.contractorPrice) : item.contractorPrice,
+          originalPrice: updatedFields.originalPrice !== undefined ? Number(updatedFields.originalPrice) : item.originalPrice
+        };
+      }
+      return item;
+    });
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast('Product updated in database!');
   };
 
   const deleteProduct = (productId) => {
-    setProducts(prev => prev.filter(item => item.id !== productId));
+    const nextList = products.filter(item => item.id !== productId);
+    setProducts(nextList);
     setCart(prev => prev.filter(item => item.id !== productId));
-    showToast('Product deleted from inventory.', 'info');
+    saveProductsToCloud(nextList);
+    showToast('Product deleted from database.', 'info');
   };
 
   const toggleProductVisibility = (productId) => {
-    setProducts(prev =>
-      prev.map(item => {
-        if (item.id === productId) {
-          const nextState = !item.hidden;
-          showToast(`Product is now ${nextState ? 'Hidden' : 'Visible'} on store.`);
-          return { ...item, hidden: nextState };
-        }
-        return item;
-      })
-    );
+    let nextState;
+    const nextList = products.map(item => {
+      if (item.id === productId) {
+        nextState = !item.hidden;
+        return { ...item, hidden: nextState };
+      }
+      return item;
+    });
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast(`Product is now ${nextState ? 'Hidden' : 'Visible'} on store & database.`);
   };
 
   const toggleProductStock = (productId) => {
-    setProducts(prev =>
-      prev.map(item => {
-        if (item.id === productId) {
-          const nextStock = !item.inStock;
-          showToast(`Stock marked: ${nextStock ? 'In Stock' : 'Out of Stock'}.`);
-          return { ...item, inStock: nextStock };
-        }
-        return item;
-      })
-    );
+    let nextStock;
+    const nextList = products.map(item => {
+      if (item.id === productId) {
+        nextStock = !item.inStock;
+        return { ...item, inStock: nextStock };
+      }
+      return item;
+    });
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast(`Stock marked: ${nextStock ? 'In Stock' : 'Out of Stock'} in database.`);
   };
 
   const toggleProductFeatured = (productId) => {
-    setProducts(prev =>
-      prev.map(item => {
-        if (item.id === productId) {
-          const nextFeatured = !item.featured;
-          showToast(`Product ${nextFeatured ? 'Featured on Home' : 'Removed from Featured'}.`);
-          return { ...item, featured: nextFeatured };
-        }
-        return item;
-      })
-    );
+    let nextFeatured;
+    const nextList = products.map(item => {
+      if (item.id === productId) {
+        nextFeatured = !item.featured;
+        return { ...item, featured: nextFeatured };
+      }
+      return item;
+    });
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast(`Product ${nextFeatured ? 'Featured on Home' : 'Removed from Featured'} in database.`);
   };
 
   const duplicateProduct = (productId) => {
@@ -374,8 +467,10 @@ export const StoreProvider = ({ children }) => {
       name: `${target.name} (Copy)`,
       featured: false
     };
-    setProducts(prev => [cloned, ...prev]);
-    showToast(`Duplicated "${target.name.slice(0, 20)}..."`);
+    const nextList = [cloned, ...products];
+    setProducts(nextList);
+    saveProductsToCloud(nextList);
+    showToast(`Duplicated "${target.name.slice(0, 20)}..." in database`);
   };
 
   // ================= CATEGORY CRUD OPERATIONS =================
@@ -387,105 +482,158 @@ export const StoreProvider = ({ children }) => {
       hidden: !!categoryData.hidden,
       count: Number(categoryData.count) || 0
     };
-    setCategories(prev => [...prev, newCategory]);
-    showToast(`Category "${newCategory.name}" added successfully!`);
+    const nextList = [...categories, newCategory];
+    setCategories(nextList);
+    saveCategoriesToCloud(nextList);
+    showToast(`Category "${newCategory.name}" saved to database!`);
     return newCategory;
   };
 
   const updateCategory = (categoryId, updatedFields) => {
-    setCategories(prev =>
-      prev.map(cat => (cat.id === categoryId ? { ...cat, ...updatedFields } : cat))
-    );
-    showToast('Category updated successfully!');
+    const nextList = categories.map(cat => (cat.id === categoryId ? { ...cat, ...updatedFields } : cat));
+    setCategories(nextList);
+    saveCategoriesToCloud(nextList);
+    showToast('Category updated in database!');
   };
 
   const deleteCategory = (categoryId) => {
-    setCategories(prev => prev.filter(cat => cat.id !== categoryId));
-    showToast('Category deleted.', 'info');
+    const nextList = categories.filter(cat => cat.id !== categoryId);
+    setCategories(nextList);
+    saveCategoriesToCloud(nextList);
+    showToast('Category deleted from database.', 'info');
   };
 
   const toggleCategoryVisibility = (categoryId) => {
-    setCategories(prev =>
-      prev.map(cat => {
-        if (cat.id === categoryId) {
-          const next = !cat.hidden;
-          showToast(`Category is now ${next ? 'Hidden' : 'Visible'}.`);
-          return { ...cat, hidden: next };
-        }
-        return cat;
-      })
-    );
+    let next;
+    const nextList = categories.map(cat => {
+      if (cat.id === categoryId) {
+        next = !cat.hidden;
+        return { ...cat, hidden: next };
+      }
+      return cat;
+    });
+    setCategories(nextList);
+    saveCategoriesToCloud(nextList);
+    showToast(`Category is now ${next ? 'Hidden' : 'Visible'} in database.`);
   };
 
   // ================= CATALOG SERIES CRUD =================
   const addCatalogSeries = (seriesData) => {
     const newId = seriesData.id || `series-${Date.now()}`;
     const newSeries = { ...seriesData, id: newId };
-    setCatalogSeries(prev => [...prev, newSeries]);
-    showToast(`Series "${newSeries.title}" added to catalog.`);
+    const nextList = [...catalogSeries, newSeries];
+    setCatalogSeries(nextList);
+    saveCatalogSeriesToCloud(nextList);
+    showToast(`Series "${newSeries.title}" added and saved to database.`);
     return newSeries;
   };
 
   const updateCatalogSeries = (seriesId, updatedFields) => {
-    setCatalogSeries(prev =>
-      prev.map(s => (s.id === seriesId ? { ...s, ...updatedFields } : s))
-    );
-    showToast('Catalog Series card updated!');
+    const nextList = catalogSeries.map(s => (s.id === seriesId ? { ...s, ...updatedFields } : s));
+    setCatalogSeries(nextList);
+    saveCatalogSeriesToCloud(nextList);
+    showToast('Catalog Series card updated in database!');
   };
 
   const deleteCatalogSeries = (seriesId) => {
-    setCatalogSeries(prev => prev.filter(s => s.id !== seriesId));
-    showToast('Catalog Series card removed.', 'info');
+    const nextList = catalogSeries.filter(s => s.id !== seriesId);
+    setCatalogSeries(nextList);
+    saveCatalogSeriesToCloud(nextList);
+    showToast('Catalog Series card removed from database.', 'info');
   };
 
   // ================= CONTENT & PROMOTIONS UPDATES =================
   const updateDistributor = (newInfo) => {
-    setDistributor(prev => ({ ...prev, ...newInfo }));
-    showToast('Store contact & location updated!');
+    const updated = { ...distributor, ...newInfo };
+    setDistributor(updated);
+    saveDistributorToCloud(updated);
+    showToast('Store contact & location saved to database!');
   };
 
   const updateHeroContent = (newHero) => {
-    setSiteContent(prev => ({ ...prev, hero: { ...prev.hero, ...newHero } }));
-    showToast('Hero section content updated!');
+    const updated = { ...siteContent, hero: { ...siteContent.hero, ...newHero } };
+    setSiteContent(updated);
+    saveSiteContentToCloud(updated);
+    showToast('Hero section updated in database!');
   };
 
   const updateAboutContent = (newAbout) => {
-    setSiteContent(prev => ({ ...prev, about: { ...prev.about, ...newAbout } }));
-    showToast('About page content updated!');
+    const updated = { ...siteContent, about: { ...siteContent.about, ...newAbout } };
+    setSiteContent(updated);
+    saveSiteContentToCloud(updated);
+    showToast('About page content updated in database!');
   };
 
   const updateTicker = (newTicker) => {
-    setTickerSettings(prev => ({ ...prev, ...newTicker }));
-    showToast('Top notification ticker updated!');
+    const updated = { ...tickerSettings, ...newTicker };
+    setTickerSettings(updated);
+    saveTickerToCloud(updated);
+    showToast('Top notification ticker updated in database!');
   };
 
   const updatePromotionSettings = (newPromo) => {
-    setPromotions(prev => ({ ...prev, ...newPromo }));
-    showToast('Promotional sales settings saved!');
+    const updated = { ...promotions, ...newPromo };
+    setPromotions(updated);
+    savePromotionsToCloud(updated);
+    showToast('Promotional sales settings saved to database!');
   };
 
-  // ================= ORDERS / INQUIRY MANAGEMENT =================
+  // ================= ORDERS & QUOTE INQUIRIES =================
   const updateOrderStatus = (orderId, newStatus) => {
-    setOrders(prev =>
-      prev.map(ord => (ord.id === orderId ? { ...ord, status: newStatus } : ord))
-    );
+    const nextOrders = orders.map(ord => (ord.id === orderId ? { ...ord, status: newStatus } : ord));
+    setOrders(nextOrders);
+    updateOrderStatusInCloud(orderId, newStatus);
     showToast(`Order status updated to: ${newStatus}`);
   };
 
   const deleteOrder = (orderId) => {
-    setOrders(prev => prev.filter(ord => ord.id !== orderId));
-    showToast('Order record removed.', 'info');
+    const nextOrders = orders.filter(ord => ord.id !== orderId);
+    setOrders(nextOrders);
+    deleteOrderFromCloud(orderId);
+    showToast('Order record removed from database.', 'info');
   };
 
   const addManualOrder = (orderData) => {
     const newOrder = {
-      id: `ORD-${Date.now().toString().slice(-4)}`,
+      id: `ORD-${Date.now().toString().slice(-6)}`,
       date: new Date().toISOString().replace('T', ' ').slice(0, 16),
       status: 'Pending',
       ...orderData
     };
-    setOrders(prev => [newOrder, ...prev]);
-    showToast('Order inquiry logged successfully.');
+    const nextOrders = [newOrder, ...orders];
+    setOrders(nextOrders);
+    saveOrderToCloud(newOrder);
+    showToast('Customer inquiry recorded and saved to database.');
+    return newOrder;
+  };
+
+  // Manual Force Cloud Synchronization
+  const syncNowWithCloud = async () => {
+    setIsCloudSyncing(true);
+    showToast('Syncing all data with Firebase Cloud Database...', 'info');
+    try {
+      const res = await syncAllToCloud({
+        products,
+        categories,
+        catalogSeries,
+        siteContent,
+        tickerSettings,
+        promotions,
+        distributor,
+        adminPin
+      });
+      if (res.success) {
+        setCloudStatus('connected');
+        setLastSyncTime(new Date().toLocaleTimeString());
+        showToast('All store data successfully synced to Firebase Database!', 'success');
+      } else {
+        showToast('Cloud sync completed with notices. Check permissions.', 'warning');
+      }
+    } catch (err) {
+      showToast('Cloud sync error: ' + err.message, 'warning');
+    } finally {
+      setIsCloudSyncing(false);
+    }
   };
 
   // ================= BACKUP & FACTORY RESET =================
@@ -508,7 +656,19 @@ export const StoreProvider = ({ children }) => {
     localStorage.removeItem('alnoor_promotions');
     localStorage.removeItem('alnoor_admin_pin');
 
-    showToast('All store data reset to original factory defaults!', 'info');
+    // Also sync defaults to cloud
+    syncAllToCloud({
+      products: PRODUCTS,
+      categories: CATEGORIES,
+      catalogSeries: DEFAULT_CATALOG_SERIES,
+      siteContent: DEFAULT_SITE_CONTENT,
+      tickerSettings: DEFAULT_TICKER_SETTINGS,
+      promotions: DEFAULT_PROMOTIONS,
+      distributor: DISTRIBUTOR_INFO,
+      adminPin: '6600'
+    });
+
+    showToast('All store data reset to factory defaults and synced to cloud!', 'info');
   };
 
   const exportStoreData = () => {
@@ -546,7 +706,19 @@ export const StoreProvider = ({ children }) => {
       if (parsed.tickerSettings) setTickerSettings(parsed.tickerSettings);
       if (parsed.promotions) setPromotions(parsed.promotions);
 
-      showToast('Store data successfully imported and applied!', 'success');
+      // Sync imported data to cloud
+      syncAllToCloud({
+        products: parsed.products || products,
+        categories: parsed.categories || categories,
+        catalogSeries: parsed.catalogSeries || catalogSeries,
+        distributor: parsed.distributor || distributor,
+        siteContent: parsed.siteContent || siteContent,
+        tickerSettings: parsed.tickerSettings || tickerSettings,
+        promotions: parsed.promotions || promotions,
+        adminPin
+      });
+
+      showToast('Store data successfully imported and synced to database!', 'success');
       return true;
     } catch (err) {
       showToast('Invalid JSON backup file!', 'warning');
@@ -661,11 +833,11 @@ export const StoreProvider = ({ children }) => {
     text += `*Total Items:* ${cartCount} pcs\n\n`;
     text += `Please confirm total price and delivery time. Thank you!`;
 
-    // Also record into orders inquiries log
+    // Also record into orders inquiries log and save to Firebase Cloud!
     addManualOrder({
-      customerName: 'Online WhatsApp Shopper',
-      phone: 'WhatsApp Checkout',
-      city: 'Faisalabad & Pakistan',
+      customerName: 'WhatsApp Online Customer',
+      phone: 'Direct Checkout',
+      city: 'Pakistan Delivery',
       items: cart.map(i => ({ name: i.name, qty: i.quantity, price: isContractorMode ? i.contractorPrice : i.price })),
       total: cartSubtotal,
       type: 'Direct Cart WhatsApp'
@@ -725,6 +897,11 @@ export const StoreProvider = ({ children }) => {
         tickerSettings,
         promotions,
         orders,
+        // Cloud Status & Controls
+        cloudStatus,
+        lastSyncTime,
+        isCloudSyncing,
+        syncNowWithCloud,
         // Admin Auth
         adminPin,
         isAdminAuthenticated,

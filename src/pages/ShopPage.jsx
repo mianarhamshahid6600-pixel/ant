@@ -105,7 +105,7 @@ export const ShopPage = () => {
 
             <input 
               type="text"
-              placeholder="Search by product name, series (Art, 6M, LG Glass, SMD, BLDC), or model..."
+              placeholder="Search products by name, series, or model..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{

@@ -7,13 +7,13 @@ import {
 import confetti from 'canvas-confetti';
 
 export const ContactPage = () => {
-  const { distributor, showToast } = useStore();
+  const { distributor, showToast, addManualOrder } = useStore();
 
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     company: '',
-    projectType: 'Residential Project',
+    projectType: 'Residential House',
     interests: ['Switches & Sockets'],
     message: ''
   });
@@ -39,6 +39,21 @@ export const ContactPage = () => {
       return;
     }
 
+    // Save inquiry to Firestore orders collection
+    if (addManualOrder) {
+      addManualOrder({
+        customerName: formData.name + (formData.company ? ` (${formData.company})` : ''),
+        phone: formData.phone,
+        city: formData.projectType,
+        items: formData.interests.length > 0 
+          ? formData.interests.map(i => ({ name: i, qty: 1, price: 0 }))
+          : [{ name: 'Wholesale Inquiry', qty: 1, price: 0 }],
+        total: 0,
+        type: 'Online Price Inquiry',
+        notes: formData.message || ''
+      });
+    }
+
     confetti({
       particleCount: 100,
       spread: 70,
@@ -46,7 +61,7 @@ export const ContactPage = () => {
     });
 
     setSubmitted(true);
-    showToast('Your price inquiry has been sent to Alnoor Traders!');
+    showToast('Your price inquiry has been saved and sent to Alnoor Traders!');
 
     const waText = `*PRICE & PRODUCT INQUIRY - ALNOOR TRADERS*\n` +
       `*Name:* ${formData.name}\n` +
@@ -285,7 +300,7 @@ export const ContactPage = () => {
                     </label>
                     <input 
                       type="text"
-                      placeholder="e.g. Tariq Mehmood"
+                      placeholder="Enter your full name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       required
@@ -306,7 +321,7 @@ export const ContactPage = () => {
                     </label>
                     <input 
                       type="tel"
-                      placeholder="03xx xxxxxxx"
+                      placeholder="Enter your contact number"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       required
@@ -330,7 +345,7 @@ export const ContactPage = () => {
                     </label>
                     <input 
                       type="text"
-                      placeholder="e.g. Apex Builders"
+                      placeholder="Enter company or shop name"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       style={{
@@ -421,7 +436,7 @@ export const ContactPage = () => {
                   </label>
                   <textarea 
                     rows={4}
-                    placeholder="e.g. Need 100 pcs Art Black switches, 50 pcs 12W SMD lights, 10 pcs 30W BLDC fans for delivery in Lahore..."
+                    placeholder="List required items, model series, quantities, or delivery city..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     style={{

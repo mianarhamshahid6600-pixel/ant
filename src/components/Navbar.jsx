@@ -547,7 +547,7 @@ export const Navbar = () => {
                 <Search size={20} style={{ color: 'var(--electric-cyan)' }} />
                 <input
                   type="text"
-                  placeholder="Search switches, 6M series, dimmers, SMD panels, BLDC fans, breakers..."
+                  placeholder="Search switches, panels, dimmers, fans, breakers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoFocus
