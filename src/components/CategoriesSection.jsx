@@ -7,8 +7,9 @@ export const CategoriesSection = () => {
   const sliderRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
 
+  const visibleCategories = categories.filter(c => !c.hidden);
   // Duplicate list for infinite smooth continuous loop
-  const repeatedCategories = [...categories, ...categories, ...categories];
+  const repeatedCategories = [...visibleCategories, ...visibleCategories, ...visibleCategories];
 
   const handleScroll = (direction) => {
     if (sliderRef.current) {

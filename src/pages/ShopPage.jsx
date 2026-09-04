@@ -25,11 +25,13 @@ export const ShopPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [selectedSeries, setSelectedSeries] = useState('all');
 
-  // Extract all unique series
-  const allSeries = ['all', ...Array.from(new Set(products.map(p => p.series).filter(Boolean)))];
+  // Extract all unique series from active products
+  const activeProducts = products.filter(p => !p.hidden);
+  const visibleCategories = categories.filter(c => !c.hidden);
+  const allSeries = ['all', ...Array.from(new Set(activeProducts.map(p => p.series).filter(Boolean)))];
 
   // Filtering Logic
-  const filteredProducts = products.filter(product => {
+  const filteredProducts = activeProducts.filter(product => {
     if (selectedCategory !== 'all' && product.category !== selectedCategory) {
       return false;
     }
@@ -162,11 +164,11 @@ export const ShopPage = () => {
                 transition: 'all var(--transition-fast)'
               }}
             >
-              All Products ({products.length})
+              All Products ({activeProducts.length})
             </button>
 
-            {categories.map((cat) => {
-              const count = products.filter(p => p.category === cat.id).length;
+            {visibleCategories.map((cat) => {
+              const count = activeProducts.filter(p => p.category === cat.id).length;
               const isSelected = selectedCategory === cat.id;
 
               return (

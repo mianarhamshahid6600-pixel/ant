@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useStore } from '../context/StoreContext';
 import {
   Sun, Moon, ShoppingBag, Search, Phone, MessageSquare,
@@ -15,11 +15,40 @@ export const Navbar = () => {
     setIsCartOpen,
     searchQuery,
     setSearchQuery,
-    distributor
+    distributor,
+    isAdminAuthenticated,
+    setIsAdminPinModalOpen
   } = useStore();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+
+  // Secret 5-Click Admin Trigger on Theme Switcher
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
+
+  const handleThemeToggleClick = () => {
+    toggleTheme();
+
+    clickCountRef.current += 1;
+
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    if (clickCountRef.current >= 5) {
+      clickCountRef.current = 0;
+      if (isAdminAuthenticated) {
+        navigateTo('admin');
+      } else {
+        setIsAdminPinModalOpen(true);
+      }
+    } else {
+      clickTimerRef.current = setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 3000);
+    }
+  };
 
   const handleNavClick = (page) => {
     navigateTo(page);
@@ -180,9 +209,9 @@ export const Navbar = () => {
               <Search size={18} />
             </button>
 
-            {/* Dark/Light Theme Switcher Button */}
+            {/* Dark/Light Theme Switcher Button with 5-Click Admin Trigger */}
             <button
-              onClick={toggleTheme}
+              onClick={handleThemeToggleClick}
               aria-label="Toggle dark or light theme"
               title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
               style={{
@@ -200,6 +229,36 @@ export const Navbar = () => {
             >
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
+
+            {/* Authenticated Admin Quick Dashboard Button */}
+            {isAdminAuthenticated && (
+              <button
+                onClick={() => handleNavClick('admin')}
+                aria-label="Open Admin Dashboard"
+                title="Open Admin Dashboard"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  padding: '0 0.75rem',
+                  height: '38px',
+                  borderRadius: 'var(--radius-md)',
+                  background: currentPage === 'admin' 
+                    ? 'linear-gradient(135deg, #0055FF 0%, #002B80 100%)' 
+                    : 'rgba(0, 85, 255, 0.15)',
+                  color: currentPage === 'admin' ? '#FFFFFF' : '#60A5FA',
+                  border: '1px solid rgba(0, 85, 255, 0.4)',
+                  fontWeight: 700,
+                  fontSize: '0.82rem',
+                  cursor: 'pointer',
+                  boxShadow: currentPage === 'admin' ? '0 0 12px rgba(0, 85, 255, 0.5)' : 'none',
+                  transition: 'all var(--transition-fast)'
+                }}
+              >
+                <ShieldCheck size={16} />
+                <span>Admin</span>
+              </button>
+            )}
 
             {/* Cart & Quote Drawer Toggle with Counter */}
             <button
@@ -387,6 +446,30 @@ export const Navbar = () => {
               <span>Contact Us</span>
               <ChevronRight size={16} opacity={0.5} />
             </button>
+
+            {isAdminAuthenticated && (
+              <button
+                onClick={() => handleNavClick('admin')}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.75rem 1rem',
+                  borderRadius: 'var(--radius-md)',
+                  background: 'rgba(0, 85, 255, 0.18)',
+                  color: '#60A5FA',
+                  fontWeight: 700,
+                  textAlign: 'left',
+                  border: '1px solid rgba(0, 85, 255, 0.45)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <ShieldCheck size={18} />
+                  <span>Admin Dashboard</span>
+                </div>
+                <ChevronRight size={16} opacity={0.7} />
+              </button>
+            )}
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginTop: '0.5rem' }}>
               <button

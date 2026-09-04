@@ -5,6 +5,8 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { QuickViewModal } from './components/QuickViewModal';
+import { AdminPinModal } from './components/AdminPinModal';
+import { AdminTopBar } from './components/AdminTopBar';
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { CatalogPage } from './pages/CatalogPage';
@@ -12,6 +14,7 @@ import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { DemoPage } from './pages/DemoPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
+import { AdminPage } from './pages/AdminPage';
 import { PageTransitionWall } from './components/PageTransitionWall';
 import { MessageSquare, Phone, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
@@ -20,6 +23,8 @@ export const App = () => {
 
   const renderCurrentPage = () => {
     switch (currentPage) {
+      case 'admin':
+        return <AdminPage />;
       case 'shop':
         return <ShopPage />;
       case 'product':
@@ -40,6 +45,9 @@ export const App = () => {
 
   return (
     <div className="app-container">
+      {/* Admin Floating / Top Quick Bar (Only visible to authenticated admin) */}
+      <AdminTopBar />
+
       {/* Top Animated Moving Ticker Bar */}
       <TopNotificationBar />
 
@@ -62,6 +70,9 @@ export const App = () => {
 
       {/* Global Quick View Product Modal */}
       <QuickViewModal />
+
+      {/* Admin Master PIN Entry Modal */}
+      <AdminPinModal />
 
       {/* Floating Bottom Quick WhatsApp Action */}
       <aside aria-label="Quick contact" style={{

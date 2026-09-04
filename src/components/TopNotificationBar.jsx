@@ -1,13 +1,27 @@
 import React from 'react';
-import { Phone, Truck, Sparkles, MessageSquare } from 'lucide-react';
+import { useStore } from '../context/StoreContext';
+import { Phone, Truck, Sparkles, MessageSquare, Zap } from 'lucide-react';
 
 export const TopNotificationBar = () => {
+  const { tickerSettings, distributor } = useStore();
+
+  if (!tickerSettings || !tickerSettings.enabled) {
+    return null;
+  }
+
+  const phone1 = tickerSettings.phone1 || distributor.phone1 || '03146600174';
+  const phone2 = tickerSettings.phone2 || distributor.phone2 || '03246600174';
+  const deliveryText = tickerSettings.deliveryText || 'Free Delivery over Faisalabad';
+  const whatsappText = tickerSettings.whatsappText || 'WhatsApp Order';
+  const customNotice = tickerSettings.customNotice || '';
+  const speed = tickerSettings.speed || 24;
+
   const tickerContent = (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '2.5rem', paddingRight: '2.5rem', whiteSpace: 'nowrap' }}>
       
       {/* Phone 1 */}
       <a 
-        href="tel:03146600174" 
+        href={`tel:${phone1}`}
         style={{ 
           display: 'inline-flex', 
           alignItems: 'center', 
@@ -21,14 +35,14 @@ export const TopNotificationBar = () => {
         className="top-ticker-link"
       >
         <Phone size={13} style={{ color: '#60A5FA' }} />
-        <span>03146600174</span>
+        <span>{phone1}</span>
       </a>
 
       <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem' }}>•</span>
 
       {/* Phone 2 */}
       <a 
-        href="tel:03246600174" 
+        href={`tel:${phone2}`}
         style={{ 
           display: 'inline-flex', 
           alignItems: 'center', 
@@ -42,7 +56,7 @@ export const TopNotificationBar = () => {
         className="top-ticker-link"
       >
         <Phone size={13} style={{ color: '#60A5FA' }} />
-        <span>03246600174</span>
+        <span>{phone2}</span>
       </a>
 
       <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem' }}>•</span>
@@ -59,14 +73,32 @@ export const TopNotificationBar = () => {
         letterSpacing: '0.02em'
       }}>
         <Truck size={14} style={{ color: '#FDE047' }} />
-        <span>Free Delivery over Faisalabad</span>
+        <span>{deliveryText}</span>
       </span>
+
+      {/* Custom Special Notice if provided */}
+      {customNotice && (
+        <>
+          <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem' }}>•</span>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            color: '#F472B6',
+            fontWeight: 800,
+            fontSize: '0.82rem'
+          }}>
+            <Zap size={13} style={{ color: '#F472B6' }} />
+            <span>{customNotice}</span>
+          </span>
+        </>
+      )}
 
       <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem' }}>•</span>
 
       {/* WhatsApp Quick Link */}
       <a
-        href="https://wa.me/923146600174?text=Hello%20Alnoor%20Traders!"
+        href={`https://wa.me/${distributor.whatsappNumber}?text=Hello%20Alnoor%20Traders!`}
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -81,7 +113,7 @@ export const TopNotificationBar = () => {
         className="top-ticker-link"
       >
         <MessageSquare size={13} />
-        <span>WhatsApp Order</span>
+        <span>{whatsappText}</span>
       </a>
 
       <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '0.75rem' }}>✦</span>
@@ -106,7 +138,7 @@ export const TopNotificationBar = () => {
         style={{
           display: 'flex',
           width: 'max-content',
-          animation: 'marqueeRight 24s linear infinite',
+          animation: `marqueeRight ${speed}s linear infinite`,
           willChange: 'transform'
         }}
       >

@@ -23,9 +23,11 @@ export const FeaturedProducts = () => {
     { id: 'breakers-db', label: 'Breakers & DBs' }
   ];
 
+  const activeProducts = products.filter(p => !p.hidden);
+
   const filteredProducts = activeTab === 'all'
-    ? products.filter(p => p.featured)
-    : products.filter(p => p.category === activeTab);
+    ? activeProducts.filter(p => p.featured)
+    : activeProducts.filter(p => p.category === activeTab);
 
   return (
     <section className="section" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border-subtle)', padding: '4.5rem 0' }}>

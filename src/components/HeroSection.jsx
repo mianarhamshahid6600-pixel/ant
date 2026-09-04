@@ -3,7 +3,14 @@ import { ShoppingBag, BookOpen, ArrowRight, Phone } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const HeroSection = () => {
-  const { navigateTo, theme, distributor } = useStore();
+  const { navigateTo, theme, distributor, siteContent, promotions } = useStore();
+
+  const hero = siteContent?.hero || {};
+  const heroTitle = hero.title || 'Welcome to Alnoor Traders';
+  const heroHighlight = hero.highlight || 'Luxury Switches & Modern Lighting';
+  const heroDesc = hero.description || 'Supplying genuine electrical switches, tempered glass switchboards, energy-saving LED lights, low-power fans, and safety circuit breakers across Faisalabad and Pakistan at fair wholesale prices.';
+  const primaryBtnText = hero.primaryBtnText || 'Shop All Products';
+  const secondaryBtnText = hero.secondaryBtnText || 'View Catalog';
 
   return (
     <section style={{
@@ -61,11 +68,72 @@ export const HeroSection = () => {
         
         {/* Spacious, Clean & Calm Hero Content Container */}
         <div style={{
-          maxWidth: '820px',
+          maxWidth: '840px',
           display: 'flex',
           flexDirection: 'column',
           gap: '1.75rem'
         }}>
+
+          {/* Promotional Sales Announcement Banner (If Activated by Admin) */}
+          {promotions?.enabled && (
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(0, 85, 255, 0.22) 0%, rgba(0, 43, 128, 0.35) 100%)',
+              border: '1.5px solid rgba(0, 102, 255, 0.6)',
+              borderRadius: '16px',
+              padding: '1rem 1.4rem',
+              boxShadow: '0 8px 30px rgba(0, 85, 255, 0.3)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '1rem',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)'
+            }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <span style={{
+                    fontSize: '0.72rem',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    background: '#F59E0B',
+                    color: '#000',
+                    padding: '2px 8px',
+                    borderRadius: '999px',
+                    letterSpacing: '0.04em'
+                  }}>
+                    {promotions.badge || 'Wholesale Special'}
+                  </span>
+                  <span style={{ fontSize: '0.8rem', color: '#10B981', fontWeight: 800 }}>
+                    Up to {promotions.discountPercent || 15}% Discount
+                  </span>
+                </div>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: '0 0 0.15rem', color: '#FFFFFF' }}>
+                  {promotions.title}
+                </h3>
+                <p style={{ fontSize: '0.82rem', color: '#E2E8F0', margin: 0 }}>
+                  {promotions.subtitle}
+                </p>
+              </div>
+
+              <a
+                href={`https://wa.me/${distributor.whatsappNumber}?text=${encodeURIComponent(`Hello Alnoor Traders! I want to claim the promotional offer: ${promotions.title}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-sm"
+                style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  gap: '0.4rem',
+                  padding: '0.55rem 1.15rem',
+                  boxShadow: '0 4px 14px rgba(0, 85, 255, 0.45)'
+                }}
+              >
+                <span>{promotions.btnText || 'Claim Deal on WhatsApp'}</span>
+                <ArrowRight size={14} />
+              </a>
+            </div>
+          )}
 
           {/* Large, Easy-to-Read Title */}
           <h1 
@@ -77,7 +145,7 @@ export const HeroSection = () => {
               color: theme === 'dark' ? '#FFFFFF' : '#030A18'
             }}
           >
-            Welcome to Alnoor Traders <br />
+            {heroTitle} <br />
             <span 
               className="text-electric-blue"
               style={{
@@ -88,7 +156,7 @@ export const HeroSection = () => {
                 textShadow: theme === 'dark' ? '0 2px 12px rgba(0, 0, 0, 0.8)' : '0 1px 2px rgba(255, 255, 255, 0.95)'
               }}
             >
-              Luxury Switches & Modern Lighting
+              {heroHighlight}
             </span>
           </h1>
 
@@ -101,7 +169,7 @@ export const HeroSection = () => {
             fontWeight: theme === 'dark' ? 400 : 600,
             textShadow: theme === 'dark' ? '0 1px 6px rgba(0, 0, 0, 0.8)' : 'none'
           }}>
-            Supplying genuine electrical switches, tempered glass switchboards, energy-saving LED lights, low-power fans, and safety circuit breakers across Faisalabad and Pakistan at fair wholesale prices.
+            {heroDesc}
           </p>
 
           {/* Big, Easy-to-Click Action Buttons */}
@@ -128,7 +196,7 @@ export const HeroSection = () => {
               }}
             >
               <ShoppingBag size={20} />
-              <span>Shop All Products</span>
+              <span>{primaryBtnText}</span>
               <ArrowRight size={18} />
             </button>
 
@@ -146,7 +214,7 @@ export const HeroSection = () => {
               }}
             >
               <BookOpen size={20} />
-              <span>View Catalog</span>
+              <span>{secondaryBtnText}</span>
             </button>
 
             <a

@@ -708,3 +708,134 @@ export const DISTRIBUTOR_INFO = {
     { label: 'Warranty Support', value: 'Up to 10 Yrs' }
   ]
 };
+
+export const DEFAULT_CATALOG_SERIES = [
+  {
+    id: 'art-series',
+    title: 'Art Luxury Switch Series',
+    subtitle: 'Modern Matte Finish Switches & Universal Sockets',
+    cover: '/images/products/art-black.png',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/ART-BLACK.png',
+    specs: [
+      { label: 'Voltage & Power', value: '220V - 250V AC, 50/60Hz' },
+      { label: 'Button Lifespan', value: 'Tested for 40,000+ Clicks' },
+      { label: 'Internal Terminals', value: 'Pure Copper with Silver-Nickel Arc Protection' },
+      { label: 'Fire Safety', value: 'Flame-Retardant Polycarbonate (Will not catch fire)' },
+      { label: 'Standard Size', value: 'Standard 3x3 inches (86mm x 86mm)' }
+    ],
+    finishes: ['Matte Black', 'Pure White', 'Space Grey', 'Walnut Brown']
+  },
+  {
+    id: '6m-series',
+    title: '6M Architectural Grid Series',
+    subtitle: 'Wide Switchboards with Rose Gold Trim Border',
+    cover: '/images/products/6m-black.png',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/6m-BLACK.png',
+    specs: [
+      { label: 'Capacity', value: 'Up to 6 Switches / Sockets / Dimmers on one plate' },
+      { label: 'Plate Dimensions', value: '200mm Wide x 86mm Height' },
+      { label: 'Frame Structure', value: 'Reinforced Steel Backframe' },
+      { label: 'Surface Finish', value: 'Anti-Fingerprint Coating with Gold Accent' },
+      { label: 'Wall Box Size', value: 'Standard 6M Wall Box' }
+    ],
+    finishes: ['Carbon Matte Black', 'Slate Metallic Grey']
+  },
+  {
+    id: 'lg-glass',
+    title: 'LG Real Glass Series',
+    subtitle: '4mm Diamond-Cut Tempered Glass Switchboards',
+    cover: '/images/products/lg-series.png',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/LG.png',
+    specs: [
+      { label: 'Glass Material', value: '4.0mm Real Toughened Safety Glass' },
+      { label: 'Edge Profile', value: 'Diamond-polished curved bevel edges' },
+      { label: 'Water Resistance', value: 'Water and stain resistant surface' },
+      { label: 'Keys / Buttons', value: 'Chrome-Plated Precision Micro Switches' },
+      { label: 'Durability', value: 'Never turns yellow or fades' }
+    ],
+    finishes: ['Crystal Black Glass', 'Crystal White Glass']
+  },
+  {
+    id: 'smd-lighting',
+    title: 'OptiGlow Slim SMD Ceiling Lights',
+    subtitle: '3-in-1 Color Switching Panels with Built-in Surge Protectors',
+    cover: '/images/products/smd.jpg',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/SMD-2-scaled.jpg',
+    specs: [
+      { label: 'Available Sizes', value: '7W, 12W, 18W, 24W' },
+      { label: '3-in-1 Colors', value: 'Warm Golden, Natural Day, Cool Daylight' },
+      { label: 'Brightness', value: '100+ Lumens per Watt (Super Bright)' },
+      { label: 'Eye Comfort', value: 'Flicker-Free Anti-Glare Lens' },
+      { label: 'Voltage Protection', value: 'Surge protected against voltage fluctuations' }
+    ],
+    finishes: ['Round Slim Ceiling Light', 'Square Slim Ceiling Light', 'Surface Downlight']
+  },
+  {
+    id: 'bldc-fans',
+    title: 'AeroInverter BLDC Ceiling Fans',
+    subtitle: 'Super Low-Power 30W Inverter Motor with Wireless Remote',
+    cover: '/images/products/mm-series.png',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/MM.png',
+    specs: [
+      { label: 'Motor Type', value: '100% Pure Copper BLDC Inverter Motor' },
+      { label: 'Electricity Usage', value: 'Only 30W (Full Speed) vs 80W Standard Fan' },
+      { label: 'Blade Size', value: '56 Inches (1400mm) Aerodynamic Aluminum' },
+      { label: 'Remote Control', value: '6-Speed Remote with Timer & Reverse Airflow' },
+      { label: 'UPS & Solar Friendly', value: 'Runs 3x longer on UPS/Battery without humming' }
+    ],
+    finishes: ['Matte Black', 'Arctic White', 'Royal Gold & Wood']
+  },
+  {
+    id: 'circuit-breakers',
+    title: 'SafeGuard Breakers & DB Boxes',
+    subtitle: 'Certified Miniature Circuit Breakers & Acrylic Distribution Boxes',
+    cover: '/images/products/breaker.jpg',
+    fallbackCover: 'https://primelighting.net/wp-content/uploads/2024/09/BREAKER-scaled.jpg',
+    specs: [
+      { label: 'Safety Standard', value: 'IEC/EN 60898-1 Certified' },
+      { label: 'Short-Circuit Capacity', value: '6,000 Amperes (6kA)' },
+      { label: 'Available Sizes', value: '6A, 10A, 16A, 20A, 32A, 63A (Single & Double Pole)' },
+      { label: 'Trip Type', value: 'Fast C-Curve Overload Protection' },
+      { label: 'DB Box Material', value: 'Thick Galvanized Steel with Smoked Acrylic Door' }
+    ],
+    finishes: ['Concealed Wall DB Box', 'Surface DB Box (4 to 24 Breakers)']
+  }
+];
+
+export const DEFAULT_SITE_CONTENT = {
+  hero: {
+    title: 'Welcome to Alnoor Traders',
+    highlight: 'Luxury Switches & Modern Lighting',
+    description: 'Supplying genuine electrical switches, tempered glass switchboards, energy-saving LED lights, low-power fans, and safety circuit breakers across Faisalabad and Pakistan at fair wholesale prices.',
+    primaryBtnText: 'Shop All Products',
+    secondaryBtnText: 'View Catalog'
+  },
+  about: {
+    heading: 'Premier Wholesale Store for Electrical & Modern Lighting',
+    description: 'Alnoor Traders has been serving residential builders, industrial contractors, and retail shopkeepers from our central store in Bawana Bazar, Faisalabad.',
+    history: 'Founded on integrity, certified product quality, and honest wholesale pricing, Alnoor Traders is the authorized distributor for leading electrical brands.',
+    experienceYears: '15+',
+    contractorsCount: '1,200+',
+    productsCount: '500+'
+  }
+};
+
+export const DEFAULT_TICKER_SETTINGS = {
+  enabled: true,
+  phone1: '03146600174',
+  phone2: '03246600174',
+  deliveryText: 'Free Delivery over Faisalabad',
+  whatsappText: 'WhatsApp Order',
+  customNotice: '',
+  speed: 24
+};
+
+export const DEFAULT_PROMOTIONS = {
+  enabled: false,
+  badge: 'Special Wholesale Offer',
+  title: '⚡ Mega Builder & Contractor Discount Week!',
+  subtitle: 'Exclusive discounts on bulk switchboard packages, SMD ceiling panels, and safe breakers across Faisalabad.',
+  discountPercent: 15,
+  btnText: 'Claim Offer on WhatsApp',
+  highlightText: 'Free Delivery all over Faisalabad on orders over Rs. 10,000'
+};
