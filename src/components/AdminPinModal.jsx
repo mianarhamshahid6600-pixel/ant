@@ -100,20 +100,22 @@ export const AdminPinModal = () => {
         className={`glass-card ${shake ? 'pin-shake' : ''}`}
         style={{
           width: '100%',
-          maxWidth: '390px',
-          background: 'linear-gradient(160deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 15, 30, 0.98) 100%)',
-          borderRadius: '24px',
+          maxWidth: '360px',
+          maxHeight: '95vh',
+          overflowY: 'auto',
+          background: 'linear-gradient(160deg, rgba(15, 23, 42, 0.97) 0%, rgba(10, 15, 30, 0.98) 100%)',
+          borderRadius: '20px',
           border: error 
             ? '1.5px solid #EF4444' 
             : success 
             ? '1.5px solid #10B981' 
             : '1.5px solid rgba(0, 102, 255, 0.4)',
           boxShadow: error 
-            ? '0 20px 50px rgba(239, 68, 68, 0.35)' 
+            ? '0 16px 40px rgba(239, 68, 68, 0.3)' 
             : success 
-            ? '0 20px 50px rgba(16, 185, 129, 0.35)' 
-            : '0 20px 50px rgba(0, 85, 255, 0.35)',
-          padding: '2.25rem 2rem 2rem',
+            ? '0 16px 40px rgba(16, 185, 129, 0.3)' 
+            : '0 16px 40px rgba(0, 85, 255, 0.3)',
+          padding: '1.35rem 1.5rem 1.15rem',
           position: 'relative',
           color: '#FFFFFF',
           transition: 'all 0.3s ease'
@@ -125,10 +127,10 @@ export const AdminPinModal = () => {
           onClick={() => setIsAdminPinModalOpen(false)}
           style={{
             position: 'absolute',
-            top: '18px',
-            right: '18px',
-            width: '34px',
-            height: '34px',
+            top: '14px',
+            right: '14px',
+            width: '30px',
+            height: '30px',
             borderRadius: '50%',
             background: 'rgba(255, 255, 255, 0.08)',
             border: '1px solid rgba(255, 255, 255, 0.15)',
@@ -141,33 +143,33 @@ export const AdminPinModal = () => {
           }}
           aria-label="Close modal"
         >
-          <X size={18} />
+          <X size={16} />
         </button>
 
-        {/* Header Icon */}
-        <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        {/* Header Icon & Title */}
+        <div style={{ textAlign: 'center', marginBottom: '0.85rem' }}>
           <div style={{
-            width: '64px',
-            height: '64px',
-            borderRadius: '20px',
+            width: '46px',
+            height: '46px',
+            borderRadius: '14px',
             background: success 
               ? 'linear-gradient(135deg, #10B981 0%, #059669 100%)' 
               : 'linear-gradient(135deg, #0055FF 0%, #002B80 100%)',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: success ? '0 0 25px rgba(16, 185, 129, 0.5)' : '0 0 25px rgba(0, 85, 255, 0.5)',
-            marginBottom: '1rem',
+            boxShadow: success ? '0 0 18px rgba(16, 185, 129, 0.45)' : '0 0 18px rgba(0, 85, 255, 0.45)',
+            marginBottom: '0.6rem',
             transition: 'all 0.3s ease'
           }}>
-            {success ? <ShieldCheck size={32} color="#FFFFFF" /> : <KeyRound size={30} color="#FFFFFF" />}
+            {success ? <ShieldCheck size={24} color="#FFFFFF" /> : <KeyRound size={22} color="#FFFFFF" />}
           </div>
 
-          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0 0 0.35rem', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: '1.18rem', fontWeight: 800, margin: '0 0 0.25rem', letterSpacing: '-0.02em' }}>
             Admin Portal Access
           </h2>
-          <p style={{ fontSize: '0.86rem', color: '#94A3B8', margin: 0, lineHeight: 1.4 }}>
-            Enter Master Security PIN (6600) to access store management
+          <p style={{ fontSize: '0.8rem', color: '#94A3B8', margin: 0, lineHeight: 1.35 }}>
+            Enter Master Security PIN to access store management
           </p>
         </div>
 
@@ -175,8 +177,8 @@ export const AdminPinModal = () => {
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          gap: '1rem',
-          margin: '1.5rem 0 1.25rem'
+          gap: '0.85rem',
+          margin: '0.75rem 0 0.75rem'
         }}>
           {[0, 1, 2, 3].map((index) => {
             const hasDigit = pin.length > index;
@@ -184,8 +186,8 @@ export const AdminPinModal = () => {
               <div
                 key={index}
                 style={{
-                  width: '18px',
-                  height: '18px',
+                  width: '14px',
+                  height: '14px',
                   borderRadius: '50%',
                   background: hasDigit 
                     ? (success ? '#10B981' : '#0066FF')
@@ -193,7 +195,7 @@ export const AdminPinModal = () => {
                   border: hasDigit 
                     ? `2px solid ${success ? '#34D399' : '#60A5FA'}` 
                     : '2px solid rgba(255, 255, 255, 0.25)',
-                  boxShadow: hasDigit ? (success ? '0 0 12px #10B981' : '0 0 12px #0066FF') : 'none',
+                  boxShadow: hasDigit ? (success ? '0 0 10px #10B981' : '0 0 10px #0066FF') : 'none',
                   transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                   transform: hasDigit ? 'scale(1.15)' : 'scale(1)'
                 }}
@@ -224,13 +226,13 @@ export const AdminPinModal = () => {
             justifyContent: 'center',
             gap: '0.4rem',
             color: '#F87171',
-            fontSize: '0.84rem',
+            fontSize: '0.78rem',
             fontWeight: 600,
-            marginBottom: '1rem',
+            marginBottom: '0.65rem',
             animation: 'fadeIn 0.2s ease'
           }}>
-            <AlertCircle size={15} />
-            <span>Incorrect PIN. Try 6600</span>
+            <AlertCircle size={14} />
+            <span>Incorrect PIN. Please try again.</span>
           </div>
         )}
 
@@ -238,8 +240,8 @@ export const AdminPinModal = () => {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '0.75rem',
-          margin: '0 auto 1.25rem'
+          gap: '0.45rem',
+          margin: '0 auto 0.75rem'
         }}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
             <button
@@ -248,12 +250,12 @@ export const AdminPinModal = () => {
               onClick={() => handleDigit(num.toString())}
               className="keypad-btn"
               style={{
-                height: '52px',
-                borderRadius: '14px',
+                height: '42px',
+                borderRadius: '11px',
                 background: 'rgba(255, 255, 255, 0.06)',
                 border: '1px solid rgba(255, 255, 255, 0.12)',
                 color: '#FFFFFF',
-                fontSize: '1.35rem',
+                fontSize: '1.15rem',
                 fontWeight: 700,
                 cursor: 'pointer',
                 display: 'flex',
@@ -272,12 +274,12 @@ export const AdminPinModal = () => {
             onClick={handleClear}
             className="keypad-btn"
             style={{
-              height: '52px',
-              borderRadius: '14px',
+              height: '42px',
+              borderRadius: '11px',
               background: 'rgba(255, 255, 255, 0.04)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#94A3B8',
-              fontSize: '0.82rem',
+              fontSize: '0.75rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
@@ -295,12 +297,12 @@ export const AdminPinModal = () => {
             onClick={() => handleDigit('0')}
             className="keypad-btn"
             style={{
-              height: '52px',
-              borderRadius: '14px',
+              height: '42px',
+              borderRadius: '11px',
               background: 'rgba(255, 255, 255, 0.06)',
               border: '1px solid rgba(255, 255, 255, 0.12)',
               color: '#FFFFFF',
-              fontSize: '1.35rem',
+              fontSize: '1.15rem',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
@@ -317,8 +319,8 @@ export const AdminPinModal = () => {
             onClick={handleBackspace}
             className="keypad-btn"
             style={{
-              height: '52px',
-              borderRadius: '14px',
+              height: '42px',
+              borderRadius: '11px',
               background: 'rgba(255, 255, 255, 0.04)',
               border: '1px solid rgba(255, 255, 255, 0.08)',
               color: '#94A3B8',
@@ -329,7 +331,7 @@ export const AdminPinModal = () => {
             }}
             aria-label="Delete last digit"
           >
-            <Delete size={20} />
+            <Delete size={17} />
           </button>
         </div>
 
@@ -340,31 +342,31 @@ export const AdminPinModal = () => {
           className="btn btn-primary"
           style={{
             width: '100%',
-            height: '48px',
-            borderRadius: '14px',
-            fontSize: '1rem',
+            height: '42px',
+            borderRadius: '11px',
+            fontSize: '0.92rem',
             fontWeight: 700,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0.5rem',
+            gap: '0.45rem',
             background: pin.length >= 4 
               ? 'linear-gradient(135deg, #0066FF 0%, #0033AA 100%)' 
-              : 'rgba(255, 255, 255, 0.1)',
+              : 'rgba(255, 255, 255, 0.08)',
             border: 'none',
-            color: pin.length >= 4 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.4)',
+            color: pin.length >= 4 ? '#FFFFFF' : 'rgba(255, 255, 255, 0.35)',
             cursor: pin.length >= 4 ? 'pointer' : 'not-allowed',
-            boxShadow: pin.length >= 4 ? '0 4px 20px rgba(0, 102, 255, 0.45)' : 'none',
+            boxShadow: pin.length >= 4 ? '0 4px 16px rgba(0, 102, 255, 0.4)' : 'none',
             transition: 'all 0.25s ease'
           }}
         >
           <span>Unlock Admin Panel</span>
-          <ArrowRight size={18} />
+          <ArrowRight size={16} />
         </button>
 
         {/* Security Note */}
-        <div style={{ textAlign: 'center', marginTop: '1.15rem' }}>
-          <span style={{ fontSize: '0.76rem', color: '#64748B' }}>
+        <div style={{ textAlign: 'center', marginTop: '0.65rem' }}>
+          <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
             🔒 Alnoor Traders Internal Management System
           </span>
         </div>
